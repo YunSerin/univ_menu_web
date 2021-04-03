@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>이돼장</title>
+
+</head>
+<body>
+    <div> <!-- 上 부분-->
+            <a href="/">
+                <h1>이돼장</h1>
+            </a>
+            <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get">
+                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
+                <button name="button" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+                <!--여기에 마이페이지 링크 넣기. class로 클릭하면 링크 이동이 아닌 메뉴 보이게-->
+            </form>
+    </div>
+
+    <div> <!-- 上中 부분-->
+        <p th:text="'안녕하세요, 님!'" >hello!</p>
+    </div>
+
+
+    <div align="center"><!-- 中 부분, 식단컨텐츠　-->
+        <ul>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>생활관 학생식당</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>진선미관</p>
+                </blockquote>
+            </li>
+            <li>
+            <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                <p>헬렌관 식당</p>
+            </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴1</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴2</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴3</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴1-2</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴2-2</p>
+                </blockquote>
+            </li>
+            <li>
+                <blockquote cite="https://www.huxley.net/bnw/four.html" width="50" height="90">
+                    <p>메뉴3-2</p>
+                </blockquote>
+            </li>
+        </ul>
+    </div>
+
+
+
+</body>
+</html>

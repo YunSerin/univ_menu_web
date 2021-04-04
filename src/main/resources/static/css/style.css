@@ -25,36 +25,45 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
+    margin-top: 5px;
+    display: block;
+    text-align: -webkit-center;
+
+}
+
+header{
+    border-bottom: solid dimgray ;
+    border-bottom-style: groove;
+    width: 1024px;
+}
+main{
+    width: 1024px;
 }
 ol, ul {
     list-style: none;
 }
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-a{text-decoration: none;color: #000;}
+div{
+    margin-bottom: 15px;
+}
 
-
-
-
-h1{
+h1 {
     display: inline;
-    background: indianred;
-    font-size:40px;
+    height: auto;
+    margin-top:20px;
     margin-bottom: 40px;
+    margin-right: 400px;
+    margin-left: 40px;
 }
 form {
     display: inline;
+    margin-top:20px;
+    margin-bottom: 40px;
 }
 blockquote {
     margin: 0;
@@ -62,26 +71,43 @@ blockquote {
 
 }
 
+
 blockquote p {
     padding: 15px;
-    background: GRAY;
+    height: 150px;
     border-radius: 5px;
 }
-
-div {
-    width: 600px;
+.menu1{
+    background: #FD9F9F;
+}
+.menu2{
+    background: #8FC7CB;
 }
 
-ul li {
+td {
+    align: left;
     float: left;
     list-style:none;
     width: 150px;
     margin:10px;
-    font-size: 14px;
-    line-height: 19px;
-    display: block;
+}
+
+thead td{
+    border: 3px solid #FDD973;
+    padding-top: 10px;
+    height: 30px;
+    text-align: center;
+}
+
+tbody td{
+    padding-right: 3px;
+    padding-left: 3px;
 
 }
 .search-form{
     horiz-align: right;
+}
+
+.menu1{
+
 }

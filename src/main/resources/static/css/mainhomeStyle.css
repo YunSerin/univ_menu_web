@@ -53,6 +53,12 @@ div{
 }
 
 h1 {
+    margin-top:40px;
+    margin-bottom: 40px;
+    font-size: 40px;
+    font-weight: 500;
+}
+.logo{
     display: inline;
     height: auto;
     margin-top:20px;
@@ -110,4 +116,33 @@ tbody td{
 
 .menu1{
 
+}
+
+a{
+
+}
+.mypageButton{
+    display: inline;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top:15px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-size: 5px;
+}
+.logout{
+
+    display: inline;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top:15px;
+    margin-bottom: 40px;
+    border: 3px solid #FDD973;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-size: 5px;
 }

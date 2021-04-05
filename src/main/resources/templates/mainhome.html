@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <title>이돼장</title>
     <style media="screen">
         .wrap{
@@ -28,7 +29,7 @@
 <body class="gamja-font">
 <header>
     <div> <!-- 上 부분-->
-        <h1>
+        <h1 class="logo">
             <a href="/">
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
@@ -38,9 +39,13 @@
                 <button name="button" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
-                <!--여기에 마이페이지 링크 넣기. class로 클릭하면 링크 이동이 아닌 메뉴 보이게-->
             </form>
-
+        <a class="mypageButton" href="/member/mypage" role="button" >
+            마이페이지
+        </a>
+        <a class="logout" href="/member/logout" role="button" >
+            로그아웃
+        </a>
     </div>
 </header>
 <main>
@@ -49,6 +54,9 @@
     </div>
 
     <div align="center"><!-- 中 부분, 식단컨텐츠　-->
+        <h1>
+            오늘의 메뉴
+        </h1>
         <table>
             <thead>
                 <tr>
@@ -100,6 +108,57 @@
                     </blockquote>
                 </td>
                 </tr>
+            </tbody>
+            <thead>
+            <tr>
+                <td>
+                    <p>생활관 학생식당</p>
+                </td>
+                <td>
+                    <p>진선미관</p>
+                </td>
+                <td>
+                    <p>헬렌관 식당</p>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <blockquote width="50" height="90">
+                        <p class="menu1">메뉴1</p>
+                    </blockquote>
+                </td>
+                <td>
+                    <blockquote width="50" height="90">
+                        <p class="menu1">메뉴2</p>
+                    </blockquote>
+                </td>
+                <td>
+                    <blockquote  width="50" height="90">
+                        <p class="menu1">메뉴3</p>
+                    </blockquote>
+                </td>
+            </tr>
+            </tbody>
+            <tbody height="50px">
+            <tr>
+                <td>
+                    <blockquote width="50" height="90">
+                        <p class="menu2">메뉴1-2</p>
+                    </blockquote>
+                </td>
+                <td>
+                    <blockquote width="50" height="90">
+                        <p class="menu2">메뉴2-2</p>
+                    </blockquote>
+                </td>
+                <td>
+                    <blockquote width="50" height="90">
+                        <p class="menu2">메뉴3-2</p>
+                    </blockquote>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

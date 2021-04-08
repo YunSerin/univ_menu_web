@@ -1,18 +1,33 @@
-package ewhamenu.com.demo.crawler;
+package ewhamenu.com.demo.service.crawler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class WebCrawler {
-    public static void main(String[] args){
+@Service
+public class CrawlerService {
+    static ArrayList<String> menu = new ArrayList<>();
+    static InnerCrawler innerCrawler;
+
+
+    @Autowired
+    public ArrayList<String> getMenu() {
+        menu = webCrawl();
+        return menu;
+    }
+
+    public ArrayList<String> webCrawl(){
         String url = null;
         Document doc = null;
+
         ArrayList<String> restaurantLink = new ArrayList<>();
         url ="http://www.ewha.ac.kr/ewha/life/restaurant.do";
         try {
@@ -21,14 +36,14 @@ public class WebCrawler {
             for(Element el : element.select("div.b-title-box a.b-title")) { //각 식당 링크를 restaurantLink에 저장
                 int i=0;
                 String hreflink = el.attr("href").toString();
-                restaurantLink.add(i++, url+hreflink);
+                restaurantLink.add(url+hreflink);
+
             }
             for (String num : restaurantLink) {
-                //System.out.println(num);
-                InnerCrawler innercrawler = new InnerCrawler();
-                ArrayList<String> menu = innercrawler.innerCrawler(num);
-                for (String eachMenu : menu) {
-                    System.out.println(eachMenu);
+                innerCrawler = new InnerCrawler();
+                ArrayList<String> eachRest = innerCrawler.innerCrawler(num);
+                for (String eachMenu : eachRest) {
+                    menu.add(eachMenu);
                 }
             }
 
@@ -36,7 +51,8 @@ public class WebCrawler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+    return menu;
     }
+
+
 }

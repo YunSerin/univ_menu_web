@@ -74,7 +74,7 @@ form {
 blockquote {
     margin: 0;
     display: inline;
-
+    white-space: pre-line;
 }
 
 
@@ -82,9 +82,12 @@ blockquote p {
     padding: 15px;
     height: 150px;
     border-radius: 5px;
+    font-size: 10px;
+    line-height: 150%;
 }
 .menu1{
     background: #FD9F9F;
+
 }
 .menu2{
     background: #8FC7CB;
@@ -95,7 +98,7 @@ td {
     float: left;
     list-style:none;
     width: 150px;
-    margin:10px;
+
 }
 
 thead td{
@@ -103,12 +106,13 @@ thead td{
     padding-top: 10px;
     height: 30px;
     text-align: center;
+    margin:10px;
 }
 
 tbody td{
     padding-right: 3px;
     padding-left: 3px;
-
+    margin: 10px 10px 0px;
 }
 .search-form{
     horiz-align: right;

@@ -11,23 +11,15 @@ public class MainhomeController {
         return "mainhome";
     }
 
-//    @ResponseBody
-//    public String mainhome(@RequestParam("name") String name){
-//        Homeclass home = new Homeclass();
-//        home.setName(name);
-//        return "mainhome";
-//    }
-//
-//
-//    public class Homeclass{
-//        private String name;
-//
-//        public String getName(){
-//            return name;
-//        }
-//        public void setName(String name){
-//            this.name = name;
-//        }
-//    }
+    @GetMapping("login")
+    public String loginPage(){
+        return "/user/loginPage";
+    }
+
+    @GetMapping("join")
+    public String joinPage(){
+        return "user/joinPage";
+    }
+
 
 }

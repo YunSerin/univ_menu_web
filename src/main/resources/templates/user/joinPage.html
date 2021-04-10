@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>이돼장</title>
+    <style media="screen">
+        .wrap{
+            width: 1000px;
+            height: 300px;
+            overflow-x: scroll;
+            white-space:nowrap
+        }
+        .wrap img{
+            width:300px;
+            height:100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+        .bodyback{
+            text-align:center;
+            background-color: #FDD973;
+            width: 1024px;
+            height: 600px;
+        }
+        .join_title{
+            text-align: center;
+            height: 30px;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Nanum Myeongjo';
+        }
+        .join_box{  /*로그인 박스 전체 부분*/
+            height: 270px;
+            width: 600px;
+            background-color: white;
+            margin-top: 50px;
+            display: inline-block;
+            border-radius: 20px;
+            box-shadow: 3px 3px 8px 5px #A8A8A8;
+        }
+        .icon_box{
+            /*display: inline-block;*/
+            width: 520px;
+            /*height: 120px;*/
+            /*border-radius: 60px;*/
+            /*background-color: #FDD973;*/
+            /*text-align:center;*/
+            margin-top: 30px;
+            margin-left: 40px;
+            /*border: solid 1px red;*/
+            display: flex;
+        }
+        .fa-id-card{
+            color: gray;
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 10px;
+            font-size: 190px;
+        }
+        .hr_line{
+            height: 160px;
+            width: 0px;
+            border-right:0px;
+            display: inline-block;
+            /*position: absolute;*/
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+        .join_form{
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .userid_b2{
+            height: 30px;
+            width: 210px;
+            border: solid 1px gray;
+            /*border-top: solid 3px #FDD973;*/
+            /*border-bottom: solid 3px #FDD973;*/
+            /*position:absolute;*/
+            z-index:2;
+            display: inline-block;
+            margin-bottom: -8px;
+        }
+        .nickname_b2{
+            height: 30px;
+            width: 210px;
+            border: solid 1px gray;
+            /*border-bottom: solid 3px #FDD973;*/
+            z-index:2;
+            margin-bottom: -8px;
+        }
+        .password_b2{
+            height: 30px;
+            width: 210px;
+            border: solid 1px gray;
+            /*border-bottom: solid 3px #FDD973;*/
+            z-index:2;
+            margin-bottom: -8px;
+        }
+        .userid_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .nickname_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .password_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes border-focus {
+            from {
+                background-color: white;
+                border: solid 1px gray;
+            }
+            to {
+                background-color: #FDD973;
+                border: solid 1px white;
+            }
+        }
+
+        .join{
+            width: 216px;
+            height: 50px;
+            background-color: #FDD973;
+            border: solid 0px white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body style="font-family: 'Nanum Myeongjo', serif;">
+<header>
+    <div style="background-color: white"> <!-- 上 부분-->
+        <h1>
+            <a href="/">
+                <img src="images/logo.png" width="134" height="35" fill="none"></img>
+            </a>
+        </h1>
+        <form class="search-form" id="new_menu_form" action="menus/search" accept-charset="UTF-8" method="get" >
+            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
+            <button name="button" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+            <!--여기에 마이페이지 링크 넣기. class로 클릭하면 링크 이동이 아닌 메뉴 보이게-->
+        </form>
+<!--        <a class="mypageButton" href="/member/mypage" role="button" >-->
+<!--            마이페이지-->
+<!--        </a>-->
+        <a class="loginBtn" href="/login" role="button" >
+            로그인
+        </a>
+    </div>
+</header>
+
+<!-- 회원가입 파트 -->
+<main>
+    <div class="bodyback">
+        <!-- 타이틀 -->
+        <div class="join_title">
+            <br/>
+            회원가입
+        </div>
+
+        <div class="join_box">
+            <!-- 회원카드 아이콘 -->
+
+            <div class="icon_box">
+                <a href="/">
+                    <i class="far fa-id-card fa-10x"></i>
+                </a>
+                <hr class="hr_line">
+                <!-- 등록 폼 -->
+                <div class="join_form">
+                    <form method="post" action="user/signUp">
+                        <div style="position:relative;" class="userid" >
+                            <input type="text" class="userid_b2"  value="" name="userId" placeholder="아이디" />
+                        </div>
+                        <div style="position:relative;" class="nickname" >
+                            <input type="text" class="nickname_b2"  value=""  name="nickname" placeholder="닉네임" />
+                        </div>
+                        <div style="position:relative;" class="password" >
+                            <input type="password" class="password_b2"  value=""  name="password" placeholder="비밀번호" />
+                        </div>
+                        <!-- 회원가입 버튼 -->
+                        <button type="submit" class="join">
+                            <i class="fas fa-sign-in-alt "></i> 회원가입
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

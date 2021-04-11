@@ -31,6 +31,7 @@ public class UserController {
         if(user != null){
             session.setAttribute("loginCheck",true);
             session.setAttribute("userId",user.getUserId());
+            session.setAttribute("nickname", user.getNickname());
             mav.addObject("data", new Message(String.format("%s 님 안녕하세요!", user.getNickname()), "/"));
             mav.setViewName("message");
         }
@@ -61,6 +62,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute("loginCheck",null);
         session.setAttribute("userId",null);
+        session.setAttribute("nickname", null);
         mav.addObject("data", new Message("로그아웃 성공", "/"));
         mav.setViewName("message");
 

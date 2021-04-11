@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <title>이돼장</title>
     <style media="screen">
         .wrap{
@@ -122,21 +124,21 @@
 </head>
 <header>
     <div style="background-color: white"> <!-- 上 부분-->
-        <h1>
+        <h1 class="logo">
             <a href="/">
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
-        <form class="search-form" id="new_menu_form" action="menus/search" accept-charset="UTF-8" method="get" >
+        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
             <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
             <button name="button" type="submit">
                 <i class="fas fa-search"></i>
             </button>
-            <!--여기에 마이페이지 링크 넣기. class로 클릭하면 링크 이동이 아닌 메뉴 보이게-->
         </form>
-        <a class="loginBtn" href="/login" role="button" >
+        <a class="logout" href="/login" role="button" >
             로그인
         </a>
+
     </div>
 </header>
 <body style="font-family: 'Nanum Myeongjo', serif;">

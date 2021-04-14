@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <title>이돼장</title>
+    <style media="screen">
+        .wrap{
+            width: 1000px;
+            height: 300px;
+            overflow-x: scroll;
+            white-space:nowrap
+        }
+        .wrap img{
+            width:300px;
+            height:100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+        .gamja-font{
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .nickname_box{
+            text-align:center;
+            margin-top: 30px;
+        }
+        .fa-user-circle{
+            color: #FDD973;
+            margin-bottom: 5px;
+        }
+/*마이페이지부분*/
+      .mypage_container{
+          width: 800px;
+          margin-top: 20px;
+          /*margin: 0 auto;*/
+        }
+
+        .blank{
+            display:inline-block;
+            vertical-align:middle;
+            width:0;height:43px;
+            overflow:hidden;
+            background:#f00;
+        }
+        ul.tabs{
+
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            /*float: left;*/
+        }
+        ul.tabs li{
+            width: 230px;
+            height: 40px;
+            background: #FD9F9F;
+            color: black;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+            border: solid 1px black;
+            border-radius: 10px;
+        }
+
+        ul.tabs li.current{
+            background: #8FC7CB;
+            color: black;
+        }
+
+        .tab-link{
+            vertical-align:middle;
+        }
+        .tab-content{
+            display: none;
+            padding: 15px;
+            border: solid 1px #FDD973;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        .tab-content.current{
+            display: inherit;
+        }
+
+    </style>
+
+</head>
+<body class="gamja-font">
+<header>
+    <div> <!-- 上 부분-->
+        <h1 class="logo">
+            <a href="/">
+                <img src="images/logo.png" width="134" height="35" fill="none"></img>
+            </a>
+        </h1>
+        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
+            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
+            <button name="button" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <a th:if= "${session.loginCheck eq true}" class="logout" href="/user/signOut" role="button" >
+            로그아웃
+        </a>
+
+    </div>
+</header>
+<main>
+    <!--상단의 닉네임 박스 부분-->
+    <div class="nickname_box">
+        <i class="far fa-user-circle fa-5x"></i>
+        <div><h1 th:text ="${session.nickname}" style="margin-top: 0px;font-family: 'Nanum Myeongjo', serif;"> </h1></div>
+    </div>
+    <!--컨텐츠 부분-->
+    <div class="mypage_container">
+
+        <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1"><span class="blank"></span>기본정보</li>
+            <li class="tab-link" data-tab="tab-2"><span class="blank"></span>등급정보</li>
+            <li class="tab-link" data-tab="tab-3"><span class="blank"></span>작성리뷰</li>
+        </ul>
+<!--        <div style="margin-bottom: 10px">-->
+<!--            <br/><br/>-->
+<!--        </div>-->
+        <div id="tab-1" class="tab-content current">
+            기본정보
+        </div>
+        <div id="tab-2" class="tab-content">
+            등급정보
+        </div>
+        <div id="tab-3" class="tab-content">
+            작성리뷰
+        </div>
+
+    </div><!-- container -->
+
+</main>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('ul.tabs li').click(function(){
+            var tab_id = $(this).attr('data-tab');
+
+            $('ul.tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+
+            $(this).addClass('current');
+            $("#"+tab_id).addClass('current');
+        })
+
+    })
+</script>
+</body>
+
+</html>

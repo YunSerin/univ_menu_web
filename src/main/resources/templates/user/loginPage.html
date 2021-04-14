@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <title>이돼장</title>
+    <style media="screen">
+        .wrap{
+            width: 1000px;
+            height: 300px;
+            overflow-x: scroll;
+            white-space:nowrap
+        }
+        .wrap img{
+            width:300px;
+            height:100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+        .gamja-font{
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .login_box{  /*로그인 박스 전체 부분*/
+            height: 470px;
+            width: 360px;
+            background-color: white;
+            margin-top: 50px;
+            display: inline-block;
+            border-radius: 20px;
+            box-shadow: 3px 3px 8px 5px #A8A8A8;
+        }
+
+        .bodyback{
+            text-align:center;
+            background-color: #FDD973;
+            width: 1024px;
+            height: 600px;
+        }
+        .icon_box{
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            background-color: #FDD973;
+            text-align:center;
+            margin-top: 50px;
+        }
+        .fa-utensils{
+            color: white;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /*로그인 아이디/비번 박스 부분*/
+        .userid{
+            height: 40px;
+            width: 300px;
+            display: inline-block;
+        }
+        .userid_b2{
+            height: 40px;
+            width: 230px;
+            border: solid 1px white;
+            border-top: solid 3px #FDD973;
+            border-bottom: solid 3px #FDD973;
+            margin-left: 30px;
+            /*position:absolute;*/
+            z-index:2;
+            display: inline-block;
+        }
+        .password_b2{
+            height: 40px;
+            width: 230px;
+            margin-left: 30px;
+            border: solid 1px white;
+            border-bottom: solid 3px #FDD973;
+            z-index:2;
+        }
+        .password{
+            height: 40px;
+            width: 300px;
+            display: inline-block;
+        }
+
+        /* 로그인 focus 이벤트 */
+        .userid_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .password_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes border-focus {
+            from {
+                background-color: white;
+            }
+            to {
+                background-color: #FDD973;
+                border: solid 1px white;
+                border-bottom: solid 3px #FDD973;
+            }
+        }
+
+        .login{
+            width: 280px;
+            height: 50px;
+            background-color: #FDD973;
+            border: solid 0px white;
+            font-size: 20px;
+        }
+        .create_account{
+            border: solid 0px white;
+            margin-right: 40px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<header>
+    <div style="background-color: white"> <!-- 上 부분-->
+        <h1 class="logo">
+            <a href="/">
+                <img src="images/logo.png" width="134" height="35" fill="none"></img>
+            </a>
+        </h1>
+        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
+            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
+            <button name="button" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <a class="logout" href="/login" role="button" >
+            로그인
+        </a>
+
+    </div>
+</header>
+<body style="font-family: 'Nanum Myeongjo', serif;">
+<div class="bodyback">
+
+    <div class="login_box">
+        <!-- 식사 아이콘 -->
+        <a href="/">
+            <div class="icon_box">
+                <i class="fas fa-utensils fa-5x"></i>
+            </div>
+        </a>
+        <!-- 로그인 폼 -->
+        <form method="post" action="user/signIn">
+            <div style="position:relative;" class="userid" >
+                <div style="position: absolute;width: 50px;height: 33px;margin-left: 10px">
+                    <i class="fas fa-user fa-2x" style="margin-top: 8px;float:left;" ></i>
+                </div>
+                <input type="text" class="userid_b2"  value="" name="input_userId" placeholder="User ID" />
+            </div>
+            <div style="position:relative;" class="password" >
+                <div style="position: absolute;width: 50px;height: 33px;margin-left: 10px">
+                    <i class="fas fa-lock fa-2x" style="margin-top: 8px;float:left;"></i>
+                </div>
+
+                <input type="password" class="password_b2"  value="" name="input_password" placeholder="Password" />
+            </div>
+            <br><br><br>
+            <!-- 로그인 버튼 -->
+            <button type="submit" class="login">
+                <i class="fas fa-sign-in-alt "></i> 로그인
+            </button>
+        </form>
+        <!--회원가입 이동 -->
+        <div style="text-align: right">
+            <button type="submit" class="create_account" onclick="location.href='join'">회원등록</button>
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

@@ -1,28 +1,26 @@
 package ewhamenu.com.demo.service.crawler;
 
+import ewhamenu.com.demo.domain.Diet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-@Service
-public class CrawlerService {
-    static ArrayList<String> menu = new ArrayList<>();
+//@Service
+public class Crawler {
+    static ArrayList<String> crawlResult = new ArrayList<>();
     static InnerCrawler innerCrawler;
+    Diet diet = new Diet();
 
-
-    @Autowired
-    public ArrayList<String> getMenu() {
-        menu = webCrawl();
-        return menu;
-    }
+//    @Autowired
+//    public ArrayList<String> getMenu() {
+//        crawlResult = webCrawl();
+//        return crawlResult;
+//    }
 
     public ArrayList<String> webCrawl(){
         String url = null;
@@ -43,7 +41,7 @@ public class CrawlerService {
                 innerCrawler = new InnerCrawler();
                 ArrayList<String> eachRest = innerCrawler.innerCrawler(num);
                 for (String eachMenu : eachRest) {
-                    menu.add(eachMenu);
+                    crawlResult.add(eachMenu);
                 }
             }
 
@@ -51,8 +49,23 @@ public class CrawlerService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    return menu;
+    return crawlResult; // 각 인덱스에 오늘의 식단이 차례로 담겨있음.
     }
+
+//    public void toDiet(ArrayList<String> crawlResult){
+//        Date today = new Date();
+//        for(int i=0;i<8;i++) {
+//            diet.setDate(today);
+//            diet.setMenuList(crawlResult.get(i));
+//            diet.setPlaceId(i/2);
+//            //중식 석식
+//            if(i%2==0){ //짝수
+//                diet.setWhen(1);//중식
+//            }else {
+//                diet.setWhen(2);//석식
+//            }
+//        }
+//    }
 
 
 }

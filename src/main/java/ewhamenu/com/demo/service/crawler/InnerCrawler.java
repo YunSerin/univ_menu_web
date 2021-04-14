@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class InnerCrawler {
+
     public ArrayList<String> innerCrawler(String link){
         Document doc = null;
         ArrayList<String> menu = new ArrayList<>();

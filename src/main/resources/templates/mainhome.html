@@ -40,12 +40,16 @@
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-        <a class="mypageButton" href="/member/mypage" role="button" >
+        <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
             마이페이지
         </a>
-        <a class="logout" href="/member/logout" role="button" >
+        <a th:if= "${session.loginCheck eq true}" class="logout" href="/user/signOut" role="button" >
             로그아웃
         </a>
+        <a th:unless="${session.loginCheck eq true}" class="logout" href="/login" role="button" >
+            로그인
+        </a>
+
     </div>
 </header>
 <main>

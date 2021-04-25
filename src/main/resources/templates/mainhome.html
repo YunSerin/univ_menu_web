@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" >
 
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/mainjomeJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
@@ -61,6 +62,13 @@
         <h1>
             오늘의 메뉴
         </h1>
+<!--        <div>-->
+<!--            <form action="/main">-->
+<!--                <input class="prevDate" type="submit">  <i class="fas fa-angle-left"></i> </input>-->
+<!--                <span th:text="${theDate}"></span>-->
+<!--                <input class="nextDate" type="submit"> <i class="fas fa-angle-right"></i> </input>-->
+<!--            </form>-->
+<!--        </div>-->
         <table>
             <thead>
                 <tr>
@@ -82,22 +90,22 @@
                 <tr>
                     <td>
                         <blockquote width="50" height="90">
-                            <p class="menu1" th:text="*{menu.get(0)}"  >메뉴1</p>
+                            <p class="menu1"  th:text="*{diets.get(0)}" ></p>
                         </blockquote>
                     </td>
                     <td>
                         <blockquote width="50" height="90">
-                            <p class="menu1" th:text="*{menu.get(2)}" >메뉴2</p>
+                            <p class="menu1"   th:text="*{diets.get(2)}">메뉴2</p>
                         </blockquote>
                     </td>
                     <td>
                         <blockquote  width="50" height="90">
-                            <p class="menu1" th:text="*{menu.get(4)}" >메뉴3</p>
+                            <p class="menu1" th:text="*{diets.get(4)}" >메뉴3</p>
                         </blockquote>
                     </td>
                     <td>
                         <blockquote  width="50" height="90">
-                            <p class="menu1" th:text="*{menu.get(6)}" >메뉴4</p>
+                            <p class="menu1"  th:text="*{diets.get(6)}">메뉴4</p>
                         </blockquote>
                     </td>
                 </tr>
@@ -106,22 +114,22 @@
                 <tr>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(1)}">메뉴1-2</p>
+                        <p class="menu2" th:text="*{diets.get(1)}">메뉴1-2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(3)}">메뉴2-2</p>
+                        <p class="menu2" th:text="*{diets.get(3)}">메뉴2-2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(5)}">메뉴3-2</p>
+                        <p class="menu2" th:text="*{diets.get(5)}">메뉴3-2</p>
                     </blockquote>
                 </td>
                     <td>
                         <blockquote width="50" height="90">
-                            <p class="menu2" th:text="*{menu.get(7)}">메뉴3-2</p>
+                            <p class="menu2" th:text="*{diets.get(7)}">메뉴3-2</p>
                         </blockquote>
                     </td>
                 </tr>
@@ -146,22 +154,22 @@
             <tr>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu1" th:text="*{menu.get(8)}">메뉴1</p>
+                        <p class="menu1" th:text="*{diets.get(8)}">메뉴1</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu1" th:text="*{menu.get(10)}">메뉴2</p>
+                        <p class="menu1" th:text="*{diets.get(10)}">메뉴2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote  width="50" height="90">
-                        <p class="menu1" th:text="*{menu.get(12)}">메뉴3</p>
+                        <p class="menu1" th:text="*{diets.get(12)}">메뉴3</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote  width="50" height="90">
-                        <p class="menu1" th:text="*{menu.get(14)}">메뉴3</p>
+                        <p class="menu1" th:text="*{diets.get(14)}">메뉴3</p>
                     </blockquote>
                 </td>
             </tr>
@@ -170,22 +178,22 @@
             <tr>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(9)}">메뉴1-2</p>
+                        <p class="menu2" th:text="*{diets.get(9)}">메뉴1-2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(11)}">메뉴2-2</p>
+                        <p class="menu2" th:text="*{diets.get(11)}">메뉴2-2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(13)}">메뉴3-2</p>
+                        <p class="menu2" th:text="*{diets.get(13)}">메뉴3-2</p>
                     </blockquote>
                 </td>
                 <td>
                     <blockquote width="50" height="90">
-                        <p class="menu2" th:text="*{menu.get(14)}">메뉴3-2</p>
+                        <p class="menu2" th:text="*{diets.get(15)}">메뉴3-2</p>
                     </blockquote>
                 </td>
             </tr>

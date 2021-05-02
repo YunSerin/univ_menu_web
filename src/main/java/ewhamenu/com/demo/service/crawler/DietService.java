@@ -21,16 +21,12 @@ public class DietService {
     @Autowired
     private DietRepository dietRepository;
 
-    public long saveDiet(){
+    public long saveDiet(){ //월~토만 호출됨
         ArrayList<String> crawlResult = getDiet();
         Diet diet = new Diet();
         for(int i=0;i<16;i++) {
             diet.setDate(LocalDate.now());
-            if(cal.get(Calendar.DAY_OF_WEEK)==1){
-                diet.setMenuList("일요일이라 등록된 식단이 없습니다.");
-            }else {
-                diet.setMenuList(crawlResult.get(i));
-            }
+            diet.setMenuList(crawlResult.get(i));
             diet.setPlaceId(i/2);
             //중식 석식
             if(i%2==0){ //짝수

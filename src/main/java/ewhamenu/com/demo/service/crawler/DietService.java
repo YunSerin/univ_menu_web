@@ -2,15 +2,15 @@ package ewhamenu.com.demo.service.crawler;
 
 
 import ewhamenu.com.demo.domain.Diet;
-import ewhamenu.com.demo.domain.Users;
+import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.repository.DietRepository;
+import ewhamenu.com.demo.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Calendar;
-import java.util.Optional;
 
 
 @Service
@@ -20,6 +20,10 @@ public class DietService {
 
     @Autowired
     private DietRepository dietRepository;
+    @Autowired
+    private MenuRepository menuRepository;
+//    @Autowired
+//    private MenuService menuService;
 
     public long saveDiet(){ //월~토만 호출됨
         ArrayList<String> crawlResult = getDiet();
@@ -37,7 +41,7 @@ public class DietService {
             diet.setId(diet.getId()+1);
 
             dietRepository.saveAndFlush(diet);
-
+            saveMenu(crawlResult.get(i),i/2);
 
         }
 
@@ -52,18 +56,40 @@ public class DietService {
         ArrayList<String> diets = new ArrayList<>();
         ArrayList<Diet> findall = dietRepository.findAllByDate(date);
         for(Diet diet : findall){
-            diets.add(diet.getMenuList());
+            diets.add(diet.getMenuList().toString());
         }
         return diets;
     }
 
     public boolean checkDate(){
         ArrayList<Diet> d = dietRepository.findAllByDate(LocalDate.now());
-        if(d == null){  // 중복 날짜 없는 경우
+        if(d.size() == 0){  // 중복 날짜 없는 경우
             return true;
         }
         else{
             return false;
         }
+    }
+
+    public List menuToList(String str){  //Diet 테이블의 메뉴컬럼을 list로 저장할 경우 씀
+        List<String> list = new ArrayList<String>();
+        list = Arrays.asList(str.split("/n"));
+        return list;
+    }
+
+    public void saveMenu(String menuList, int placeId){
+        List<String> menu = Arrays.asList(menuList.split("\\n"));
+            for(int i=0;i<menu.size();i++){
+                //ArrayList<Menu> findmenu = menuRepository.findAllByMenu_nameAndPlace_id(menu.get(i),placeId);
+                //if(findmenu!=null) { //새로 넣어야함
+                if(!menuRepository.existsMenuByMenuNameAndPlaceId(menu.get(i),placeId)){
+                    if(menu.get(i)!=null||!menu.get(i).equals(" ")) {
+                        Menu newMenu = new Menu();
+                        newMenu.setMenuName(menu.get(i));
+                        newMenu.setPlaceId(placeId);
+                        menuRepository.save(newMenu);
+                    }
+                }
+            }
     }
 }

@@ -52,10 +52,10 @@ public class InnerCrawler {
         return menu;
     }
     public String sort(String menu){
-        String excep1 = "(\\*[가-힣]*\\*)";  //예시 : *메뉴제목*
+        String excep1 = "(\\*[^*]*\\*)";  //예시 : *메뉴제목*
         String excep2 = "([a-zA-Z]+코너+\\))";  //예시 : A코너)
         String excep3 = "(\\[[가-힣]*\\])";   //예시 : [공통메뉴]
-        String excep4 = "([\\s\\n]$)";
+        String excep4 = "([\\^\\s])";
 
         Pattern pattern1 = Pattern.compile(excep1);
         Pattern pattern2 = Pattern.compile(excep2);
@@ -75,13 +75,13 @@ public class InnerCrawler {
             menu = menu.replace(matcher3.group(1),"");
         }
         while(matcher4.find()) {
-            menu = menu.replace(matcher4.group(1),"");
+            menu = menu.replace(matcher4.group(1),",");
+        }
+        String[] trimed = menu.split("[,]+");
+        for(int i=1;i<trimed.length;i++) {
+            System.out.println(trimed[i]);
         }
 
-
-        //System.out.println(menu);
-
-        //List<String> sortedMenu = new ArrayList<String>(Arrays.asList(menu.split("\n")));
         return menu;
     }
 }

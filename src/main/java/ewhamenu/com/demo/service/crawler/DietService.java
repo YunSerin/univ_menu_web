@@ -56,7 +56,11 @@ public class DietService {
         ArrayList<String> diets = new ArrayList<>();
         ArrayList<Diet> findall = dietRepository.findAllByDate(date);
         for(Diet diet : findall){
-            diets.add(diet.getMenuList().toString());
+            if(diet.getMenuList().length()>0) {
+                diets.add(diet.getMenuList().toString());
+            }else{
+                diets.add("등록된 식단이 없습니다.");
+            }
         }
         return diets;
     }

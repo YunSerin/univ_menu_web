@@ -52,19 +52,19 @@ public class InnerCrawler {
         return menu;
     }
     public String sort(String menu){
-        String excep1 = "(\\*[^*]*\\*)";  //예시 : *메뉴제목*
-        String excep2 = "([a-zA-Z]+코너+\\))";  //예시 : A코너)
-        String excep3 = "(\\[[가-힣]*\\])";   //예시 : [공통메뉴]
-        String excep4 = "([\\^\\s])";
+        String excep1 = "(\\*[^*]*\\*[\\r\\n]+)";  //예시 : *메뉴제목*
+        String excep2 = "([a-zA-Z]+코너+\\)[가-힣]*[\\r\\n]+)";  //예시 : A코너)
+        String excep3 = "(\\[[가-힣]*\\][\\r\\n]+)";   //예시 : [공통메뉴]
+        //String excep4 = "([\\r\\n]+)";
 
         Pattern pattern1 = Pattern.compile(excep1);
         Pattern pattern2 = Pattern.compile(excep2);
         Pattern pattern3 = Pattern.compile(excep3);
-        Pattern pattern4 = Pattern.compile(excep4);
+        //Pattern pattern4 = Pattern.compile(excep4);
         Matcher matcher1 = pattern1.matcher(menu);
         Matcher matcher2 = pattern2.matcher(menu);
         Matcher matcher3 = pattern3.matcher(menu);
-        Matcher matcher4 = pattern4.matcher(menu);
+        //Matcher matcher4 = pattern4.matcher(menu);
         while(matcher1.find()){
             menu = menu.replace(matcher1.group(1),"");
         }
@@ -74,11 +74,11 @@ public class InnerCrawler {
         while(matcher3.find()) {
             menu = menu.replace(matcher3.group(1),"");
         }
-        while(matcher4.find()) {
-            menu = menu.replace(matcher4.group(1),",");
-        }
-        String[] trimed = menu.split("[,]+");
-        for(int i=1;i<trimed.length;i++) {
+//        while(matcher4.find()) {
+//            menu = menu.replace(matcher4.group(1),",");
+//        }
+        String[] trimed = menu.split("[\\r\\n]+");
+        for(int i=0;i<trimed.length;i++) {
             System.out.println(trimed[i]);
         }
 

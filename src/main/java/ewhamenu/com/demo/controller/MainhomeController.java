@@ -1,6 +1,8 @@
 package ewhamenu.com.demo.controller;
 
 
+import ewhamenu.com.demo.domain.Users;
+import ewhamenu.com.demo.service.UserService;
 import ewhamenu.com.demo.service.crawler.DietService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +22,19 @@ import java.util.ArrayList;
 public class MainhomeController {
     private Model model;
     private final DietService dietService;
+    private final UserService userService;
 
     @Autowired
     public DietService getDietService() {
         return dietService;
     }
+    public UserService getUserService(){ return userService; }
 
     @GetMapping("/")
     public String mainpage(Model model){
-        ArrayList<String> menu = dietService.getDiet();
-        //dietService.saveDiet();
-        model.addAttribute( "menu", menu);
+//        ArrayList<String> menu = dietService.getDiet();
+//        dietService.saveDiet();
+//        model.addAttribute( "menu", menu);
         return "mainhome";
     }
 
@@ -54,13 +58,34 @@ public class MainhomeController {
     }
 
     @GetMapping("mypage")
-    public String mypage(HttpServletRequest request) {
+    public ModelAndView mypage(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        ModelAndView mav = new ModelAndView();
         if (session.getAttribute("loginCheck") == null) {
-            return "redirect:/";
+            mav.setViewName("/");
+        }else{
+            Users user = userService.findByUserId(session.getAttribute("userId").toString());
+            mav.addObject("userData", user);
+            mav.setViewName("user/mypage");
         }
-        return "user/mypage";
+        return mav;
     }
 
+    @GetMapping("setPassword")
+    public String setPassword(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        return "user/setPassword";
+    }
 
+    @GetMapping("findPassword")
+    public String findPassword(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") != null){
+            return "redirect:/";
+        }
+        return "user/findPassword";
+    }
 }

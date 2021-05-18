@@ -1,6 +1,8 @@
 package ewhamenu.com.demo.service;
 
 import ewhamenu.com.demo.repository.DietRepository;
+import ewhamenu.com.demo.repository.MenuRepository;
+import ewhamenu.com.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class Config extends WebSecurityConfigurerAdapter {
 
     private final DietRepository dietRepository;
+    private final MenuRepository menuRepository;
+    private final ReviewRepository reviewRepository;
 
     @Bean
     public BCryptPasswordEncoder pwEncoder() {
@@ -21,8 +25,10 @@ public class Config extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public Config(DietRepository dietRepository) {
+    public Config(DietRepository dietRepository, MenuRepository menuRepository, ReviewRepository reviewRepository) {
         this.dietRepository = dietRepository;
+        this.menuRepository = menuRepository;
+        this.reviewRepository = reviewRepository;
     }
 
 
@@ -34,5 +40,7 @@ public class Config extends WebSecurityConfigurerAdapter {
                 .formLogin().disable() //기본 로그인 페이지 없애기
                 .headers().frameOptions().disable();
     }
+
+
 
 }

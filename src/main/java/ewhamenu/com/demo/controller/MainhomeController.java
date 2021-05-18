@@ -29,6 +29,7 @@ import java.util.Date;
 public class MainhomeController {
     private Model model;
     private final DietService dietService;
+    Calendar cal = Calendar.getInstance();
     private final UserService userService;
 
     @Autowired
@@ -39,11 +40,18 @@ public class MainhomeController {
 
     @GetMapping("/")
     public String mainpage(Model model){
-        if(dietService.checkDate()){
-            dietService.saveDiet();
+        ArrayList<String> diets = new ArrayList<>();
+
+        if(cal.get(Calendar.DAY_OF_WEEK)==1){ //일요일
+            for(int i=0;i<16;i++) {
+                diets.add("일요일이라 등록된 식단이 없습니다.");
+            }
+        }else {
+            if (dietService.checkDate()) {
+                dietService.saveDiet();
+            }
+            diets = dietService.findDiets(LocalDate.now());
         }
-        LocalDate date = null;
-        ArrayList<String> diets = dietService.findDiets(LocalDate.now());
         model.addAttribute("diets", diets);
         return "mainhome";
     }
@@ -82,6 +90,16 @@ public class MainhomeController {
         return mav;
     }
 
+
+    @GetMapping("createReview")
+    public String createReview(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+          return "createReview";
+    }
+
     @GetMapping("setPassword")
     public String setPassword(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -90,6 +108,7 @@ public class MainhomeController {
         }
         return "user/setPassword";
     }
+
 
     @GetMapping("findPassword")
     public String findPassword(HttpServletRequest request){

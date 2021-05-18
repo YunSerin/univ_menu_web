@@ -77,10 +77,10 @@ public class InnerCrawler {
 //        while(matcher4.find()) {
 //            menu = menu.replace(matcher4.group(1),",");
 //        }
-        String[] trimed = menu.split("[\\r\\n]+");
-        for(int i=0;i<trimed.length;i++) {
-            System.out.println(trimed[i]);
-        }
+//        String[] trimed = menu.split("[\\r\\n]+");
+//        for(int i=0;i<trimed.length;i++) {
+//            System.out.println(trimed[i]);
+//        }
 
         return menu;
     }

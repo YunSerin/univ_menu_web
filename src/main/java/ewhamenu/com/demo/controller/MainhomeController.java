@@ -80,5 +80,14 @@ public class MainhomeController {
         return "user/mypage";
     }
 
+    @GetMapping("createReview")
+    public String createReview(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        return "createReview";
+    }
+
 
 }

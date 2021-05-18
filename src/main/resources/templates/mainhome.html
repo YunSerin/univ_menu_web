@@ -35,12 +35,15 @@
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
-            <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
-                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
-                <button name="button" type="submit">
+            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >
+                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >
+                <button type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview" role="button" >
+            리뷰작성
+        </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
             마이페이지
         </a>
@@ -50,6 +53,7 @@
         <a th:unless="${session.loginCheck eq true}" class="logout" href="/login" role="button" >
             로그인
         </a>
+
 
     </div>
 </header>

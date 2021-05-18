@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" >
+
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <title>이돼장</title>
+    <style media="screen">
+        .wrap{
+            width: 1000px;
+            height: 300px;
+            overflow-x: scroll;
+            white-space:nowrap
+        }
+        .wrap img{
+            width:300px;
+            height:100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+        .gamja-font{
+            font-family: 'Nanum Myeongjo', serif;
+        }
+    </style>
+</head>
+<body class="gamja-font">
+<header>
+    <div> <!-- 上 부분-->
+        <h1 class="logo">
+            <a href="/">
+                <img src="images/logo.png" width="134" height="35" fill="none"></img>
+            </a>
+        </h1>
+        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
+            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
+            <button name="button" type="submit" href="/search">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
+            마이페이지
+        </a>
+        <a th:if= "${session.loginCheck eq true}" class="logout" href="/user/signOut" role="button" >
+            로그아웃
+        </a>
+        <a th:unless="${session.loginCheck eq true}" class="logout" href="/login" role="button" >
+            로그인
+        </a>
+
+    </div>
+</header>
+</body>
+</html>

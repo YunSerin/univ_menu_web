@@ -11,8 +11,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Users findByUserIdAndPassword(String userId, String password){
-        Users user = userRepository.findByUserIdAndPassword(userId, password);
+    public Users findByUserIdAndEmail(String userId, String email){
+        Users user = userRepository.findByUserIdAndEmail(userId, email);
+        return user;
+    }
+
+    public Users findByUserId(String userId){
+        Users user = userRepository.findByUserId(userId);
         return user;
     }
 

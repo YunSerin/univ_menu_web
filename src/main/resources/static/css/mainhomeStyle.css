@@ -150,3 +150,16 @@ a{
     color: inherit;
     font-size: 5px;
 }
+input
+.prevDate .nextDate{
+
+    display: inline-block;
+    width: 49px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 7px;
+    vertical-align: top;
+    text-indent: -9999px;
+    overflow: hidden;
+}

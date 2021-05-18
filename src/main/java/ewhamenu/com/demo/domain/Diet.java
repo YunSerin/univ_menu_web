@@ -1,13 +1,10 @@
 package ewhamenu.com.demo.domain;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -15,12 +12,13 @@ import java.util.Date;
 @Getter
 @Setter
 public class Diet {
-    @Id
-    @Column(name = "id")
-    private long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
     @Column(name = "createdate")
-    private Date date;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate date;
     @Column(name = "placeId")
     private long placeId;
     /* 생활관 학생식당 : 0
@@ -34,9 +32,9 @@ public class Diet {
       */
     @Column(name = "menuList")
     private String menuList ;
+
     @Column(name = "lunDi")
     private int when;
-
     /*조식:0 중식:1 석식:2*/
 
 }

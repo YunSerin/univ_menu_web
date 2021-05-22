@@ -143,4 +143,32 @@ public class UserController {
         mav.setViewName("message");
         return mav;
     }
+
+    @PostMapping("/updateUserInfo")
+    public boolean updateUserInfo(ModelAndView mav, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String newNickname = request.getParameter("newNickname");
+        String newEmail = request.getParameter("newEmail");
+        if(newNickname=="" || newEmail==""){
+            return false;
+        }else{
+            Users user = userService.findByUserId(session.getAttribute("userId").toString());
+            user.setEmail(newEmail);
+            user.setNickname(newNickname);
+            userService.save(user);
+        }
+       return true;
+    }
+
+    @PostMapping("/dropOffUser")
+    public boolean dropOffUser(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(userService.dropOffUser(session.getAttribute("userId").toString())){
+            session.setAttribute("userId", null);
+            session.setAttribute("loginCheck",null);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

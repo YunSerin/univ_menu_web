@@ -81,7 +81,8 @@ public class MainhomeController {
         HttpSession session = request.getSession();
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("loginCheck") == null) {
-            mav.setViewName("/");
+            mav.addObject("data", new Message("로그인이 필요한 서비스입니다!", "/login"));
+            mav.setViewName("message");
         }else{
             Users user = userService.findByUserId(session.getAttribute("userId").toString());
             mav.addObject("userData", user);

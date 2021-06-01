@@ -23,10 +23,10 @@ public class Review {
     private int dietId;
     @Column(name = "placeId")
     private int placeId;
-
     @Column(name = "totalScore")
     @Convert(converter = TotalreviewAttributeConverter.class)
     private TotalReview totalScore;
     @Column(name = "reviewComment")
     private String reviewComment;
+
 }

@@ -119,4 +119,9 @@ public class MainhomeController {
         }
         return "user/findPassword";
     }
+
+//    @GetMapping("searchKeyword")
+//    public String searchPage(){
+//        return "searchPage";
+//    }
 }

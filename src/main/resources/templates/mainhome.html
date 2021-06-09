@@ -24,23 +24,98 @@
         .gamja-font{
             font-family: 'Nanum Myeongjo', serif;
         }
+
+        .searchSideNav{
+            height:0;
+            width: 100%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #FDD973;
+            overflow-y: hidden;
+            /*padding-top: 10px;*/
+            transition: 0.5s;
+        }
+
+        .searchSideNav a{
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            display: block;
+            transition: 0.3s;
+        }
+        .searchSideNav a:hover {
+            color: white;
+        }
+        .searchSideNav .closebtn{
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        .searchSideForm{
+            margin-top: 15px;
+        }
+        .searchForm{
+            font-size: 20px;
+        }
+        #placeName{
+            height: 30px;
+            width: 150px;
+            border: solid 1px gray;
+        }
+        #searchKeyword{
+            height: 25px;
+            width: 350px;
+            border: solid 1px gray;
+        }
+        .searchButton{
+            height: 30px;
+        }
     </style>
 
 </head>
 <body class="gamja-font">
 <header>
+<!--    검색 모달 파트-->
+    <div class="searchSideNav" id="searchSideNav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">&times;</a>
+        <div class="searchSideForm">
+            <form method="get" action="/searchKeyword" class="searchForm" accept-charset="utf-8">
+                <label for="placeName">위치</label>
+                <select id="placeName" name="placeName">
+                    <option value="all">------All------</option>
+                    <option value="0">생활관 학생식당</option>
+                    <option value="1">생활관 교직원식당</option>
+                    <option value="2">진선미관식당</option>
+                    <option value="3">헬렌관 식당</option>
+                    <option value="4">공대식당</option>
+                    <option value="5">한우리집 지하1층</option>
+                    <option value="6">이하우스 201동</option>
+                    <option value="7">이하우스 301동</option>
+                </select>
+                <label for="searchKeyword">메뉴</label>
+                <input type="text" placeholder="EX) 새우까스, 샐러드" id="searchKeyword" name="searchKeyword">
+                <button type="submit" class="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
     <div> <!-- 上 부분-->
         <h1 class="logo">
             <a href="/">
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
-            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >
-                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >
-                <button type="submit">
+<!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
+<!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
+                <button type="submit" onclick="openSearchNav()">
                     <i class="fas fa-search"></i>
                 </button>
-            </form>
+<!--            </form>-->
         <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview" role="button" >
             리뷰작성
         </a>
@@ -206,4 +281,13 @@
     </div>
 </main>
 </body>
+<script>
+    function openSearchNav(){
+        document.getElementById("searchSideNav").style.height= "60px";
+
+    }
+    function closeSearchNav(){
+        document.getElementById("searchSideNav").style.height= "0";
+    }
+</script>
 </html>

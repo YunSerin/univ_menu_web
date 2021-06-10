@@ -15,7 +15,7 @@ import java.util.List;
 public class Diet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "dietId")
     private long dietId;
     @Column(name = "createdate")

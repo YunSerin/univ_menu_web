@@ -38,14 +38,14 @@ public class DietService {
             }else {
                 diet.setWhen(2);//석식
             }
-            diet.setId(diet.getId()+1);
+            diet.setDietId(diet.getDietId()+1);
 
             dietRepository.saveAndFlush(diet);
             saveMenu(crawlResult.get(i),i/2);
 
         }
 
-        return diet.getId();
+        return diet.getDietId();
     }
 
     public ArrayList getDiet() {

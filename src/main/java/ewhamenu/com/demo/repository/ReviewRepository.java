@@ -18,4 +18,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review AS r WHERE FUNCTION('JSON_EXTRACT', r.totalScore, :key ) IS NOT NULL")
     public List<Review> findByTotalScore(@Param("key") String key);
 
+
 }

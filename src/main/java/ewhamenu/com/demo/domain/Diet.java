@@ -15,8 +15,9 @@ import java.util.List;
 public class Diet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "dietId")
+    private long dietId;
     @Column(name = "createdate")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
@@ -33,7 +34,6 @@ public class Diet {
       */
     @Column(name = "menuList")
     private String menuList ;
-
     @Column(name = "lunDi")
     private int when;
     /*조식:0 중식:1 석식:2*/

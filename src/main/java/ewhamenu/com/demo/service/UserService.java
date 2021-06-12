@@ -35,4 +35,13 @@ public class UserService {
             return false;
         }
     }
+
+    public boolean dropOffUser(String userId){
+        userRepository.deleteUsersByUserId(userId);
+        if(userRepository.findByUserId(userId) != null){ //삭제 실패인 경우
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

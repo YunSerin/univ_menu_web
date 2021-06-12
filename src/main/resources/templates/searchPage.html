@@ -121,7 +121,7 @@
     <form method="get" action="/searchKeyword" class="searchedForm" accept-charset="utf-8">
         <label for="placeName">위치</label>
         <select id="placeName" name="placeName">
-            <option value="-1" th:selected ="${placeName == '-1'}">------All------</option>
+            <option value="all" th:selected ="${placeName == 'all'}">------All------</option>
             <option value="0" th:selected ="${placeName == '0'}">생활관 학생식당</option>
             <option value="1" th:selected ="${placeName == '1'}">생활관 교직원식당</option>
             <option value="2" th:selected ="${placeName == '2'}">진선미관식당</option>

@@ -37,9 +37,9 @@ public class Crawler {
                 restaurantLink.add(url+hreflink);
 
             }
-            for (String num : restaurantLink) {
+            for (String link : restaurantLink) {
                 innerCrawler = new InnerCrawler();
-                ArrayList<String> eachRest = innerCrawler.innerCrawler(num);
+                ArrayList<String> eachRest = innerCrawler.innerCrawler(link);
                 for (String eachMenu : eachRest) {
                     crawlResult.add(eachMenu);
                 }

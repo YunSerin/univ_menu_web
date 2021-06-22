@@ -30,7 +30,9 @@ public class DietService {
         Diet diet = new Diet();
         for(int i=0;i<16;i++) {
             diet.setDate(LocalDate.now());
-            diet.setMenuList(crawlResult.get(i));
+            String menuString = crawlResult.get(i);
+            //List<String> menu = Arrays.asList(menuString.split("\\n"));
+            diet.setMenuList(menuString);
             diet.setPlaceId(i/2);
             //중식 석식
             if(i%2==0){ //짝수

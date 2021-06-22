@@ -23,7 +23,7 @@ public class InnerCrawler {
 
     public ArrayList<String> innerCrawler(String link){
         Document doc = null;
-        ArrayList<String> menu = new ArrayList<>();
+        ArrayList<String> menus = new ArrayList<>();
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("E (MM.dd)");
         try {
@@ -35,12 +35,12 @@ public class InnerCrawler {
                     if (candDate.equals(sdf.format(date))) {
                         String lunchMenu = el.select("div.b-menu.b-menu-l.lunch pre").text();
                         String dinnerMenu = el.select("div.b-menu.b-menu-d.dinner pre").text();
-                        menu.add(sort(lunchMenu));
-                        menu.add(sort(dinnerMenu));
+                        menus.add(sort(lunchMenu));
+                        menus.add(sort(dinnerMenu));
                     }
                     else if(el.select("span").text().equals("등록된 식단이 없습니다.")) {
-                    menu.add("");
-                    menu.add("");
+                    menus.add("");
+                    menus.add("");
                     }
 
             }
@@ -49,7 +49,7 @@ public class InnerCrawler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return menu;
+        return menus;
     }
     public String sort(String menu){
         String excep1 = "(\\*[^*]*\\*[\\r\\n]+)";  //예시 : *메뉴제목*

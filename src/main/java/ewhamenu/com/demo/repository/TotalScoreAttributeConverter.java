@@ -7,6 +7,8 @@ import ewhamenu.com.demo.domain.TotalScore;
 
 import javax.persistence.AttributeConverter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TotalScoreAttributeConverter implements AttributeConverter<TotalScore, String> {

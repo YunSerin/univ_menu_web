@@ -4,7 +4,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity

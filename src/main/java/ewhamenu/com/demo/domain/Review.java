@@ -1,15 +1,15 @@
 package ewhamenu.com.demo.domain;
 
 import ewhamenu.com.demo.repository.TotalScoreAttributeConverter;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="review")
 @Getter
 @Setter
@@ -26,10 +26,10 @@ public class Review {
     @Column(name = "reviewDate")
     private String reviewDate;        //여기 문제
 
-//    @ManyToOne
-//    @JoinColumn(name="dietId")
-//    @Nullable
-//    private Diet diet;
+    @ManyToOne
+    @JoinColumn(name="dietId")
+    @Nullable
+    private Diet dietId;
     @Column(name = "placeId")
     private int placeId;
     @Column(name = "totalScore")

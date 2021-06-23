@@ -96,4 +96,10 @@ public class DietService {
                 }
             }
     }
+
+    public List<Diet> findTodayDiets(LocalDate date){
+
+        List<Diet> todayDiets = dietRepository.findAllByDate(date);
+        return todayDiets;
+    }
 }

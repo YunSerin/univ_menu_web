@@ -3,8 +3,8 @@ package ewhamenu.com.demo.domain;
 import ewhamenu.com.demo.repository.TotalScoreAttributeConverter;
 import lombok.*;
 import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
+
 
 @Entity
 @NoArgsConstructor
@@ -35,7 +35,12 @@ public class Review {
     @Column(name = "totalScore")
     @Convert(converter = TotalScoreAttributeConverter.class)
     private TotalScore totalScore;
+//    @Type(type = "json")
+//    @Column(name = "totalScore", columnDefinition = "json", nullable = false)
+//    private Map<String, String> totalScore = new HashMap<>();
     @Column(name = "reviewComment")
     private String reviewComment;
+    @Column(name = "averageScore")
+    private float averageScore;
 
 }

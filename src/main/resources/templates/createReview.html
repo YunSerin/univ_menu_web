@@ -6,6 +6,7 @@
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/mainjomeJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <title>이돼장</title>
     <style media="screen">
 
@@ -44,7 +45,7 @@
         }
         .starRating{
             display: block;
-            width: 150px;
+
             margin: 0 auto;
 
         }
@@ -130,6 +131,42 @@
             border-radius: 10px;
             box-shadow: 1px 1px 5px 3px #A8A8A8;
         }
+        /*별점*/
+        div.stars {
+            width: 150px;
+            display: inline-block;
+        }
+
+        input.star { display: none; }
+
+        label.star {
+            float: right;
+            padding: 2px;
+            font-size: 30px;
+            color: #444;
+            transition: all .2s;
+        }
+
+        input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+        }
+
+        input.star-5:checked ~ label.star:before {
+            color: #FE7;
+            text-shadow: 0 0 20px #952;
+        }
+
+        input.star-1:checked ~ label.star:before { color: #F62; }
+
+        /*별 클릭할때 회전*/
+        /*label.star:hover { transform: rotate(-15deg) scale(1.3); }*/
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+        }
     </style>
 </head>
 <header>
@@ -165,75 +202,76 @@
 
     <div class="login_box">
         <!-- 로그인 폼 -->
-        <form method="post" action="/createReview">
+        <form method="post" action="createReview">
             <div style="position:relative;" >
                 <a style="margin-top: 27px;float:left;margin-left:25px" > 별점 </a>
                 <div class="givestar">
-                    <p style="position:absolute;margin-top: 27px;float:left; margin-left:15px">메뉴1</p>
-                    <div class="starRating"  name="totalScore" style="margin-top: 20px;position: absolute;width: 280px;margin-left: 80px">
-                        <span class="starR1 on" value="0.5"></span>
-                        <span class="starR2" value="1.0"></span>
-                        <span class="starR1" value="1.5"></span>
-                        <span class="starR2" value="2.0"></span>
-                        <span class="starR1" value="2.5"></span>
-                        <span class="starR2" value="3.0"></span>
-                        <span class="starR1" value="3.5"></span>
-                        <span class="starR2" value="4.0"></span>
-                        <span class="starR1" value="4.5"></span>
-                        <span class="starR2" value="5.0"></span>
+                    <p name="menu1" style="position:absolute;margin-top: 27px;float:left; margin-left:15px">메뉴1</p>
+                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 20px;position: absolute;margin-left: 80px;">
+                        <input class="star star-5" value="5" id="star1" type="radio" name="star1"/>
+                        <label class="star star-5" for="star1"></label>
+                        <input class="star star-4" value="4" id="star2" type="radio" name="star1"/>
+                        <label class="star star-4" for="star2"></label>
+                        <input class="star star-3" value="3" id="star3" type="radio" name="star1"/>
+                        <label class="star star-3" for="star3"></label>
+                        <input class="star star-2" value="2" id="star4" type="radio" name="star1"/>
+                        <label class="star star-2" for="star4"></label>
+                        <input class="star star-1" value="1" id="star5" type="radio" name="star1"/>
+                        <label class="star star-1" for="star5"></label>
                     </div>
-                    <p style="position: absolute;margin-top: 67px;float:left; margin-left:15px">메뉴2</p>
-                    <div class="starRating"  style="margin-top: 60px;position: absolute;width: 280px;margin-left: 80px">
-                        <span class="starR1 on" value="0.5"></span>
-                        <span class="starR2" value="1.0"></span>
-                        <span class="starR1" value="1.5"></span>
-                        <span class="starR2" value="2.0"></span>
-                        <span class="starR1" value="2.5"></span>
-                        <span class="starR2" value="3.0"></span>
-                        <span class="starR1" value="3.5"></span>
-                        <span class="starR2" value="4.0"></span>
-                        <span class="starR1" value="4.5"></span>
-                        <span class="starR2" value="5.0"></span>
+                    <p name="menu1" style="position:absolute;margin-top: 67px;float:left; margin-left:15px">메뉴2</p>
+                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 60px;position: absolute;margin-left: 80px;">
+                        <input class="star star-5" value="5" id="star2.1" type="radio" name="star2"/>
+                        <label class="star star-5" for="star2.1"></label>
+                        <input class="star star-4" value="4" id="star2.2" type="radio" name="star2"/>
+                        <label class="star star-4" for="star2.2"></label>
+                        <input class="star star-3" value="3" id="star2.3" type="radio" name="star2"/>
+                        <label class="star star-3" for="star2.3"></label>
+                        <input class="star star-2" value="2" id="star2.4" type="radio" name="star2"/>
+                        <label class="star star-2" for="star2.4"></label>
+                        <input class="star star-1" value="1" id="star2.5" type="radio" name="star2"/>
+                        <label class="star star-1" for="star2.5"></label>
                     </div>
-                    <p style="position: absolute;margin-top: 107px;float:left; margin-left:15px">메뉴3</p>
-                    <div class="starRating"  style="margin-top: 100px;position: absolute;width: 280px;margin-left: 80px">
-                        <span class="starR1 on" value="0.5"></span>
-                        <span class="starR2" value="1.0"></span>
-                        <span class="starR1" value="1.5"></span>
-                        <span class="starR2" value="2.0"></span>
-                        <span class="starR1" value="2.5"></span>
-                        <span class="starR2" value="3.0"></span>
-                        <span class="starR1" value="3.5"></span>
-                        <span class="starR2" value="4.0"></span>
-                        <span class="starR1" value="4.5"></span>
-                        <span class="starR2" value="5.0"></span>
+                    <p name="menu1" style="position:absolute;margin-top: 107px;float:left; margin-left:15px">메뉴3</p>
+                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 100px;position: absolute;margin-left: 80px;">
+                        <input class="star star-5" value="5" id="star3.1" type="radio" name="star3"/>
+                        <label class="star star-5" for="star3.1"></label>
+                        <input class="star star-4" value="4" id="star3.2" type="radio" name="star3"/>
+                        <label class="star star-4" for="star3.2"></label>
+                        <input class="star star-3" value="3" id="star3.3" type="radio" name="star3"/>
+                        <label class="star star-3" for="star3.3"></label>
+                        <input class="star star-2" value="2" id="star3.4" type="radio" name="star3"/>
+                        <label class="star star-2" for="star3.4"></label>
+                        <input class="star star-1" value="1" id="star3.5" type="radio" name="star3"/>
+                        <label class="star star-1" for="star3.5"></label>
                     </div>
-                    <p style="position: absolute;margin-top: 147px;float:left; margin-left:15px">메뉴4</p>
-                    <div class="starRating"  style="margin-top: 140px;position: absolute;width: 280px;margin-left: 80px">
-                        <span class="starR1 on" value="0.5"></span>
-                        <span class="starR2" value="1.0"></span>
-                        <span class="starR1" value="1.5"></span>
-                        <span class="starR2" value="2.0"></span>
-                        <span class="starR1" value="2.5"></span>
-                        <span class="starR2" value="3.0"></span>
-                        <span class="starR1" value="3.5"></span>
-                        <span class="starR2" value="4.0"></span>
-                        <span class="starR1" value="4.5"></span>
-                        <span class="starR2" value="5.0"></span>
+                    <p name="menu1" style="position:absolute;margin-top: 147px;float:left; margin-left:15px">메뉴4</p>
+                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 140px;position: absolute;margin-left: 80px;">
+                        <input class="star star-5" value="5" id="star4.1" type="radio" name="star4"/>
+                        <label class="star star-5" for="star4.1"></label>
+                        <input class="star star-4" value="4" id="star4.2" type="radio" name="star4"/>
+                        <label class="star star-4" for="star4.2"></label>
+                        <input class="star star-3" value="3" id="star4.3" type="radio" name="star4"/>
+                        <label class="star star-3" for="star4.3"></label>
+                        <input class="star star-2" value="2" id="star4.4" type="radio" name="star4"/>
+                        <label class="star star-2" for="star4.4"></label>
+                        <input class="star star-1" value="1" id="star4.5" type="radio" name="star4"/>
+                        <label class="star star-1" for="star4.5"></label>
                     </div>
-                    <p style="position: absolute;margin-top: 187px;float:left; margin-left:15px">메뉴5</p>
-                    <div class="starRating"  style="margin-top: 180px;position: absolute;width: 280px;margin-left: 80px">
-                        <span class="starR1 on" value="0.5"></span>
-                        <span class="starR2" value="1.0"></span>
-                        <span class="starR1" value="1.5"></span>
-                        <span class="starR2" value="2.0"></span>
-                        <span class="starR1" value="2.5"></span>
-                        <span class="starR2" value="3.0"></span>
-                        <span class="starR1" value="3.5"></span>
-                        <span class="starR2" value="4.0"></span>
-                        <span class="starR1" value="4.5"></span>
-                        <span class="starR2" value="5.0"></span>
+                    <p name="menu1" style="position:absolute;margin-top: 187px;float:left; margin-left:15px">메뉴5</p>
+                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 180px;position: absolute;margin-left: 80px;">
+                        <input class="star star-5" value="5" id="star5.1" type="radio" name="star5"/>
+                        <label class="star star-5" for="star5.1"></label>
+                        <input class="star star-4" value="4" id="star5.2" type="radio" name="star5"/>
+                        <label class="star star-4" for="star5.2"></label>
+                        <input class="star star-3" value="3" id="star5.3" type="radio" name="star5"/>
+                        <label class="star star-3" for="star5.3"></label>
+                        <input class="star star-2" value="2" id="star5.4" type="radio" name="star5"/>
+                        <label class="star star-2" for="star5.4"></label>
+                        <input class="star star-1" value="1" id="star5.5" type="radio" name="star5"/>
+                        <label class="star star-1" for="star5.5"></label>
                     </div>
+
                 </div>
 
             </div>

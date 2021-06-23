@@ -1,5 +1,6 @@
 package ewhamenu.com.demo.service;
 
+import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.domain.Review;
 import ewhamenu.com.demo.repository.MenuRepository;
@@ -27,8 +28,24 @@ public class SearchService {
         return menuSearched;
     }
 
+//////////////Review Service
     public List<Review> findByTotalScore(@Param("key") String key){
-        List<Review> reviewSearched = reviewRepository.findByTotalScore(key);
+        List<Review> reviewSearched = reviewRepository.findByTotalScoreOrderByIdDesc(key);
         return reviewSearched;
+    }
+
+    public List<Review> findAllReview(){
+        List<Review> reviewSearched = reviewRepository.findAllByOrderByIdDesc();
+        return reviewSearched;
+    }
+
+    public List<Review> findAllReviewByPlaceId(int placeId){
+        List<Review> reviewSearched = reviewRepository.findAllByPlaceIdOrderByIdDesc(placeId);
+        return reviewSearched;
+    }
+
+    public List<Review> findAllByDietId(Diet dietSelected){
+        List<Review> reviewToday = reviewRepository.findAllByDietId(dietSelected);
+        return reviewToday;
     }
 }

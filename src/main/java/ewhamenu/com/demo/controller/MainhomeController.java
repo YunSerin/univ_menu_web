@@ -7,12 +7,15 @@ import ewhamenu.com.demo.service.UserService;
 import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.service.crawler.DietService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ewhamenu.com.demo.domain.Message;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +30,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Controller
 public class MainhomeController {
+    private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
+
     private Model model;
     private final DietService dietService;
     Calendar cal = Calendar.getInstance();
@@ -98,7 +103,17 @@ public class MainhomeController {
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
+//        logger.info("id : {}", request.getParameter("dietId"));
           return "createReview";
+    }
+    @PostMapping("createReview")
+    public String createReviewPage(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        logger.info("id : {}", request.getParameter("dietId"));
+        return "createReview";
     }
 
     @GetMapping("setPassword")

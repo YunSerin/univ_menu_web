@@ -2,12 +2,9 @@ package ewhamenu.com.demo.domain;
 
 import ewhamenu.com.demo.repository.TotalScoreAttributeConverter;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Entity
 @NoArgsConstructor

@@ -42,7 +42,7 @@ public class ReviewController {
 //    }
 
 
-    @PostMapping("/createReview2")
+    @PostMapping("/saveReivew")
     public ModelAndView ReviewInput(Review review,HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
@@ -64,14 +64,6 @@ public class ReviewController {
         rates.put("3", totalscore3);
         rates.put("4", totalscore4);
         rates.put("5", totalscore5);
-//        totalScore.setMenu1(totalscore1);
-//        totalScore.setMenu2(totalscore2);
-//        totalScore.setMenu3(totalscore3);
-//        totalScore.setMenu4(totalscore4);
-//        totalScore.setMenu5(totalscore5);
-//        totalScore.getMenu1();
-//        totalScore.getMenu2();
-//        totalScore.getMenu3();
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;
@@ -81,12 +73,10 @@ public class ReviewController {
         }
         averageScore /= rates.size();
         review.setAverageScore(averageScore);
-//        review.getTotalScore();
         reviewService.saveReview(review, userID);
         mav.addObject("data", new Message("리뷰가 등록되었습니다!", "/"));
         mav.setViewName("message");
         return mav;
     }
-//    @PostMapping
-//    public
+
 }

@@ -32,7 +32,6 @@ import java.util.Date;
 public class MainhomeController {
     private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
 
-    private Model model;
     private final DietService dietService;
     Calendar cal = Calendar.getInstance();
     private final UserService userService;
@@ -103,7 +102,6 @@ public class MainhomeController {
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
-//        logger.info("id : {}", request.getParameter("dietId"));
           return "createReview";
     }
     @PostMapping("createReview")
@@ -112,7 +110,6 @@ public class MainhomeController {
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
-        logger.info("id : {}", request.getParameter("dietId"));
         return "createReview";
     }
 
@@ -135,8 +132,4 @@ public class MainhomeController {
         return "user/findPassword";
     }
 
-//    @GetMapping("searchKeyword")
-//    public String searchPage(){
-//        return "searchPage";
-//    }
 }

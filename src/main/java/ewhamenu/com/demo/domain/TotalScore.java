@@ -12,11 +12,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Builder
 public class TotalScore {
-//    private String menu1;
-//    private String menu2;
-//    private String menu3;
-//    private String menu4;
-//    private String menu5;
+
     Map<String, String> rates = new LinkedHashMap<>();
 //    @JsonAnySetter
 //    public void setStar(String key, int value){

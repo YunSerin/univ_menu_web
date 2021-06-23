@@ -1,6 +1,7 @@
 package ewhamenu.com.demo.repository;
 
 
+import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.domain.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +17,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Review findById(long id);
 
     @Query("SELECT r FROM Review AS r WHERE FUNCTION('JSON_EXTRACT', r.totalScore, :key ) IS NOT NULL")
-    public List<Review> findByTotalScore(@Param("key") String key);
+    public List<Review> findByTotalScoreOrderByIdDesc(@Param("key") String key);
 
+    public List<Review> findAllByOrderByIdDesc();
+
+    public List<Review> findAllByPlaceIdOrderByIdDesc(int placeId);
+
+    public List<Review> findAllByDietId(Diet dietId);
 
 }

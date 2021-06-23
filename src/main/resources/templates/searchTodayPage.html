@@ -38,27 +38,11 @@
             text-align: left;
             display: inline-block;
         }
-        .searchReviews{
-            /*margin-left: 100px;*/
-        }
         .writeReview{
             margin-left: 470px;
         }
         .writeReview{
             background-color: #FDD973;
-        }
-        #placeName{
-            height: 30px;
-            width: 150px;
-            border: solid 1px gray;
-        }
-        #searchKeyword{
-            height: 25px;
-            width: 300px;
-            border: solid 1px gray;
-        }
-        .searchedButton{
-            height: 30px;
         }
         label{
             font-size: 20px;
@@ -98,12 +82,6 @@
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
-<!--        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >-->
-<!--            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">-->
-<!--            <button name="button" type="submit" href="/search">-->
-<!--                <i class="fas fa-search"></i>-->
-<!--            </button>-->
-<!--        </form>-->
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
             마이페이지
         </a>
@@ -116,27 +94,10 @@
 
     </div>
 </header>
-<!--검색창 파트-->
+<!--<p th:text ="${menuNo}"></p>-->
 <div class="searchedPart">
-    <form method="get" action="/searchKeyword" class="searchedForm" accept-charset="utf-8">
-        <label for="placeName">위치</label>
-        <select id="placeName" name="placeName">
-            <option value="-1" th:selected ="${placeName == -1}">------All------</option>
-            <option value="0" th:selected ="${placeName == 0}">생활관 학생식당</option>
-            <option value="1" th:selected ="${placeName == 1}">생활관 교직원식당</option>
-            <option value="2" th:selected ="${placeName == 2}">진선미관식당</option>
-            <option value="3" th:selected ="${placeName == 3}">헬렌관 식당</option>
-            <option value="4" th:selected ="${placeName == 4}">공대식당</option>
-            <option value="5" th:selected ="${placeName == 5}">한우리집 지하1층</option>
-            <option value="6" th:selected ="${placeName == 6}">이하우스 201동</option>
-            <option value="7" th:selected ="${placeName == 7}">이하우스 301동</option>
-        </select>
-        <label for="searchKeyword" style="margin-left: 20px">메뉴</label>
-        <input type="text" th:value="${keyword}" id="searchKeyword" name="searchKeyword">
-        <button type="submit" class="searchedButton">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
+    <p th:text="${placeName}"></p>
+    <h1>오늘의 메뉴</h1>
 </div>
 <div style="display: flex;flex-direction: column;align-content: center;">
     <!-- 정렬 -->
@@ -147,9 +108,13 @@
                 <option value="등록순">등록순</option>
                 <option value="별점순">별점순</option>
             </select>
-            <a th:if= "${session.loginCheck eq true}" class="writeReview"href="/createReview" role="button" >
-                리뷰작성
-            </a>
+            <form th:if= "${session.loginCheck eq true}" th:action="@{/createReview}" id="createReviewBtn" method="post">
+                <input type="hidden" name="dietId" th:value="${dietId}">
+                <button  th:if= "${session.loginCheck eq true}" type="submit" class="writeReview" >
+                    리뷰작성
+                </button>
+            </form>
+
         </div>
     </div>
 
@@ -188,6 +153,5 @@
         </table>
     </div>
 </div>
-
 </body>
 </html>

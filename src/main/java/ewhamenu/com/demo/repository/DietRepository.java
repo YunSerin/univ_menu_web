@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
@@ -16,4 +17,5 @@ public interface DietRepository extends JpaRepository<Diet, Long> {
     ArrayList<Diet> findAllByDate(LocalDate date);
 
     Diet findByDate(LocalDate date);
+
 }

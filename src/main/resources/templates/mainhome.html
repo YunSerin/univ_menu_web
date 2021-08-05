@@ -123,7 +123,7 @@
                     <i class="fas fa-search"></i>
                 </button>
 <!--            </form>-->
-        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview" role="button" >
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview" method="post" action="/createReview" role="button" >
             리뷰작성
         </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >

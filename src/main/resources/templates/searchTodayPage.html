@@ -108,8 +108,8 @@
                 <option value="등록순">등록순</option>
                 <option value="별점순">별점순</option>
             </select>
-            <form th:if= "${session.loginCheck eq true}" th:action="@{/createReview}" id="createReviewBtn" method="post">
-                <input type="hidden" name="dietId" th:value="${dietId}">
+            <form th:if= "${session.loginCheck eq true}" action="/createReview" id="createReviewBtn" method="post">
+                <input type="hidden" name="dietId" th:value="${dietId}"/>
                 <button  th:if= "${session.loginCheck eq true}" type="submit" class="writeReview" >
                     리뷰작성
                 </button>

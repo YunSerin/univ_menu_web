@@ -30,7 +30,6 @@ public class InnerCrawler {
             doc = (Document) Jsoup.connect(link).timeout(50000).get();
             Elements element = doc.select("ul");
             for(Element el : element.select("li")) {
-
                     String candDate = el.select("div.b-day").text();
                     if (candDate.equals(sdf.format(date))) {
                         String lunchMenu = el.select("div.b-menu.b-menu-l.lunch pre").text();

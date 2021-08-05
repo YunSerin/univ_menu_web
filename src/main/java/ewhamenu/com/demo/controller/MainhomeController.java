@@ -51,7 +51,7 @@ public class MainhomeController {
                 diets.add("일요일이라 등록된 식단이 없습니다.");
             }
         }else {
-            if (dietService.checkDate()) {
+            if (dietService.checkDate()) {//오늘 식단이 DB에 저장이 안되어있는 경우
                 dietService.saveDiet();
             }
             diets = dietService.findDiets(LocalDate.now());
@@ -95,23 +95,6 @@ public class MainhomeController {
         return mav;
     }
 
-
-    @GetMapping("createReview")
-    public String createReview(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session.getAttribute("loginCheck") == null){
-            return "redirect:/";
-        }
-          return "createReview";
-    }
-    @PostMapping("createReview")
-    public String createReviewPage(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session.getAttribute("loginCheck") == null){
-            return "redirect:/";
-        }
-        return "createReview";
-    }
 
     @GetMapping("setPassword")
     public String setPassword(HttpServletRequest request){

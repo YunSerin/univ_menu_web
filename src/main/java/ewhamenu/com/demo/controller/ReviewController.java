@@ -1,12 +1,11 @@
 package ewhamenu.com.demo.controller;
 
 
-import ewhamenu.com.demo.domain.Message;
-import ewhamenu.com.demo.domain.Review;
-import ewhamenu.com.demo.domain.TotalScore;
-import ewhamenu.com.demo.domain.Users;
+import ewhamenu.com.demo.domain.*;
+import ewhamenu.com.demo.repository.DietRepository;
 import ewhamenu.com.demo.service.ReviewService;
 import ewhamenu.com.demo.service.UserService;
+import ewhamenu.com.demo.service.crawler.DietService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,27 +26,51 @@ import java.util.Map;
 public class ReviewController {
     private Model model;
     private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
+    private Diet dietId_fk;
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private DietRepository dietRepository;
 
-//    @GetMapping("/cerateReview")
-//    public ModelAndView createReveiwPage(Users user, ModelAndView mav, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        LocalDate today = LocalDate.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
-//        mav.addObject("today", formatter);
-//        //model.addAttribute("today", formatter);
-//    return mav;
-//    }
-
-
-    @PostMapping("/saveReivew")
-    public ModelAndView ReviewInput(Review review,HttpServletRequest request){
-        ModelAndView mav = new ModelAndView();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
-        mav.addObject("today", formatter);
+    @PostMapping("createReview")    // 오늘의 메뉴 리뷰작성 버튼
+    public String createReviewPage(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+        model.addAttribute("today", formatter);
+        String dietId_str = request.getParameter("dietId");
+        long placeId;
+        if(dietId_str!=null) {
+            dietId_fk = dietRepository.findById(Long.parseLong(dietId_str));
+            placeId = dietId_fk.getPlaceId();
+        }else{
+            placeId =-1;
+        }
+        model.addAttribute("placeId", placeId);
+
+        return "createReview";
+    }
+
+    @GetMapping("createReview") //그냥 리뷰작성 버튼
+    public String createReview(HttpServletRequest request, ModelAndView mav){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+
+
+          return "createReview";
+    }
+    @PostMapping("/saveReivew") //리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
+    public String ReviewInput(Review review,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        ModelAndView mav = new ModelAndView();
         String userID = session.getAttribute("userId").toString();
         review.getReviewDate();
         review.getReviewComment();
@@ -73,10 +96,11 @@ public class ReviewController {
         }
         averageScore /= rates.size();
         review.setAverageScore(averageScore);
+        review.setDietId(dietId_fk);
         reviewService.saveReview(review, userID);
         mav.addObject("data", new Message("리뷰가 등록되었습니다!", "/"));
         mav.setViewName("message");
-        return mav;
+        return "redirect:/";
     }
 
 }

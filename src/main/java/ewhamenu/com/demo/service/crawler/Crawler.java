@@ -40,8 +40,8 @@ public class Crawler {
             for (String link : restaurantLink) {
                 innerCrawler = new InnerCrawler();
                 ArrayList<String> eachRest = innerCrawler.innerCrawler(link);
-                for (String eachMenu : eachRest) {
-                    crawlResult.add(eachMenu);
+                for (String s : eachRest) {
+                    crawlResult.add(s);
                 }
             }
 

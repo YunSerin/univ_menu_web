@@ -280,16 +280,16 @@
                 <input type="date" class="reviewDate"  id="reviewDate" name="reviewDate" placeholder="날짜" />
                 <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px" > 장소 </a>
 <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
-                <select  class="place"  name="placeId">
-                    <option value="" selected="selected" disabled>장소선택</option>
-                    <option value="0">생활관 학생식당</option>
-                    <option value="1" >생활관 교직원 식당</option>
-                    <option value="2">진선미관 식당</option>
-                    <option value="3">헬렌관 식당</option>
-                    <option value="4">공대식당</option>
-                    <option value="5">한우리집 지하 1층</option>
-                    <option value="6">이하우스 201동</option>
-                    <option value="7">이하우스 301동</option>
+                <select  class="place"  name="placeId" id="placeId">
+                    <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
+                    <option value="0" th:elected ="${placeId == 0}">생활관 학생식당</option>
+                    <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>
+                    <option value="2" th:selected ="${placeId == 2}">진선미관 식당</option>
+                    <option value="3" th:selected ="${placeId == 3}" >헬렌관 식당</option>
+                    <option value="4" th:selected ="${placeId == 4}" >공대식당</option>
+                    <option value="5" th:selected ="${placeId == 5}" >한우리집 지하 1층</option>
+                    <option value="6" th:selected ="${placeId == 6}" >이하우스 201동</option>
+                    <option value="7" th:selected ="${placeId == 7}" >이하우스 301동</option>
                 </select>
 <!--                <a style="margin-top: 20px;float:left;" > 커멘트 </a>-->
                 <input class="comment"  value="" id="reviewComment" name="reviewComment" placeholder="comment" />

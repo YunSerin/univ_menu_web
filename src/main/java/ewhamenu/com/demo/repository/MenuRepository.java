@@ -16,7 +16,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     //ArrayList<Menu> findAllByMenu_nameAndPlace_id(String menuName, int placeId);
     boolean existsMenuByMenuNameAndPlaceId(String menuName, int placeId);
 
-    public Menu findByMenuNameAndPlaceId(String menuName, int placeId);
+    public Menu findAllByMenuNameAndPlaceId(String menuName, int placeId);
 
 //    public List<Menu> findByPlaceId(int placeId);
 

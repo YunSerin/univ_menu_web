@@ -84,7 +84,7 @@ public class DietService {
     }
 
     public void saveMenu(String menuList, int placeId){
-        List<String> menu = Arrays.asList(menuList.split("\\n"));
+        List<String> menu = Arrays.asList(menuList.split("\\s"));
             for(int i=1;i<menu.size();i++){
                 //ArrayList<Menu> findmenu = menuRepository.findAllByMenu_nameAndPlace_id(menu.get(i),placeId);
                 //if(findmenu!=null) { //새로 넣어야함

@@ -19,7 +19,7 @@ public class SearchService {
     private ReviewRepository reviewRepository;
 
     public Menu findByMenuNameAndPlaceId(String menuName, int placeId){
-        Menu menuSearched = menuRepository.findByMenuNameAndPlaceId(menuName, placeId);
+        Menu menuSearched = menuRepository.findAllByMenuNameAndPlaceId(menuName, placeId);
         return menuSearched;
     }
 

@@ -8,6 +8,8 @@ import ewhamenu.com.demo.service.SearchService;
 import ewhamenu.com.demo.service.UserService;
 import ewhamenu.com.demo.service.crawler.DietService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ import java.util.Map;
 //@RequestMapping("/search")
 public class SearchController {
     Model model;
-
+    private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
     @Autowired
     SearchService searchService;
     @Autowired
@@ -72,7 +74,7 @@ public class SearchController {
             if(keyword == ""){
                 searchedReview = searchService.findAllReviewByPlaceId(placeName);
             }else{
-                searchedMenuId = searchService.findByMenuNameAndPlaceId(keyword, placeName);
+                searchedMenuId = searchService.findByMenuNameAndPlaceId(request.getParameter("searchKeyword"), placeName);
                 searchedReview = searchService.findByTotalScore(searchedMenuId.getId().toString());
             }
         }
@@ -92,6 +94,7 @@ public class SearchController {
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
         List<Diet> todayDiet = dietService.findTodayDiets(LocalDate.now()); //오늘자 diet 데이터
         List<Review> todayReview = searchService.findAllByDietId(todayDiet.get(menuNo));
+//        logger.info("test : {} ", todayReview.get(0).getTotalScore());
         List<Object> reviews = reviewListing(todayReview);
         mav.addObject("reviews", reviews);
         mav.addObject("dietId", todayDiet.get(menuNo).getDietId());

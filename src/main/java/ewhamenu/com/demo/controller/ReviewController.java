@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ReviewController {
@@ -51,6 +50,8 @@ public class ReviewController {
         }
         model.addAttribute("placeId", placeId);
 
+        List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s"));
+        model.addAttribute("menuList", menuList);
         return "createReview";
     }
 
@@ -75,6 +76,9 @@ public class ReviewController {
         review.getReviewDate();
         review.getReviewComment();
         review.getPlaceId();
+        String dietId_str = request.getParameter("dietId");
+        dietId_fk = dietRepository.findById(Long.parseLong(dietId_str));
+        List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s"));
         String totalscore1 = request.getParameter("star1");
         String totalscore2 = request.getParameter("star2");
         String totalscore3 = request.getParameter("star3");

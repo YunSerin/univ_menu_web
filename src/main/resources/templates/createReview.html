@@ -206,74 +206,23 @@
             <div style="position:relative;" >
                 <a style="margin-top: 27px;float:left;margin-left:25px" > 별점 </a>
                 <div class="givestar">
-                    <p name="menu1" style="position:absolute;margin-top: 27px;float:left; margin-left:15px">메뉴1</p>
-                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 20px;position: absolute;margin-left: 80px;">
-                        <input class="star star-5" value="5" id="star1" type="radio" name="star1"/>
-                        <label class="star star-5" for="star1"></label>
-                        <input class="star star-4" value="4" id="star2" type="radio" name="star1"/>
-                        <label class="star star-4" for="star2"></label>
-                        <input class="star star-3" value="3" id="star3" type="radio" name="star1"/>
-                        <label class="star star-3" for="star3"></label>
-                        <input class="star star-2" value="2" id="star4" type="radio" name="star1"/>
-                        <label class="star star-2" for="star4"></label>
-                        <input class="star star-1" value="1" id="star5" type="radio" name="star1"/>
-                        <label class="star star-1" for="star5"></label>
-                    </div>
-                    <p name="menu1" style="position:absolute;margin-top: 67px;float:left; margin-left:15px">메뉴2</p>
-                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 60px;position: absolute;margin-left: 80px;">
-                        <input class="star star-5" value="5" id="star2.1" type="radio" name="star2"/>
-                        <label class="star star-5" for="star2.1"></label>
-                        <input class="star star-4" value="4" id="star2.2" type="radio" name="star2"/>
-                        <label class="star star-4" for="star2.2"></label>
-                        <input class="star star-3" value="3" id="star2.3" type="radio" name="star2"/>
-                        <label class="star star-3" for="star2.3"></label>
-                        <input class="star star-2" value="2" id="star2.4" type="radio" name="star2"/>
-                        <label class="star star-2" for="star2.4"></label>
-                        <input class="star star-1" value="1" id="star2.5" type="radio" name="star2"/>
-                        <label class="star star-1" for="star2.5"></label>
-                    </div>
-                    <p name="menu1" style="position:absolute;margin-top: 107px;float:left; margin-left:15px">메뉴3</p>
-                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 100px;position: absolute;margin-left: 80px;">
-                        <input class="star star-5" value="5" id="star3.1" type="radio" name="star3"/>
-                        <label class="star star-5" for="star3.1"></label>
-                        <input class="star star-4" value="4" id="star3.2" type="radio" name="star3"/>
-                        <label class="star star-4" for="star3.2"></label>
-                        <input class="star star-3" value="3" id="star3.3" type="radio" name="star3"/>
-                        <label class="star star-3" for="star3.3"></label>
-                        <input class="star star-2" value="2" id="star3.4" type="radio" name="star3"/>
-                        <label class="star star-2" for="star3.4"></label>
-                        <input class="star star-1" value="1" id="star3.5" type="radio" name="star3"/>
-                        <label class="star star-1" for="star3.5"></label>
-                    </div>
-                    <p name="menu1" style="position:absolute;margin-top: 147px;float:left; margin-left:15px">메뉴4</p>
-                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 140px;position: absolute;margin-left: 80px;">
-                        <input class="star star-5" value="5" id="star4.1" type="radio" name="star4"/>
-                        <label class="star star-5" for="star4.1"></label>
-                        <input class="star star-4" value="4" id="star4.2" type="radio" name="star4"/>
-                        <label class="star star-4" for="star4.2"></label>
-                        <input class="star star-3" value="3" id="star4.3" type="radio" name="star4"/>
-                        <label class="star star-3" for="star4.3"></label>
-                        <input class="star star-2" value="2" id="star4.4" type="radio" name="star4"/>
-                        <label class="star star-2" for="star4.4"></label>
-                        <input class="star star-1" value="1" id="star4.5" type="radio" name="star4"/>
-                        <label class="star star-1" for="star4.5"></label>
-                    </div>
-                    <p name="menu1" style="position:absolute;margin-top: 187px;float:left; margin-left:15px">메뉴5</p>
-                    <div type="hidden" name="menu1"  class="starRating"  style="margin-top: 180px;position: absolute;margin-left: 80px;">
-                        <input class="star star-5" value="5" id="star5.1" type="radio" name="star5"/>
-                        <label class="star star-5" for="star5.1"></label>
-                        <input class="star star-4" value="4" id="star5.2" type="radio" name="star5"/>
-                        <label class="star star-4" for="star5.2"></label>
-                        <input class="star star-3" value="3" id="star5.3" type="radio" name="star5"/>
-                        <label class="star star-3" for="star5.3"></label>
-                        <input class="star star-2" value="2" id="star5.4" type="radio" name="star5"/>
-                        <label class="star star-2" for="star5.4"></label>
-                        <input class="star star-1" value="1" id="star5.5" type="radio" name="star5"/>
-                        <label class="star star-1" for="star5.5"></label>
-                    </div>
-
-                </div>
-
+                    <table>
+                        <tr th:each="list : ${menuList}">
+                            <td th:text="${list}" name="menu1" style="margin-top: 27px;float:left; margin-left:15px">메뉴1</td>
+                            <td type="hidden" name="menu1"  class="starRating"  style="margin-top: 20px;position: absolute;margin-left: 80px;">
+                                <input class="star star-5"+ value="5" th:id="'star'+${menuList.indexOf(list)}+1.1" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
+                                <label class="star star-5" th:for="'star'+${menuList.indexOf(list)}+1.1"></label>
+                                <input class="star star-4" value="4" th:id="'star'+${menuList.indexOf(list)}+1.2" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
+                                <label class="star star-4" th:for="'star'+${menuList.indexOf(list)}+1.2"></label>
+                                <input class="star star-3" value="3" th:id="'star'+${menuList.indexOf(list)}+1.3" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
+                                <label class="star star-3" th:for="'star'+${menuList.indexOf(list)}+1.3"></label>
+                                <input class="star star-2" value="2" th:id="'star'+${menuList.indexOf(list)}+1.4" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
+                                <label class="star star-2" th:for="'star'+${menuList.indexOf(list)}+1.4"></label>
+                                <input class="star star-1" value="1" th:id="'star'+${menuList.indexOf(list)}+1.5" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
+                                <label class="star star-1" th:for="'star'+${menuList.indexOf(list)}+1.5"></label>
+                            </td>
+                        </tr>
+                    </table>
             </div>
             <div  class="password" >
                 <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>

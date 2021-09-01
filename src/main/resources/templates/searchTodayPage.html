@@ -119,7 +119,7 @@
     </div>
 
     <!-- 리뷰 파트 -->
-    <div class="searchReviews">
+    <div class="searchReviews" style="margin-top:14px">
         <table style="width: 650px;border-spacing: 0 20px;border-collapse: separate;">
             <tbody >
             <tr th:each="review : ${reviews}" style="">
@@ -132,9 +132,15 @@
                     <div class="reviewContent" >
                         <div class="reviewMenu" >
                             <i class="fas fa-utensils" style="float : left"></i>
-                            <p th:text="${review.menu_name}" style="float : left;margin-left: 5px">menu name</p>
-                            <p th:text="${review.score}" style="margin-left: 5px">★★★★★</p>
+                            <table>
+                                <tr th:each="menuName, itemStat : *{review.menu_name}">
+                                    <td style="width: 300px;">
+                                        <p th:text="${review.menu_name[__${itemStat.index}__]}" style="float : left;margin-left: 5px">menu name</p>
+                                        <p th:text="${review.score[__${itemStat.index}__]}" style="margin-left: 5px">menu score</p>
+                                    </td>
+                                </tr>
 
+                            </table>
                         </div>
                         <div class="reviewDate">
                             <p th:text="${review.date}">date</p>

@@ -82,8 +82,39 @@
         .menu2:hover{
             background: #A8A8A8;
         }
-    </style>
 
+        .ui-menu .ui-menu-item-wrapper{
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .ui-menu-item{
+            font-size: 12px;
+        }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#searchKeyword').autocomplete({
+                source : '/autoSearching',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#searchKeyword').val(ui.item.name);
+                    $('#searchKeyword-id').val(ui.item.menuId);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+        });
+    </script>
 </head>
 <body class="gamja-font">
 <header>
@@ -105,6 +136,7 @@
                 </select>
                 <label for="searchKeyword">메뉴</label>
                 <input type="text" placeholder="EX) 새우까스, 샐러드" id="searchKeyword" name="searchKeyword">
+                <input type="hidden" id="searchKeyword-id">
                 <button type="submit" class="searchButton">
                     <i class="fas fa-search"></i>
                 </button>

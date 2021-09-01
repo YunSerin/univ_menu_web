@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -43,9 +40,24 @@ public class SearchController {
         List<Object> reviews = new ArrayList<>();
         for(Review r : searchedReview){
             Map<String, Object> reviewMap = new HashMap<String, Object>();
+            List<String> menuNameList = new ArrayList<>();
+            List<String> menuScoreList = new ArrayList<>();
+            Map<String, String> reviewScores = new HashMap<>();
+
             reviewMap.put("place", places[r.getPlaceId()]);
-            reviewMap.put("menu_name", "돈까스");
-            reviewMap.put("score", "★★★★★");
+            r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
+                menuNameList.add(searchService.findMenuNameById(Integer.parseInt(menuName)));
+                switch (menuScore){
+                    case "1": menuScoreList.add("★"); break;
+                    case "2": menuScoreList.add("★★"); break;
+                    case "3": menuScoreList.add("★★★"); break;
+                    case "4": menuScoreList.add("★★★★"); break;
+                    case "5": menuScoreList.add("★★★★★"); break;
+                }
+            });
+//            logger.info("test : {} ", menuScoreList);
+            reviewMap.put("menu_name", menuNameList);
+            reviewMap.put("score", menuScoreList);
             reviewMap.put("date", r.getReviewDate());
             reviewMap.put("comment", r.getReviewComment());
             reviewMap.put("writer", r.getUserId().getNickname());
@@ -60,15 +72,20 @@ public class SearchController {
         ModelAndView mav = new ModelAndView();
         int placeName = Integer.parseInt(request.getParameter("placeName"));
         String keyword = URLEncoder.encode(request.getParameter("searchKeyword"), "UTF-8");
-        List<Menu> searchedMenuList = new ArrayList<>();
-        Menu searchedMenuId = new Menu();
+        List<Menu> searchedMenuIdList;
+        Menu searchedMenuId;
         List<Review> searchedReview = new ArrayList<>();
 
         if(placeName==-1){ //place All
             //검색어 없을때
-            if(keyword == ""){ searchedReview = searchService.findAllReview(); }
-            else { //처리필요
-                searchedMenuList = searchService.findAllByMenuName(keyword);
+            if(keyword == "") //{ searchedReview = searchService.findAllReview(); }
+            {searchedReview = searchService.findAllKeywords();}
+            else { //검색어만 있을때
+                searchedMenuIdList = searchService.findAllByMenuName(request.getParameter("searchKeyword"));
+                for(Menu m : searchedMenuIdList){
+                    searchedReview.addAll(searchService.findByTotalScore(m.getId().toString()));
+                }
+
             }
         }else{ //특정 place
             if(keyword == ""){
@@ -103,4 +120,11 @@ public class SearchController {
         return mav;
     }
 
+
+    ///
+    @RequestMapping(value = "autoSearching", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> searchingAutocomplete(HttpServletRequest request){
+        return searchService.searchingAutocomplete(request.getParameter("term"));
+    }
 }

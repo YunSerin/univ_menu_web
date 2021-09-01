@@ -5,7 +5,7 @@
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+<!--    <script type="text/javascript" src="js/mainjomeJs.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <title>이돼장</title>
     <style media="screen">
@@ -88,7 +88,40 @@
             text-align: right;
             font-size: 20px;
         }
+
+        .ui-menu .ui-menu-item-wrapper{
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .ui-menu-item{
+            font-size: 12px;
+        }
     </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#searchKeyword').autocomplete({
+                source : '/autoSearching',
+                minLength : 1,
+                focus: function(event, ui){
+                    // $('#searchKeyword').val(ui.item.name);
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#searchKeyword').val(ui.item.name);
+                    $('#searchKeyword-id').val(ui.item.menuId);
+                    return false;
+                }
+            })
+            .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+        });
+    </script>
 </head>
 <body class="gamja-font">
 <header>
@@ -133,6 +166,7 @@
         </select>
         <label for="searchKeyword" style="margin-left: 20px">메뉴</label>
         <input type="text" th:value="${keyword}" id="searchKeyword" name="searchKeyword">
+        <input type="hidden" id="searchKeyword-id">
         <button type="submit" class="searchedButton">
             <i class="fas fa-search"></i>
         </button>
@@ -167,9 +201,15 @@
                     <div class="reviewContent" >
                         <div class="reviewMenu" >
                             <i class="fas fa-utensils" style="float : left"></i>
-                            <p th:text="${review.menu_name}" style="float : left;margin-left: 5px">menu name</p>
-                            <p th:text="${review.score}" style="margin-left: 5px">★★★★★</p>
+                            <table>
+                                <tr th:each="menuName, itemStat : *{review.menu_name}">
+                                    <td style="width: 300px;">
+                                        <p th:text="${review.menu_name[__${itemStat.index}__]}" style="float : left;margin-left: 5px">menu name</p>
+                                        <p th:text="${review.score[__${itemStat.index}__]}" style="margin-left: 5px">menu score</p>
+                                    </td>
+                                </tr>
 
+                            </table>
                         </div>
                         <div class="reviewDate">
                             <p th:text="${review.date}">date</p>

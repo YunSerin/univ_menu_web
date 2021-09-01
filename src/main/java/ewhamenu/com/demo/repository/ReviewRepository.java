@@ -15,11 +15,6 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Review findById(long id);
-//select json_extract(review.total_score, '$.rates') from review where json_extract(review.total_score, '$.rates.1') is not null;
-    // select * from review as r where json_contains(json_keys(r.total_score, '$.rates'), "1",'$' );
-    ////select * from review as r where json_search( json_keys(r.total_scores, '$.rates'), 'one', "1") is not null
-//    @Query("SELECT r FROM Review AS r WHERE JSON_EXTRACT(r.totalScore, '$.rates.:key') is not null")
-//    @Query(value = "SELECT * FROM Review AS r where JSON_EXTRACT(r.total_score, '$.rates', ?1)", nativeQuery = true)
 @Query(value = "SELECT * FROM Review AS r where JSON_SEARCH(json_keys(r.total_score, '$.rates'), 'one', :key) is not null", nativeQuery = true)
     public List<Review> findByTotalScoreOrderByIdDesc(@Param("key") String key);
 
@@ -28,5 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     public List<Review> findAllByPlaceIdOrderByIdDesc(int placeId);
 
     public List<Review> findAllByDietId(Diet dietId);
+    @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), '[\"1\",\"2\"]', '$')", nativeQuery = true)
+    public List<Review> findAllByTotalScoreOrderByIdDesc();
 
 }

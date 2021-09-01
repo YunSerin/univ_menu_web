@@ -94,11 +94,12 @@ blockquote p {
 }
 
 td {
+}
+.mainTd{
     align: left;
     float: left;
     list-style:none;
     width: 150px;
-
 }
 
 thead td{

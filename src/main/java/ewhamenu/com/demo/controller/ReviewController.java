@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ReviewController {
@@ -51,18 +50,19 @@ public class ReviewController {
         }
         model.addAttribute("placeId", placeId);
 
+        List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
+        model.addAttribute("menuList", menuList);
         return "createReview";
     }
 
-    @GetMapping("createReview") //그냥 리뷰작성 버튼
+    @GetMapping("createReview_default") //그냥 리뷰작성 버튼
     public String createReview(HttpServletRequest request, ModelAndView mav){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
 
-
-          return "createReview";
+          return "createReview_default";
     }
     @PostMapping("/saveReivew") //리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
     public String ReviewInput(Review review,HttpServletRequest request){
@@ -75,18 +75,12 @@ public class ReviewController {
         review.getReviewDate();
         review.getReviewComment();
         review.getPlaceId();
-        String totalscore1 = request.getParameter("star1");
-        String totalscore2 = request.getParameter("star2");
-        String totalscore3 = request.getParameter("star3");
-        String totalscore4 = request.getParameter("star4");
-        String totalscore5 = request.getParameter("star5");
+        List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
         TotalScore totalScore = new TotalScore();
         Map<String, String> rates = new LinkedHashMap<>();
-        rates.put("1", totalscore1);
-        rates.put("2", totalscore2);
-        rates.put("3", totalscore3);
-        rates.put("4", totalscore4);
-        rates.put("5", totalscore5);
+        for(int i=0;i<menuList.size();i++){
+            rates.put(menuList.get(i), request.getParameter("star"+i+1));
+        }
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;

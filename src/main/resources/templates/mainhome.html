@@ -123,7 +123,7 @@
                     <i class="fas fa-search"></i>
                 </button>
 <!--            </form>-->
-        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview" method="post" action="/createReview" role="button" >
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview_default" method="post" action="/createReview_default" role="button" >
             리뷰작성
         </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
@@ -158,38 +158,38 @@
         <table>
             <thead>
                 <tr>
-                    <td>
+                    <td class="mainTd">
                         <p>생활관 학생식당</p>
                     </td>
-                    <td>
+                    <td class="mainTd">
                         <p>생활관 교직원 식당</p>
                     </td>
-                    <td>
+                    <td class="mainTd">
                         <p>진선미관 식당</p>
                     </td>
-                    <td>
+                    <td class="mainTd">
                         <p>헬렌관 식당</p>
                     </td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td onClick="location.href='/searchToday?menuNo=0'">
+                    <td onClick="location.href='/searchToday?menuNo=0'" class="mainTd">
                         <blockquote width="50" height="90">
                             <p class="menu1"  th:text="${diets.get(0)}" >메뉴1</p>
                         </blockquote>
                     </td>
-                    <td onClick="location.href='/searchToday?menuNo=2'">
+                    <td onClick="location.href='/searchToday?menuNo=2'" class="mainTd">
                         <blockquote width="50" height="90">
                             <p class="menu1"   th:text="${diets.get(2)}">메뉴2</p>
                         </blockquote>
                     </td>
-                    <td onClick="location.href='/searchToday?menuNo=4'">
+                    <td onClick="location.href='/searchToday?menuNo=4'" class="mainTd">
                         <blockquote  width="50" height="90">
                             <p class="menu1" th:text="${diets.get(4)}" >메뉴3</p>
                         </blockquote>
                     </td>
-                    <td onClick="location.href='/searchToday?menuNo=6'">
+                    <td onClick="location.href='/searchToday?menuNo=6'" class="mainTd">
                         <blockquote  width="50" height="90">
                             <p class="menu1"  th:text="${diets.get(6)}">메뉴4</p>
                         </blockquote>
@@ -198,22 +198,22 @@
             </tbody>
             <tbody height="50px">
                 <tr>
-                <td onClick="location.href='/searchToday?menuNo=1'">
+                <td onClick="location.href='/searchToday?menuNo=1'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(1)}">메뉴1-2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=3'">
+                <td onClick="location.href='/searchToday?menuNo=3'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(3)}">메뉴2-2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=5'">
+                <td onClick="location.href='/searchToday?menuNo=5'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(5)}">메뉴3-2</p>
                     </blockquote>
                 </td>
-                    <td onClick="location.href='/searchToday?menuNo=7'">
+                    <td onClick="location.href='/searchToday?menuNo=7'" class="mainTd">
                         <blockquote width="50" height="90">
                             <p class="menu2" th:text="${diets.get(7)}">메뉴3-2</p>
                         </blockquote>
@@ -222,38 +222,38 @@
             </tbody>
             <thead>
             <tr>
-                <td>
+                <td class="mainTd">
                     <p>공대식당</p>
                 </td>
-                <td>
+                <td class="mainTd">
                     <p>한우리집 지하 1층</p>
                 </td>
-                <td>
+                <td class="mainTd">
                     <p>이하우스 201동</p>
                 </td>
-                <td>
+                <td class="mainTd">
                     <p>이하우스 301동</p>
                 </td>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td onClick="location.href='/searchToday?menuNo=8'">
+                <td onClick="location.href='/searchToday?menuNo=8'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu1" th:text="${diets.get(8)}">메뉴1</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=10'">
+                <td onClick="location.href='/searchToday?menuNo=10'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu1" th:text="${diets.get(10)}">메뉴2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=12'">
+                <td onClick="location.href='/searchToday?menuNo=12'" class="mainTd">
                     <blockquote  width="50" height="90">
                         <p class="menu1" th:text="${diets.get(12)}">메뉴3</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=14'">
+                <td onClick="location.href='/searchToday?menuNo=14'" class="mainTd">
                     <blockquote  width="50" height="90">
                         <p class="menu1" th:text="${diets.get(14)}">메뉴3</p>
                     </blockquote>
@@ -262,22 +262,22 @@
             </tbody>
             <tbody height="50px">
             <tr>
-                <td onClick="location.href='/searchToday?menuNo=9'">
+                <td onClick="location.href='/searchToday?menuNo=9'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(9)}">메뉴1-2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=11'">
+                <td onClick="location.href='/searchToday?menuNo=11'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(11)}">메뉴2-2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=13'">
+                <td onClick="location.href='/searchToday?menuNo=13'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(13)}">메뉴3-2</p>
                     </blockquote>
                 </td>
-                <td onClick="location.href='/searchToday?menuNo=15'">
+                <td onClick="location.href='/searchToday?menuNo=15'" class="mainTd">
                     <blockquote width="50" height="90">
                         <p class="menu2" th:text="${diets.get(15)}">메뉴3-2</p>
                     </blockquote>

@@ -72,25 +72,21 @@ public class SearchController {
         ModelAndView mav = new ModelAndView();
         int placeName = Integer.parseInt(request.getParameter("placeName"));
         String keyword = URLEncoder.encode(request.getParameter("searchKeyword"), "UTF-8");
+        logger.info("ids : {} ", request.getParameter("searchKeyword-id"));
         List<Menu> searchedMenuIdList;
         Menu searchedMenuId;
         List<Review> searchedReview = new ArrayList<>();
 
         if(placeName==-1){ //place All
             //검색어 없을때
-            if(keyword == "") //{ searchedReview = searchService.findAllReview(); }
-            {searchedReview = searchService.findAllKeywords();}
+            if(keyword == "") { searchedReview = searchService.findAllReview(); }
             else { //검색어만 있을때
-                searchedMenuIdList = searchService.findAllByMenuName(request.getParameter("searchKeyword"));
-                for(Menu m : searchedMenuIdList){
-                    searchedReview.addAll(searchService.findByTotalScore(m.getId().toString()));
-                }
-
+                searchedReview = searchService.findAllKeywords(request.getParameter("searchKeyword-id"));
             }
         }else{ //특정 place
             if(keyword == ""){
                 searchedReview = searchService.findAllReviewByPlaceId(placeName);
-            }else{
+            }else{  ////////////////////////수정필요
                 searchedMenuId = searchService.findByMenuNameAndPlaceId(request.getParameter("searchKeyword"), placeName);
                 searchedReview = searchService.findByTotalScore(searchedMenuId.getId().toString());
             }
@@ -111,7 +107,6 @@ public class SearchController {
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
         List<Diet> todayDiet = dietService.findTodayDiets(LocalDate.now()); //오늘자 diet 데이터
         List<Review> todayReview = searchService.findAllByDietId(todayDiet.get(menuNo));
-//        logger.info("test : {} ", todayReview.get(0).getTotalScore());
         List<Object> reviews = reviewListing(todayReview);
         mav.addObject("reviews", reviews);
         mav.addObject("dietId", todayDiet.get(menuNo).getDietId());
@@ -125,6 +120,7 @@ public class SearchController {
     @RequestMapping(value = "autoSearching", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> searchingAutocomplete(HttpServletRequest request){
+//        logger.info("test : {} ",request.getParameter("term") );
         return searchService.searchingAutocomplete(request.getParameter("term"));
     }
 }

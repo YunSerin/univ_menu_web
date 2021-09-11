@@ -1,18 +1,18 @@
 package ewhamenu.com.demo.service;
 
+import ewhamenu.com.demo.controller.MainhomeController;
 import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.domain.Review;
 import ewhamenu.com.demo.repository.MenuRepository;
 import ewhamenu.com.demo.repository.ReviewRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SearchService {
@@ -20,6 +20,7 @@ public class SearchService {
     private MenuRepository menuRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
 
     ////////////////Menu Service
     public Menu findByMenuNameAndPlaceId(String menuName, int placeId){
@@ -71,8 +72,14 @@ public class SearchService {
         return reviewToday;
     }
 
-    public List<Review> findAllKeywords(){
-        List<Review> reviewSearched = reviewRepository.findAllByTotalScoreOrderByIdDesc();
+    public List<Review> findAllKeywords(String menuIds){
+        String[] ids = menuIds.split(",");
+        for(int i=0;i<ids.length;i++){
+            ids[i] = "\""+ids[i]+"\"";
+        }
+        String menuIds_keyword = Arrays.deepToString(ids);
+        logger.info("test : {} ",menuIds_keyword );
+        List<Review> reviewSearched = reviewRepository.findAllByTotalScoreOrderByIdDesc(menuIds_keyword);
         return reviewSearched;
     }
 }

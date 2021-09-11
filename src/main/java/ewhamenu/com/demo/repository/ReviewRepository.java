@@ -23,7 +23,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     public List<Review> findAllByPlaceIdOrderByIdDesc(int placeId);
 
     public List<Review> findAllByDietId(Diet dietId);
-    @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), '[\"1\",\"2\"]', '$')", nativeQuery = true)
-    public List<Review> findAllByTotalScoreOrderByIdDesc();
+
+    @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), :key, '$')", nativeQuery = true)
+    public List<Review> findAllByTotalScoreOrderByIdDesc(@Param("key") String key);
 
 }

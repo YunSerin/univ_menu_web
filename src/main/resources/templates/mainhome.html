@@ -95,24 +95,65 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
-        $(document).ready(function (){
-            $('#searchKeyword').autocomplete({
-                source : '/autoSearching',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#searchKeyword').val(ui.item.name);
-                    $('#searchKeyword-id').val(ui.item.menuId);
-                    return false;
-                }
-            })
+        $(document).ready(function () {
+
+            $('#searchKeyword')
+                .bind("keydown", function(event) {
+                    if (event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).data("ui-autocomplete").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/autoSearching",
+                            type: 'GET',
+                            data: {term : extractLast(request.term)},
+                            success: function(data){
+                                var results = [];
+                                var term = extractLast(request.term);
+                                $.each(data, function(k, v) {
+                                    if (v.name.indexOf(term) != -1) {
+                                        results.push(v);
+                                    }
+                                });
+                                response(results);
+                            }
+                        });
+                    },
+                    minLength : 1,
+                    focus: function(event, ui){
+                        return false;
+                    },
+                    select: function (event, ui){
+                        var names = split(this.value);
+                        var menuIds = split($('#searchKeyword-id').val());
+                        names.pop();
+                        menuIds.pop();
+
+                        names.push(ui.item.name);
+                        menuIds.push(ui.item.menuId);
+                        names.push("");
+                        menuIds.push("");
+                        this.value = names.join(", ");
+                        $('#searchKeyword-id').val(menuIds.join(","));
+                        return false;
+                    }
+                })
                 .autocomplete("instance")._renderItem = function(ul, item){
                 return $( "<li>" )
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
+
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+
+            function extractLast(term) {
+                return split(term).pop();
+            }
         });
     </script>
 </head>
@@ -136,7 +177,7 @@
                 </select>
                 <label for="searchKeyword">메뉴</label>
                 <input type="text" placeholder="EX) 새우까스, 샐러드" id="searchKeyword" name="searchKeyword">
-                <input type="hidden" id="searchKeyword-id">
+                <input type="hidden" id="searchKeyword-id" name="searchKeyword-id">
                 <button type="submit" class="searchButton">
                     <i class="fas fa-search"></i>
                 </button>

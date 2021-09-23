@@ -26,4 +26,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     @Query(value = "SELECT * FROM menu where menu_name like %:keyword%", nativeQuery = true)
     public List<Menu> searchingAutocomplete(@Param("keyword") String keyword);
+
+    @Query(value = "SELECT * FROM menu where place_id = :placeId AND menu_name like %:keyword%", nativeQuery = true)
+    public List<Menu> findMenusByKeyword(@Param("keyword") String keyword, @Param("placeId") int placeId);
 }

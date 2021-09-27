@@ -181,7 +181,7 @@
 
     <div class="login_box">
         <!-- 로그인 폼 -->
-        <form method="post" action="saveReivew">
+        <form method="post" action="saveTodayReivew">
             <div style="position:relative;" >
                 <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>
                 <div class="givestar">
@@ -210,7 +210,7 @@
 <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
                 <select  class="place"  name="placeId" id="placeId">
                     <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
-                    <option value="0" th:elected ="${placeId == 0}">생활관 학생식당</option>
+                    <option value="0" th:selected ="${placeId == 0}">생활관 학생식당</option>
                     <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>
                     <option value="2" th:selected ="${placeId == 2}">진선미관 식당</option>
                     <option value="3" th:selected ="${placeId == 3}" >헬렌관 식당</option>

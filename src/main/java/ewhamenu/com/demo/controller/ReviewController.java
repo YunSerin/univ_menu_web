@@ -37,13 +37,13 @@ public class ReviewController {
     private SearchService searchService;
     private String placeId;
 
-    @PostMapping("createReview")    // 오늘의 메뉴 리뷰작성 버튼
-    public String createReviewPage(HttpServletRequest request, Model model){
+    @PostMapping("createTodayReview")    // 오늘의 메뉴 -> 리뷰작성 버튼
+    public String createTodayReviewpage(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
         model.addAttribute("today", formatter);
         String dietId_str = request.getParameter("dietId");
         long placeId;
@@ -57,17 +57,17 @@ public class ReviewController {
 
         List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
         model.addAttribute("menuList", menuList);
-        return "createReview";
+        return "createTodayReview";
     }
 
 
-    @GetMapping("createReview_default") //그냥 리뷰작성 버튼
+    @GetMapping("createReviewDefault") //상단 리뷰작성 버튼
     public String createReview(HttpServletRequest request, ModelAndView mav){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
-          return "createReview_default";
+          return "createReviewDefault";
     }
 
     @RequestMapping(value = "getPlaceId", method = RequestMethod.POST)
@@ -85,8 +85,8 @@ public class ReviewController {
         List<Object> menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId));
         return menus;
     }
-    @PostMapping("/saveReivew") //리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
-    public String ReviewInput(Review review,HttpServletRequest request){
+    @PostMapping("/saveTodayReivew") //리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
+    public String saveTodayReview(Review review, HttpServletRequest request){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
@@ -96,7 +96,7 @@ public class ReviewController {
         review.getReviewDate();
         review.getReviewComment();
         review.getPlaceId();
-            List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
+        List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
         TotalScore totalScore = new TotalScore();
         Map<String, String> rates = new LinkedHashMap<>();
         for(int i=0;i<menuList.size();i++){
@@ -117,5 +117,41 @@ public class ReviewController {
         mav.setViewName("message");
         return "redirect:/";
     }
+    @PostMapping("saveDefaultMenu")
+    public String saveDefaultReview(Review review, HttpServletRequest request, @RequestParam(value="menuAuto", required=true) List<String> menuList){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+        ModelAndView mav = new ModelAndView();
+        String userID = session.getAttribute("userId").toString();
+        review.getReviewDate();
+        review.getReviewComment();
+        review.getPlaceId();
+        TotalScore totalScore = new TotalScore();
+        Map<String, String> rates = new LinkedHashMap<>();
+        for(int i=0;i<menuList.size();i++){
+            if(menuList.get(i)!="") {
+                int j = i+1;
+                rates.put(menuList.get(i), (String) request.getParameter("star" + j));
+            }else{
 
+            }
+
+        }
+        totalScore.setRates(rates);
+        review.setTotalScore(totalScore);
+        float averageScore=0;
+        for(String key : rates.keySet()) {
+            String value = rates.get(key);
+            averageScore += Integer.parseInt(value);
+        }
+        averageScore /= rates.size();
+        review.setAverageScore(averageScore);
+        review.setDietId(null);
+        reviewService.saveReview(review, userID);
+        mav.addObject("data", new Message("리뷰가 등록되었습니다!", "/"));
+        mav.setViewName("message");
+        return"redirect:/";
+    }
 }

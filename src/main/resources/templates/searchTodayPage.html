@@ -82,6 +82,9 @@
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
+            리뷰작성
+        </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
             마이페이지
         </a>
@@ -108,7 +111,7 @@
                 <option value="등록순">등록순</option>
                 <option value="별점순">별점순</option>
             </select>
-            <form th:if= "${session.loginCheck eq true}" action="/createReview" id="createReviewBtn" method="post">
+            <form th:if= "${session.loginCheck eq true}" action="/createTodayReview" id="createReviewBtn" method="post">
                 <input type="hidden" name="dietId" th:value="${dietId}"/>
                 <button  th:if= "${session.loginCheck eq true}" type="submit" class="writeReview" >
                     리뷰작성

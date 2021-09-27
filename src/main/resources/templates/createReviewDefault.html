@@ -19,7 +19,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
 
         .login_box{  /* 박스 전체 부분*/
-            height: 570px;
+            min-height: 570px;
+            max-height: 800px;
             width: 360px;
             background-color: white;
             margin-top: 50px;
@@ -51,7 +52,8 @@
             height: 100px;
             width: 300px;
             margin-left: 30px;
-            margin-top:17px;
+            margin-top:5px;
+            margin-bottom: 15px;
             border: solid 1px #FDD973;
             border-radius: 10px;
             z-index:2;
@@ -101,6 +103,7 @@
         .reviewSubmit{
             width: 280px;
             height: 50px;
+            margin-bottom: 20px;
             background-color: #FDD973;
             border: solid 0px white;
             font-size: 20px;
@@ -317,8 +320,19 @@
                     .appendTo( ul );
             };
         $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
-            $("#plusbutton").click(function () {
-                $('#menu5Tr').eq(0).empty();
+            var trSize = 2; //현재 별점 행 개수
+            $("#plusbutton").click(function(){
+                if (trSize<=7) { //최대 8개까지 추가 가능
+                    $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+                    trSize += 1;
+                }
+            });
+            $("#minusbutton").click(function () {
+                if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
+                    $('#menu' + trSize + 'Tr').css("display", "none");
+                    trSize -= 1;
+                    //$('#menu'+trSize+'Tr').eq(0).empty();
+                }
             });
             //     status = $("#menu6Tr").css("display");
             // if (status == "none") {
@@ -370,7 +384,7 @@
             <i class="fas fa-search"></i>
         </button>
         <!--            </form>-->
-        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReview_default" method="post" action="/createReview_default" role="button" >
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
             리뷰작성
         </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
@@ -392,7 +406,7 @@
 
     <div class="login_box">
         <!-- 로그인 폼 -->
-        <form method="get" action="/createReview_default" >
+        <form method="post" action="/saveDefaultMenu" >
             <div style="position:relative;" >
 <!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
                 <div  class="password" style="margin-top: 20px">
@@ -419,18 +433,18 @@
                     <table style="margin-top: 30px;margin-left: 10px">
                         <tr>
                             <td id="menuName1" style="float:left; ">
-                                <input th:method="get" type="text" style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
                             </td>
                             <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star1.1" type="radio" th:name="star1"/>
+                                <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>
                                 <label class="star star-5" for="star1.1"></label>
-                                <input class="star star-4" value="4" id="star1.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star1.2" type="radio" name="star1"/>
                                 <label class="star star-4" for="star1.2"></label>
-                                <input class="star star-3" value="3" id="star1.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star1.3" type="radio" name="star1"/>
                                 <label class="star star-3" for="star1.3"></label>
-                                <input class="star star-2" value="2" id="star1.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star1.4" type="radio" name="star1"/>
                                 <label class="star star-2" for="star1.4"></label>
-                                <input class="star star-1" value="1" id="star1.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star1.5" type="radio" name="star1"/>
                                 <label class="star star-1" for="star1.5"></label>
                             </td>
                         </tr>
@@ -438,87 +452,92 @@
                             <td id="menuName2" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto2">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star2.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu2"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star2.1" type="radio" name="star2"/>
                                 <label class="star star-5" for="star2.1"></label>
-                                <input class="star star-4" value="4" id="star2.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star2.2" type="radio" name="star2"/>
                                 <label class="star star-4" for="star2.2"></label>
-                                <input class="star star-3" value="3" id="star2.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star2.3" type="radio" name="star2"/>
                                 <label class="star star-3" for="star2.3"></label>
-                                <input class="star star-2" value="2" id="star2.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star2.4" type="radio" name="star2"/>
                                 <label class="star star-2" for="star2.4"></label>
-                                <input class="star star-1" value="1" id="star2.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star2.5" type="radio" name="star2"/>
                                 <label class="star star-1" for="star2.5"></label>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="menu2Tr">
+                            <button id="plusbutton" type="submit" onclick="return false;" style="">
+                            <i class="fas fa-plus" ></i>
+                            </button>
+                            <button id="minusbutton" type="submit" onclick="return false;" style="">
+                            <i class="fa fa-minus" ></i>
+                            </button>
+                        </tr>
+                        <tr id="menu3Tr" style="display:none;">
                             <td id="menuName3" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto3">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star3.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu3"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star3.1" type="radio" th:name="star3"/>
                                 <label class="star star-5" for="star3.1"></label>
-                                <input class="star star-4" value="4" id="star3.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star3.2" type="radio" th:name="star3"/>
                                 <label class="star star-4" for="star3.2"></label>
-                                <input class="star star-3" value="3" id="star3.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star3.3" type="radio" th:name="star3"/>
                                 <label class="star star-3" for="star3.3"></label>
-                                <input class="star star-2" value="2" id="star3.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star3.4" type="radio" th:name="star3"/>
                                 <label class="star star-2" for="star3.4"></label>
-                                <input class="star star-1" value="1" id="star3.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star3.5" type="radio" th:name="star3"/>
                                 <label class="star star-1" for="star3.5"></label>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="menu4Tr" style="display:none;">
                             <td id="menuName4" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto4">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star4.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu4"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star4.1" type="radio" th:name="star4"/>
                                 <label class="star star-5" for="star4.1"></label>
-                                <input class="star star-4" value="4" id="star4.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star4.2" type="radio" th:name="star4"/>
                                 <label class="star star-4" for="star4.2"></label>
-                                <input class="star star-3" value="3" id="star4.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star4.3" type="radio" th:name="star4"/>
                                 <label class="star star-3" for="star4.3"></label>
-                                <input class="star star-2" value="2" id="star4.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star4.4" type="radio" th:name="star4"/>
                                 <label class="star star-2" for="star4.4"></label>
-                                <input class="star star-1" value="1" id="star4.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star4.5" type="radio" th:name="star4"/>
                                 <label class="star star-1" for="star4.5"></label>
                             </td>
                         </tr>
-                        <tr id="menu5Tr">
+                        <tr id="menu5Tr" style="display:none;">
                             <td id="menuName5" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto5">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star5.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu5"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star5.1" type="radio" th:name="star5"/>
                                 <label class="star star-5" for="star5.1"></label>
-                                <input class="star star-4" value="4" id="star5.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star5.2" type="radio" th:name="star5"/>
                                 <label class="star star-4" for="star5.2"></label>
-                                <input class="star star-3" value="3" id="star5.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star5.3" type="radio" th:name="star5"/>
                                 <label class="star star-3" for="star5.3"></label>
-                                <input class="star star-2" value="2" id="star5.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star5.4" type="radio" th:name="star5"/>
                                 <label class="star star-2" for="star5.4"></label>
-                                <input class="star star-1" value="1" id="star5.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star5.5" type="radio" th:name="star5"/>
                                 <label class="star star-1" for="star5.5"></label>
                             </td>
                         </tr>
-                        <tr><button id="plusbutton" type="submit" onclick="return false;" style="margin-top: 200px; position: absolute;">
-                            <i class="fas fa-plus" ></i>
-                        </button></tr>
                         <tr id="menu6Tr" style="display:none;">
                             <td  style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto6">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star6.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu6"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star6.1" type="radio" name="star6"/>
                                 <label class="star star-5" for="star6.1"></label>
-                                <input class="star star-4" value="4" id="star6.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star6.2" type="radio" name="star6"/>
                                 <label class="star star-4" for="star6.2"></label>
-                                <input class="star star-3" value="3" id="star6.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star6.3" type="radio" name="star6"/>
                                 <label class="star star-3" for="star6.3"></label>
-                                <input class="star star-2" value="2" id="star6.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star6.4" type="radio" name="star6"/>
                                 <label class="star star-2" for="star6.4"></label>
-                                <input class="star star-1" value="1" id="star6.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star6.5" type="radio" name="star6"/>
                                 <label class="star star-1" for="star6.5"></label>
                             </td>
                         </tr>
@@ -526,16 +545,16 @@
                             <td id="menuName7" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto7">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star7.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu7"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star7.1" type="radio" th:name="star7"/>
                                 <label class="star star-5" for="star7.1"></label>
-                                <input class="star star-4" value="4" id="star7.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star7.2" type="radio" th:name="star7"/>
                                 <label class="star star-4" for="star7.2"></label>
-                                <input class="star star-3" value="3" id="star7.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star7.3" type="radio" th:name="star7"/>
                                 <label class="star star-3" for="star7.3"></label>
-                                <input class="star star-2" value="2" id="star7.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star7.4" type="radio" th:name="star7"/>
                                 <label class="star star-2" for="star7.4"></label>
-                                <input class="star star-1" value="1" id="star7.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star7.5" type="radio" th:name="star7"/>
                                 <label class="star star-1" for="star7.5"></label>
                             </td>
                         </tr>
@@ -543,16 +562,16 @@
                             <td id="menuName8" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto8">
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star8.1" type="radio" th:name="star1"/>
+                            <td type="hidden" name="menu8"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star8.1" type="radio" th:name="star8"/>
                                 <label class="star star-5" for="star8.1"></label>
-                                <input class="star star-4" value="4" id="star8.2" type="radio" th:name="star1"/>
+                                <input class="star star-4" value="4" id="star8.2" type="radio" th:name="star8"/>
                                 <label class="star star-4" for="star8.2"></label>
-                                <input class="star star-3" value="3" id="star8.3" type="radio" th:name="star1"/>
+                                <input class="star star-3" value="3" id="star8.3" type="radio" th:name="star8"/>
                                 <label class="star star-3" for="star8.3"></label>
-                                <input class="star star-2" value="2" id="star8.4" type="radio" th:name="star1"/>
+                                <input class="star star-2" value="2" id="star8.4" type="radio" th:name="star8"/>
                                 <label class="star star-2" for="star8.4"></label>
-                                <input class="star star-1" value="1" id="star8.5" type="radio" th:name="star1"/>
+                                <input class="star star-1" value="1" id="star8.5" type="radio" th:name="star8"/>
                                 <label class="star star-1" for="star8.5"></label>
                             </td>
                         </tr>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+
+<head>
+    <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <title>이돼장</title>
+    <style media="screen">
+        td{
+            margin-top: 2px;
+        }
+        .wrap img{
+            width:300px;
+            height:100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+        .login_box{  /* 박스 전체 부분*/
+            min-height: 570px;
+            max-height: 800px;
+            width: 360px;
+            background-color: white;
+            margin-top: 50px;
+            display: inline-block;
+            border-radius: 20px;
+            box-shadow: 3px 3px 8px 5px #A8A8A8;
+        }
+
+        .bodyback{
+            text-align:center;
+            background-color: #FDD973;
+            width: 1024px;
+            height: 700px;
+        }
+        .givestar{
+            text-align:center;
+            /*background-color: #Fef3b8;*/
+            /*width: 250px;*/
+            margin-top: 3px;
+            border-radius: 20px;
+            /*box-shadow: 1px 1px 5px 3px #A8A8A8;*/
+        }
+        .starRating{
+            display: block;
+            margin-top: 2px;
+
+        }
+        .comment{
+            height: 100px;
+            width: 300px;
+            margin-left: 30px;
+            margin-top:5px;
+            margin-bottom: 15px;
+            border: solid 1px #FDD973;
+            border-radius: 10px;
+            z-index:2;
+            float:left;
+        }
+        .place{
+            height: 20px;
+            width: 250px;
+            margin-top:17px;
+            border: solid 1px #FDD973;
+            border-radius: 10px;
+            z-index:2;
+
+
+        }
+        .reviewDate{
+            height: 20px;
+            width: 248px;
+            margin-top:17px;
+            border: solid 1px #FDD973;
+            border-radius: 10px;
+            z-index:2;
+        }
+
+        /* 로그인 focus 이벤트 */
+        .userid_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        .password_b2:focus {
+            animation-name: border-focus;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes border-focus {
+            from {
+                background-color: white;
+            }
+            to {
+                background-color: #FDD973;
+                border: solid 1px white;
+                border-bottom: solid 3px #FDD973;
+            }
+        }
+
+        .reviewSubmit{
+            width: 280px;
+            height: 50px;
+            margin-bottom: 20px;
+            background-color: #FDD973;
+            border: solid 0px white;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px 3px #A8A8A8;
+        }
+        /*별점*/
+        div.stars {
+            width: 150px;
+            display: inline-block;
+        }
+
+        input.star { display: none; }
+
+        label.star {
+            float: right;
+            padding: 2px;
+            font-size: 30px;
+            color: #444;
+            transition: all .2s;
+        }
+
+        input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+        }
+
+        input.star-5:checked ~ label.star:before {
+            color: #FE7;
+            text-shadow: 0 0 20px #952;
+        }
+
+        input.star-1:checked ~ label.star:before { color: #F62; }
+
+        /*별 클릭할때 회전*/
+        /*label.star:hover { transform: rotate(-15deg) scale(1.3); }*/
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+        }
+
+        .searchSideNav{
+            height: 0;
+            width: 100%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #FDD973;
+            overflow-y: hidden;
+            /*padding-bottom: 5px;*/
+            transition: 0.5s;
+        }
+
+        .searchSideNav a{
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            display: block;
+            transition: 0.3s;
+        }
+        .searchSideNav a:hover {
+            color: white;
+        }
+        .searchSideNav .closebtn{
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        .searchSideForm{
+            margin-top: 15px;
+        }
+        .searchForm{
+            font-size: 20px;
+        }
+        #placeName{
+            height: 30px;
+            width: 150px;
+            border: solid 1px gray;
+        }
+        #searchKeyword{
+            height: 25px;
+            width: 350px;
+            border: solid 1px gray;
+        }
+        .searchButton{
+            height: 30px;
+        }
+
+        blockquote { cursor: pointer;}
+        .menu1:hover{
+            background: #A8A8A8;
+        }
+        .menu2:hover{
+            background: #A8A8A8;
+        }
+
+        .ui-menu .ui-menu-item-wrapper{
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .ui-menu-item{
+            font-size: 12px;
+        }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        function placeChange(){
+            var yourTestSelect = document.getElementById("placeId");
+            // select에서 선택된 option의 value가 저장
+            var placeId = yourTestSelect.options[yourTestSelect.selectedIndex].value;
+            var sendData = "placeId="+placeId;
+            $.ajax({
+                url : '/getPlaceId',
+                data: sendData,
+                method:'POST',
+                //알림 문구 나중에 없애기
+                success(){
+                    alert("장소 변경");
+
+                },
+                error(){
+                    alert("장소 변경 실패");
+                }
+            })
+        };
+    $(document).ready(function (){
+
+            $('#searchKeyword').autocomplete({ //검색 자동완성
+                source : '/autoSearching',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#searchKeyword').val(ui.item.name);
+                    $('#searchKeyword-id').val(ui.item.menuId);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+            $('#menuAuto1').autocomplete({  //메뉴입력 자동완성
+                source : '/menuAuto',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#menuAuto1').val(ui.item.name);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+            $('#menuAuto2').autocomplete({  //메뉴입력 자동완성
+                source : '/menuAuto',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#menuAuto2').val(ui.item.name);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+            $('#menuAuto3').autocomplete({  //메뉴입력 자동완성
+                source : '/menuAuto',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#menuAuto3').val(ui.item.name);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+            $('#menuAuto4').autocomplete({  //메뉴입력 자동완성
+                source : '/menuAuto',
+                minLength : 1,
+                focus: function(event, ui){
+                    return false;
+                },
+                select: function (event, ui){
+                    $('#menuAuto4').val(ui.item.name);
+                    return false;
+                }
+            })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+        $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
+            var trSize = 2; //현재 별점 행 개수
+            $("#plusbutton").click(function(){
+                if (trSize<=7) { //최대 8개까지 추가 가능
+                    $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+                    trSize += 1;
+                }
+            });
+            $("#minusbutton").click(function () {
+                if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
+                    $('#menu' + trSize + 'Tr').css("display", "none");
+                    trSize -= 1;
+                    //$('#menu'+trSize+'Tr').eq(0).empty();
+                }
+            });
+            //     status = $("#menu6Tr").css("display");
+            // if (status == "none") {
+            //     $("#menu6Tr").css("display", "");
+            // } else {
+            //     $("#menu6Tr").css("display", "none");
+            // } });
+        });
+
+        });
+    </script>
+</head>
+<body class="gamja-font">
+<header>
+    <div class="searchSideNav" id="searchSideNav" >
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">&times;</a>
+        <div class="searchSideForm">
+            <form method="get" action="/searchKeyword" class="searchForm" accept-charset="utf-8">
+                <label for="placeName">위치</label>
+                <select id="placeName" name="placeName">
+                    <option value="-1">------All------</option>
+                    <option value="0">생활관 학생식당</option>
+                    <option value="1">생활관 교직원식당</option>
+                    <option value="2">진선미관식당</option>
+                    <option value="3">헬렌관 식당</option>
+                    <option value="4">공대식당</option>
+                    <option value="5">한우리집 지하1층</option>
+                    <option value="6">이하우스 201동</option>
+                    <option value="7">이하우스 301동</option>
+                </select>
+                <label for="searchKeyword">메뉴</label>
+                <input type="text" placeholder="EX) 새우까스, 샐러드" id="searchKeyword" name="searchKeyword">
+                <input type="hidden" id="searchKeyword-id">
+                <button type="submit" class="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div> <!-- 上 부분-->
+        <h1 class="logo">
+            <a href="/">
+                <img src="images/logo.png" width="134" height="35" fill="none"></img>
+            </a>
+        </h1>
+        <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
+        <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
+        <button type="submit" onclick="openSearchNav()">
+            <i class="fas fa-search"></i>
+        </button>
+        <!--            </form>-->
+        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
+            리뷰작성
+        </a>
+        <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
+            마이페이지
+        </a>
+        <a th:if= "${session.loginCheck eq true}" class="logout" href="/user/signOut" role="button" >
+            로그아웃
+        </a>
+        <a th:unless="${session.loginCheck eq true}" class="logout" href="/login" role="button" >
+            로그인
+        </a>
+
+
+    </div>
+</header>
+
+<!--<body style="font-family: 'Nanum Myeongjo', serif;">-->
+<div class="bodyback">
+
+    <div class="login_box">
+        <!-- 로그인 폼 -->
+        <form method="post" action="/saveDefaultMenu" >
+            <div style="position:relative;" >
+<!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
+                <div  class="password" style="margin-top: 20px">
+                    <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
+                    <input type="date" class="reviewDate"  id="reviewDate" name="reviewDate" placeholder="날짜" />
+                    <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px"> 장소 </a>
+                    <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
+                    <select  class="place"  name="placeId" id="placeId" onchange="placeChange()">
+                        <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
+                        <option value="0" th:selected ="${placeId == 0}">생활관 학생식당</option>
+                        <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>
+                        <option value="2" th:selected ="${placeId == 2}">진선미관 식당</option>
+                        <option value="3" th:selected ="${placeId == 3}" >헬렌관 식당</option>
+                        <option value="4" th:selected ="${placeId == 4}" >공대식당</option>
+                        <option value="5" th:selected ="${placeId == 5}" >한우리집 지하 1층</option>
+                        <option value="6" th:selected ="${placeId == 6}" >이하우스 201동</option>
+                        <option value="7" th:selected ="${placeId == 7}" >이하우스 301동</option>
+                    </select>
+
+                    <!--                <a style="margin-top: 20px;float:left;" > 커멘트 </a>-->
+
+                </div>
+                <div class="givestar">
+                    <table style="margin-top: 30px;margin-left: 10px">
+                        <tr>
+                            <td id="menuName1" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
+                            </td>
+                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>
+                                <label class="star star-5" for="star1.1"></label>
+                                <input class="star star-4" value="4" id="star1.2" type="radio" name="star1"/>
+                                <label class="star star-4" for="star1.2"></label>
+                                <input class="star star-3" value="3" id="star1.3" type="radio" name="star1"/>
+                                <label class="star star-3" for="star1.3"></label>
+                                <input class="star star-2" value="2" id="star1.4" type="radio" name="star1"/>
+                                <label class="star star-2" for="star1.4"></label>
+                                <input class="star star-1" value="1" id="star1.5" type="radio" name="star1"/>
+                                <label class="star star-1" for="star1.5"></label>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td id="menuName2" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto2">
+                            </td>
+                            <td type="hidden" name="menu2"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star2.1" type="radio" name="star2"/>
+                                <label class="star star-5" for="star2.1"></label>
+                                <input class="star star-4" value="4" id="star2.2" type="radio" name="star2"/>
+                                <label class="star star-4" for="star2.2"></label>
+                                <input class="star star-3" value="3" id="star2.3" type="radio" name="star2"/>
+                                <label class="star star-3" for="star2.3"></label>
+                                <input class="star star-2" value="2" id="star2.4" type="radio" name="star2"/>
+                                <label class="star star-2" for="star2.4"></label>
+                                <input class="star star-1" value="1" id="star2.5" type="radio" name="star2"/>
+                                <label class="star star-1" for="star2.5"></label>
+                            </td>
+                        </tr>
+                        <tr id="menu2Tr">
+                            <button id="plusbutton" type="submit" onclick="return false;" style="">
+                            <i class="fas fa-plus" ></i>
+                            </button>
+                            <button id="minusbutton" type="submit" onclick="return false;" style="">
+                            <i class="fa fa-minus" ></i>
+                            </button>
+                        </tr>
+                        <tr id="menu3Tr" style="display:none;">
+                            <td id="menuName3" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto3">
+                            </td>
+                            <td type="hidden" name="menu3"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star3.1" type="radio" th:name="star3"/>
+                                <label class="star star-5" for="star3.1"></label>
+                                <input class="star star-4" value="4" id="star3.2" type="radio" th:name="star3"/>
+                                <label class="star star-4" for="star3.2"></label>
+                                <input class="star star-3" value="3" id="star3.3" type="radio" th:name="star3"/>
+                                <label class="star star-3" for="star3.3"></label>
+                                <input class="star star-2" value="2" id="star3.4" type="radio" th:name="star3"/>
+                                <label class="star star-2" for="star3.4"></label>
+                                <input class="star star-1" value="1" id="star3.5" type="radio" th:name="star3"/>
+                                <label class="star star-1" for="star3.5"></label>
+                            </td>
+                        </tr>
+                        <tr id="menu4Tr" style="display:none;">
+                            <td id="menuName4" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto4">
+                            </td>
+                            <td type="hidden" name="menu4"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star4.1" type="radio" th:name="star4"/>
+                                <label class="star star-5" for="star4.1"></label>
+                                <input class="star star-4" value="4" id="star4.2" type="radio" th:name="star4"/>
+                                <label class="star star-4" for="star4.2"></label>
+                                <input class="star star-3" value="3" id="star4.3" type="radio" th:name="star4"/>
+                                <label class="star star-3" for="star4.3"></label>
+                                <input class="star star-2" value="2" id="star4.4" type="radio" th:name="star4"/>
+                                <label class="star star-2" for="star4.4"></label>
+                                <input class="star star-1" value="1" id="star4.5" type="radio" th:name="star4"/>
+                                <label class="star star-1" for="star4.5"></label>
+                            </td>
+                        </tr>
+                        <tr id="menu5Tr" style="display:none;">
+                            <td id="menuName5" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto5">
+                            </td>
+                            <td type="hidden" name="menu5"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star5.1" type="radio" th:name="star5"/>
+                                <label class="star star-5" for="star5.1"></label>
+                                <input class="star star-4" value="4" id="star5.2" type="radio" th:name="star5"/>
+                                <label class="star star-4" for="star5.2"></label>
+                                <input class="star star-3" value="3" id="star5.3" type="radio" th:name="star5"/>
+                                <label class="star star-3" for="star5.3"></label>
+                                <input class="star star-2" value="2" id="star5.4" type="radio" th:name="star5"/>
+                                <label class="star star-2" for="star5.4"></label>
+                                <input class="star star-1" value="1" id="star5.5" type="radio" th:name="star5"/>
+                                <label class="star star-1" for="star5.5"></label>
+                            </td>
+                        </tr>
+                        <tr id="menu6Tr" style="display:none;">
+                            <td  style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto6">
+                            </td>
+                            <td type="hidden" name="menu6"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star6.1" type="radio" name="star6"/>
+                                <label class="star star-5" for="star6.1"></label>
+                                <input class="star star-4" value="4" id="star6.2" type="radio" name="star6"/>
+                                <label class="star star-4" for="star6.2"></label>
+                                <input class="star star-3" value="3" id="star6.3" type="radio" name="star6"/>
+                                <label class="star star-3" for="star6.3"></label>
+                                <input class="star star-2" value="2" id="star6.4" type="radio" name="star6"/>
+                                <label class="star star-2" for="star6.4"></label>
+                                <input class="star star-1" value="1" id="star6.5" type="radio" name="star6"/>
+                                <label class="star star-1" for="star6.5"></label>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td id="menuName7" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto7">
+                            </td>
+                            <td type="hidden" name="menu7"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star7.1" type="radio" th:name="star7"/>
+                                <label class="star star-5" for="star7.1"></label>
+                                <input class="star star-4" value="4" id="star7.2" type="radio" th:name="star7"/>
+                                <label class="star star-4" for="star7.2"></label>
+                                <input class="star star-3" value="3" id="star7.3" type="radio" th:name="star7"/>
+                                <label class="star star-3" for="star7.3"></label>
+                                <input class="star star-2" value="2" id="star7.4" type="radio" th:name="star7"/>
+                                <label class="star star-2" for="star7.4"></label>
+                                <input class="star star-1" value="1" id="star7.5" type="radio" th:name="star7"/>
+                                <label class="star star-1" for="star7.5"></label>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td id="menuName8" style="float:left; ">
+                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto8">
+                            </td>
+                            <td type="hidden" name="menu8"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                                <input class="star star-5"+ value="5" id="star8.1" type="radio" th:name="star8"/>
+                                <label class="star star-5" for="star8.1"></label>
+                                <input class="star star-4" value="4" id="star8.2" type="radio" th:name="star8"/>
+                                <label class="star star-4" for="star8.2"></label>
+                                <input class="star star-3" value="3" id="star8.3" type="radio" th:name="star8"/>
+                                <label class="star star-3" for="star8.3"></label>
+                                <input class="star star-2" value="2" id="star8.4" type="radio" th:name="star8"/>
+                                <label class="star star-2" for="star8.4"></label>
+                                <input class="star star-1" value="1" id="star8.5" type="radio" th:name="star8"/>
+                                <label class="star star-1" for="star8.5"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br><br>
+                <input class="comment"  value="" id="reviewComment" name="reviewComment" placeholder="comment" />
+                <!-- 리뷰 등록 버튼 -->
+                <button  type="submit" class="reviewSubmit" >
+                    리뷰등록
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    function openSearchNav(){
+        document.getElementById("searchSideNav").style.height= "65px";
+
+    }
+    function closeSearchNav(){
+        document.getElementById("searchSideNav").style.height= "0";
+    }
+
+</script>
+</html>

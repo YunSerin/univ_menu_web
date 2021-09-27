@@ -3,6 +3,7 @@ package ewhamenu.com.demo.controller;
 
 
 import ewhamenu.com.demo.domain.Users;
+import ewhamenu.com.demo.service.ReviewService;
 import ewhamenu.com.demo.service.UserService;
 import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.service.crawler.DietService;
@@ -35,6 +36,7 @@ public class MainhomeController {
     private final DietService dietService;
     Calendar cal = Calendar.getInstance();
     private final UserService userService;
+    private final ReviewService reviewService;
 
     @Autowired
     public DietService getDietService() {
@@ -89,6 +91,8 @@ public class MainhomeController {
             mav.setViewName("message");
         }else{
             Users user = userService.findByUserId(session.getAttribute("userId").toString());
+            //수정중
+            mav.addObject("reviewsWritten", reviewService.findReviewsWrittenByUser(user));
             mav.addObject("userData", user);
             mav.setViewName("user/mypage");
         }

@@ -4,6 +4,7 @@ package ewhamenu.com.demo.repository;
 import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.domain.Review;
+import ewhamenu.com.demo.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +28,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), :key, '$')", nativeQuery = true)
     public List<Review> findAllByTotalScoreOrderByIdDesc(@Param("key") String key);
 
+    public List<Review> findAllByUserId(Users user);
 }

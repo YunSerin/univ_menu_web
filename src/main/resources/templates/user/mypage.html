@@ -207,8 +207,32 @@
         <div id="tab-2" class="tab-content">
             등급정보
         </div>
-        <div id="tab-3" class="tab-content">
-            작성리뷰
+        <div id="tab-3" class="tab-content" style="text-align: left">
+            <table style="border-collapse: separate;border-spacing: 0 15px;">
+                <thead>
+                    <tr>
+                        <td width=90 style="word-break:break-all" >작성날짜</td>
+                        <td width=140 style="word-break:break-all" >장소</td>
+                        <td width=40 style="word-break:break-all" >평점</td>
+                        <td width=250 style="word-break:break-all" >메뉴</td>
+                        <td width=240 style="word-break:break-all">리뷰내용</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="userReview : ${reviewsWritten}" style="border-top: 5px;">
+                        <td><p th:text="${userReview.date}"></td>
+                        <td><p th:text="${userReview.place}"></td>
+                        <td><p th:text="${userReview.average_score}"></td>
+                        <td><p th:text="*{userReview.menu_name}"></td>
+                        <td><details>
+                            <summary>
+                                작성글 보기
+                            </summary>
+                            <div style="line-break: anywhere;background-color: lightgray;"><p th:text="${userReview.comment}"></p> </div>
+                        </details></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </div><!-- container -->

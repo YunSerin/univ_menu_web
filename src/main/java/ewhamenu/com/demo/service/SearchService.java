@@ -82,4 +82,14 @@ public class SearchService {
         List<Review> reviewSearched = reviewRepository.findAllByTotalScoreOrderByIdDesc(menuIds_keyword);
         return reviewSearched;
     }
+
+    public List<Review> findKeywordsAndPlace(String menuIds, int placeId){
+        String[] ids = menuIds.split(",");
+        for(int i=0;i<ids.length;i++){
+            ids[i] = "\""+ids[i]+"\"";
+        }
+        String menuIds_keyword = Arrays.deepToString(ids);
+        logger.info("test : {} ",menuIds_keyword );
+        return reviewRepository.findAllByTotalScoreAndPlaceIdOrderByIdDesc(menuIds_keyword, placeId);
+    }
 }

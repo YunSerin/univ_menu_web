@@ -28,5 +28,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), :key, '$')", nativeQuery = true)
     public List<Review> findAllByTotalScoreOrderByIdDesc(@Param("key") String key);
 
+    @Query(value = "SELECT * FROM review AS r WHERE JSON_CONTAINS(JSON_KEYS(r.total_score, '$.rates'), :key, '$') AND place_id = :placeId", nativeQuery = true)
+    public List<Review> findAllByTotalScoreAndPlaceIdOrderByIdDesc(@Param("key") String key, @Param("placeId") int placeId);
+
     public List<Review> findAllByUserId(Users user);
 }

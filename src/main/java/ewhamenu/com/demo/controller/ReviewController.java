@@ -28,6 +28,7 @@ public class ReviewController {
     private Model model;
     private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
     private Diet dietId_fk;
+    private String placeId_Default;
 
     @Autowired
     private ReviewService reviewService;
@@ -35,7 +36,7 @@ public class ReviewController {
     private DietRepository dietRepository;
     @Autowired
     private SearchService searchService;
-    private String placeId;
+
 
     @PostMapping("createTodayReview")    // 오늘의 메뉴 -> 리뷰작성 버튼
     public String createTodayReviewpage(HttpServletRequest request, Model model){
@@ -62,30 +63,33 @@ public class ReviewController {
 
 
     @GetMapping("createReviewDefault") //상단 리뷰작성 버튼
-    public String createReview(HttpServletRequest request, ModelAndView mav){
+    public String createReview(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
+        Calendar cal = Calendar.getInstance();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
+        model.addAttribute("today", formatter);
           return "createReviewDefault";
     }
 
     @RequestMapping(value = "getPlaceId", method = RequestMethod.POST)
     @ResponseBody
-    public String getPlaceId(String placeId){
-        this.placeId = placeId;
+    public String getPlaceId(String placeId){  //placeId 받아오기
+        this.placeId_Default = placeId;
         return placeId;
     }
 
-
     @RequestMapping(value = "menuAuto", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> menuAuto(HttpServletRequest request){
+    public List<Object> menuAuto(HttpServletRequest request){  //자동완성
         String menuAuto = request.getParameter("term");
-        List<Object> menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId));
+        List<Object> menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId_Default));
         return menus;
     }
-    @PostMapping("/saveTodayReivew") //리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
+
+    @PostMapping("/saveTodayReivew") //오늘의 메뉴 리뷰 저장시 (리뷰 작성 페이지에서 받아오기)
     public String saveTodayReview(Review review, HttpServletRequest request){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
@@ -95,17 +99,21 @@ public class ReviewController {
         String userID = session.getAttribute("userId").toString();
         review.getReviewDate();
         review.getReviewComment();
-        review.getPlaceId();
+        int placeId = review.getPlaceId();
         List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
-        TotalScore totalScore = new TotalScore();
-        Map<String, String> rates = new LinkedHashMap<>();
+        List<Long> menuListId = new ArrayList<>();
         for(int i=0;i<menuList.size();i++){
-            rates.put(menuList.get(i), request.getParameter("star"+i+1));
+            menuListId.add(reviewService.findMenuByNameAndPlaceId(menuList.get(i),placeId));
+        }
+        TotalScore totalScore = new TotalScore();
+        Map<Long, String> rates = new LinkedHashMap<>();
+        for(int i=0;i<menuListId.size();i++){
+            rates.put(menuListId.get(i), request.getParameter("star"+i+1));
         }
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;
-        for(String key : rates.keySet()) {
+        for(Long key : rates.keySet()) {
             String value = rates.get(key);
             averageScore += Integer.parseInt(value);
         }
@@ -117,7 +125,7 @@ public class ReviewController {
         mav.setViewName("message");
         return "redirect:/";
     }
-    @PostMapping("saveDefaultMenu")
+    @PostMapping("saveDefaultMenu") //상단 리뷰작성 버튼 저장시
     public String saveDefaultReview(Review review, HttpServletRequest request, @RequestParam(value="menuAuto", required=true) List<String> menuList){
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
@@ -127,13 +135,13 @@ public class ReviewController {
         String userID = session.getAttribute("userId").toString();
         review.getReviewDate();
         review.getReviewComment();
-        review.getPlaceId();
+        int placeId = review.getPlaceId();
         TotalScore totalScore = new TotalScore();
-        Map<String, String> rates = new LinkedHashMap<>();
+        Map<Long, String> rates = new LinkedHashMap<>();
         for(int i=0;i<menuList.size();i++){
             if(menuList.get(i)!="") {
                 int j = i+1;
-                rates.put(menuList.get(i), (String) request.getParameter("star" + j));
+                rates.put(reviewService.findMenuByNameAndPlaceId(menuList.get(i),placeId), request.getParameter("star" + j));
             }else{
 
             }
@@ -142,7 +150,7 @@ public class ReviewController {
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;
-        for(String key : rates.keySet()) {
+        for(Long key : rates.keySet()) {
             String value = rates.get(key);
             averageScore += Integer.parseInt(value);
         }

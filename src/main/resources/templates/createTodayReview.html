@@ -205,10 +205,10 @@
             </div>
             <div  class="password" >
                 <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                <input type="date" class="reviewDate"  id="reviewDate" name="reviewDate" placeholder="날짜" />
+                <input type="date" class="reviewDate"  th:id="reviewDate" name="reviewDate" placeholder="날짜" style="pointer-events: none; color: gray" />
                 <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px" > 장소 </a>
 <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
-                <select  class="place"  name="placeId" id="placeId">
+                <select  class="place"  name="placeId" id="placeId" style="pointer-events: none; color:gray">
                     <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
                     <option value="0" th:selected ="${placeId == 0}">생활관 학생식당</option>
                     <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>

@@ -84,12 +84,12 @@ public class DietService {
     }
 
     public void saveMenu(String menuList, int placeId){
-        List<String> menu = Arrays.asList(menuList.split("\\s"));
-            for(int i=1;i<menu.size();i++){
+        List<String> menu = Arrays.asList(menuList.split("\\s\\n"));
+            for(int i=0;i<menu.size();i++){
                 //ArrayList<Menu> findmenu = menuRepository.findAllByMenu_nameAndPlace_id(menu.get(i),placeId);
-                //if(findmenu!=null) { //새로 넣어야함
+                if(menu.get(i).equals("")||menu.get(i).equals("\\s\\g")||menu.get(i)==null) break;
                 if(!menuRepository.existsMenuByMenuNameAndPlaceId(menu.get(i),placeId)){ //동일 메뉴가 존재하지 않을 경우
-                    if(menu.get(i)!=null||!menu.get(i).equals(" ")) {
+                    if(menu.get(i)!=null) {
                         Menu newMenu = new Menu();
                         newMenu.setMenuName(menu.get(i));
                         newMenu.setPlaceId(placeId);

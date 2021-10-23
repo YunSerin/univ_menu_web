@@ -17,7 +17,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
 
         .login_box{  /* 박스 전체 부분*/
-            height: 570px;
+            min-height: 570px;
+            max-height: 800px;
             width: 360px;
             background-color: white;
             margin-top: 50px;
@@ -104,6 +105,7 @@
             width: 280px;
             height: 50px;
             background-color: #FDD973;
+            margin-bottom: 20px;
             border: solid 0px white;
             margin-top: 30px;
             font-size: 20px;
@@ -187,7 +189,7 @@
                 <div class="givestar">
                     <table style="margin-top: 30px;">
                         <tr th:each="list : ${menuList}" style="margin-top: 5px">
-                            <td th:text="${list}" name="menu1" style="float:left; font-size: 15px; padding-bottom:7px;">메뉴1</td>
+                            <td th:text="${list}" name="menu1" style="width:115px; white-space: pre-wrap; float:left; font-size: 13px; padding-bottom:7px;">메뉴1</td>
                             <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 120px;">
                                 <input class="star star-5"+ value="5" th:id="'star'+${menuList.indexOf(list)}+1.1" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
                                 <label class="star star-5" th:for="'star'+${menuList.indexOf(list)}+1.1"></label>

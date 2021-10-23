@@ -104,6 +104,7 @@
             width: 280px;
             height: 50px;
             margin-bottom: 20px;
+            margin-top: 15px;
             background-color: #FDD973;
             border: solid 0px white;
             font-size: 20px;
@@ -211,6 +212,49 @@
         }
         .ui-menu-item{
             font-size: 12px;
+        }
+        .plusbutton, .minusbutton{
+            width: 45px;
+            height: 45px;
+            font-size: 15px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FDD973;
+            color: #FDD973;
+            margin: 8px;
+            padding-top: 3px;
+        }
+
+        .plusbutton:after , .minusbutton:after{
+            content: '';
+            transform: translate(-50%, -50%);
+            height: 4px;
+            width: 50%;
+            background: #FDD973;
+            color: white;
+        }
+
+        .plusbutton:before , .minusbutton:before{
+            content: '';
+            transform: translate(-50%, -50%);
+            background: #FDD973;
+            color: white;
+            height: 50%;
+            width: 4px;
+        }
+
+        .plusbutton:hover:before,
+        .plusbutton:hover:after , .minusbutton:hover:before, .minusbutton:hover:after{
+            background: #fff;
+            transition: 0.2s;
+            color: #FDD973;
+        }
+
+        .plusbutton:hover, .minusbutton:hover {
+            background-color: #FDD973;
+            transition: 0.2s;
+            color: white;
         }
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -331,15 +375,8 @@
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
                     trSize -= 1;
-                    //$('#menu'+trSize+'Tr').eq(0).empty();
                 }
             });
-            //     status = $("#menu6Tr").css("display");
-            // if (status == "none") {
-            //     $("#menu6Tr").css("display", "");
-            // } else {
-            //     $("#menu6Tr").css("display", "none");
-            // } });
         });
 
         });
@@ -466,10 +503,10 @@
                             </td>
                         </tr>
                         <tr id="menu2Tr">
-                            <button id="plusbutton" type="submit" onclick="return false;" style="">
+                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" style="">
                             <i class="fas fa-plus" ></i>
                             </button>
-                            <button id="minusbutton" type="submit" onclick="return false;" style="">
+                            <button id="minusbutton" class="minusbutton" type="submit" onclick="return false;" style="">
                             <i class="fa fa-minus" ></i>
                             </button>
                         </tr>

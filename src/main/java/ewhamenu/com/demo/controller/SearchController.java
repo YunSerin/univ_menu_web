@@ -49,7 +49,7 @@ public class SearchController {
 
             reviewMap.put("place", places[r.getPlaceId()]);
             r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
-                menuNameList.add(searchService.findMenuNameById(Integer.parseInt(menuName)));
+                menuNameList.add(searchService.findMenuNameById(Math.toIntExact(menuName)));
                 switch (menuScore){
                     case "1": menuScoreList.add("★"); break;
                     case "2": menuScoreList.add("★★"); break;

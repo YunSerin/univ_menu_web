@@ -44,8 +44,7 @@ ol, ul {
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+
 }
 
 div{
@@ -74,7 +73,7 @@ form {
 blockquote {
     margin: 0;
     display: inline;
-    white-space: pre-line;
+
 }
 
 
@@ -87,10 +86,12 @@ blockquote p {
 }
 .menu1-1, .menu2-1 ,.menu3-1 ,.menu4-1 ,.menu1-3 ,.menu2-3 ,.menu3-3 ,.menu4-3{
     background: #FD9F9F;
+    white-space: pre-wrap;
 
 }
 .menu1-2, .menu2-2, .menu3-2, .menu4-2, .menu1-4, .menu2-4, .menu3-4, .menu4-4{
     background: #8FC7CB;
+    white-space: pre-wrap;
 }
 
 td {

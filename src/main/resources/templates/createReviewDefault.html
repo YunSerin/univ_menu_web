@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+<!--    <script type="text/bootstrap-tagsinput.js" src="js/bootstrap-tagsinput.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+<!--    <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">-->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <title>이돼장</title>
     <style media="screen">
+
         td{
             margin-top: 2px;
         }
@@ -147,7 +149,6 @@
             content: '\f006';
             font-family: FontAwesome;
         }
-
         .searchSideNav{
             height: 0;
             width: 100%;
@@ -256,11 +257,47 @@
             transition: 0.2s;
             color: white;
         }
+        .tag-container{
+            margin-left: 20px;
+            border: 2px solid #ccc;
+            padding: 2px;
+            border-radius: 5px;
+            height: 25px;
+            width: 90px;
+            display: flex;
+
+        }
+
+        .tag-container .tag{
+            padding: 2px;
+            border: 1px solid #ccc;
+            margin : 2px;
+            display: flex;
+            align-items: center;
+            border-radius: 3px;
+            background: #f2f2f2;
+            cursor: default;
+        }
+        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+        .tag i{
+            font-size: 16px;
+            margin-left: 2px;
+        }
+        .tag-container input{
+            flex: 1;
+            font-size: 16px;
+            padding: 2px;
+            outline: none;
+            border: 0;
+            height: 23px;
+            width: 88px;
+        }
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
+
         function placeChange(){
             var yourTestSelect = document.getElementById("placeId");
             // select에서 선택된 option의 value가 저장
@@ -273,14 +310,54 @@
                 //알림 문구 나중에 없애기
                 success(){
                     alert("장소 변경");
-
                 },
                 error(){
                     alert("장소 변경 실패");
                 }
             })
         };
+
+
     $(document).ready(function (){
+        const tagContainer = document.querySelector('.tag-container');
+        const input = document.querySelector('.tag-container input');
+        let num =0;
+        function createTag(label){
+            const div = document.createElement('div');
+            div.setAttribute('class','tag');
+            const span = document.createElement('span');
+            span.innerHTML= label;
+            const closeBtn = document.createElement('i');
+            closeBtn.setAttribute('class','material-icons');
+            closeBtn.setAttribute('data-item',label);
+            closeBtn.innerHTML='close';
+
+            div.appendChild(span);
+            div.appendChild(closeBtn);
+            return div;
+        }
+        //tagContainer.prepend(createTag('javascript'));  태그 추가하는 법
+        (input).addEventListener('keyup',function(e){
+            if(e.key==='Enter'){
+                const tag = createTag(input.value);
+                tagContainer.prepend(tag);
+                input.value = '';
+                num=1;
+            }
+        })
+        function reset(){ //근데 모든 인풋 다 리셋 시킬것같음
+            document.querySelectorAll('.tag').forEach(function(tag){
+                tag.parentElement.removeChild(tag);
+                num=0;
+            })
+        }
+        document.addEventListener('click',function(e){
+            if(e.target.tagName === 'I'){
+                //const value = e.target.getAttribute('data-item');
+                reset();
+
+            }
+        })
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -299,6 +376,8 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
+
+
             $('#menuAuto1').autocomplete({  //메뉴입력 자동완성
                 source : '/menuAuto',
                 minLength : 1,
@@ -364,13 +443,23 @@
                     .appendTo( ul );
             };
         $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
+            const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
-            $("#plusbutton").click(function(){
-                if (trSize<=7) { //최대 8개까지 추가 가능
+            plusBtn.addEventListener('click',function(e){
+                if (trSize <= 7) { //최대 8개까지 추가 가능
                     $('#menu' + [trSize + 1] + 'Tr').css("display", "");
                     trSize += 1;
                 }
-            });
+            })
+            // $("#plusbutton").click(function(){
+            //     if(event.keyCode !== 13) {
+            //         event.preventDefault();
+            //         if (trSize <= 7) { //최대 8개까지 추가 가능
+            //             $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+            //             trSize += 1;
+            //         }
+            //     }
+            // });
             $("#minusbutton").click(function () {
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
@@ -380,6 +469,7 @@
         });
 
         });
+
     </script>
 </head>
 <body class="gamja-font">
@@ -448,7 +538,7 @@
 <!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
                 <div  class="password" style="margin-top: 20px">
                     <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                    <input type="date" class="reviewDate" th:value="${today}" id="reviewDate" name="reviewDate" placeholder="날짜" />
+                    <input type="date" class="reviewDate" th:id="${reviewDate}" id="reviewDate" name="reviewDate" placeholder="날짜" />
                     <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px"> 장소 </a>
                     <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
                     <select  class="place"  name="placeId" id="placeId" onchange="placeChange()">
@@ -470,7 +560,10 @@
                     <table style="margin-top: 30px;margin-left: 10px">
                         <tr>
                             <td id="menuName1" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
+                                <div class ="tag-container">
+<!--                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">-->
+                                    <input id="menuAuto1" name="menuAuto" >
+                                </div>
                             </td>
                             <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>

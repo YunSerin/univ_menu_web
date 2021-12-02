@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+<!--    <script type="text/bootstrap-tagsinput.js" src="js/bootstrap-tagsinput.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+<!--    <link rel="stylesheet" type="text/css" href="css/bootstrap-tagsinput.css">-->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <title>이돼장</title>
     <style media="screen">
+
         td{
             margin-top: 2px;
         }
@@ -104,6 +106,7 @@
             width: 280px;
             height: 50px;
             margin-bottom: 20px;
+            margin-top: 15px;
             background-color: #FDD973;
             border: solid 0px white;
             font-size: 20px;
@@ -146,7 +149,6 @@
             content: '\f006';
             font-family: FontAwesome;
         }
-
         .searchSideNav{
             height: 0;
             width: 100%;
@@ -212,11 +214,90 @@
         .ui-menu-item{
             font-size: 12px;
         }
+        .plusbutton, .minusbutton{
+            width: 45px;
+            height: 45px;
+            font-size: 15px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FDD973;
+            color: #FDD973;
+            margin: 8px;
+            padding-top: 3px;
+        }
+
+        .plusbutton:after , .minusbutton:after{
+            content: '';
+            transform: translate(-50%, -50%);
+            height: 4px;
+            width: 50%;
+            background: #FDD973;
+            color: white;
+        }
+
+        .plusbutton:before , .minusbutton:before{
+            content: '';
+            transform: translate(-50%, -50%);
+            background: #FDD973;
+            color: white;
+            height: 50%;
+            width: 4px;
+        }
+
+        .plusbutton:hover:before,
+        .plusbutton:hover:after , .minusbutton:hover:before, .minusbutton:hover:after{
+            background: #fff;
+            transition: 0.2s;
+            color: #FDD973;
+        }
+
+        .plusbutton:hover, .minusbutton:hover {
+            background-color: #FDD973;
+            transition: 0.2s;
+            color: white;
+        }
+        .tag-container{
+            margin-left: 20px;
+            border: 2px solid #ccc;
+            padding: 2px;
+            border-radius: 5px;
+            height: 25px;
+            width: 90px;
+            display: flex;
+
+        }
+
+        .tag-container .tag{
+            padding: 2px;
+            border: 1px solid #ccc;
+            margin : 2px;
+            display: flex;
+            align-items: center;
+            border-radius: 3px;
+            background: #f2f2f2;
+            cursor: default;
+        }
+        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+        .tag i{
+            font-size: 16px;
+            margin-left: 2px;
+        }
+        .tag-container input{
+            flex: 1;
+            font-size: 16px;
+            padding: 2px;
+            outline: none;
+            border: 0;
+            height: 23px;
+            width: 88px;
+        }
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
+
         function placeChange(){
             var yourTestSelect = document.getElementById("placeId");
             // select에서 선택된 option의 value가 저장
@@ -229,14 +310,54 @@
                 //알림 문구 나중에 없애기
                 success(){
                     alert("장소 변경");
-
                 },
                 error(){
                     alert("장소 변경 실패");
                 }
             })
         };
+
+
     $(document).ready(function (){
+        const tagContainer = document.querySelector('.tag-container');
+        const input = document.querySelector('.tag-container input');
+        let num =0;
+        function createTag(label){
+            const div = document.createElement('div');
+            div.setAttribute('class','tag');
+            const span = document.createElement('span');
+            span.innerHTML= label;
+            const closeBtn = document.createElement('i');
+            closeBtn.setAttribute('class','material-icons');
+            closeBtn.setAttribute('data-item',label);
+            closeBtn.innerHTML='close';
+
+            div.appendChild(span);
+            div.appendChild(closeBtn);
+            return div;
+        }
+        //tagContainer.prepend(createTag('javascript'));  태그 추가하는 법
+        (input).addEventListener('keyup',function(e){
+            if(e.key==='Enter'){
+                const tag = createTag(input.value);
+                tagContainer.prepend(tag);
+                input.value = '';
+                num=1;
+            }
+        })
+        function reset(){ //근데 모든 인풋 다 리셋 시킬것같음
+            document.querySelectorAll('.tag').forEach(function(tag){
+                tag.parentElement.removeChild(tag);
+                num=0;
+            })
+        }
+        document.addEventListener('click',function(e){
+            if(e.target.tagName === 'I'){
+                //const value = e.target.getAttribute('data-item');
+                reset();
+
+            }
+        })
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -255,6 +376,8 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
+
+
             $('#menuAuto1').autocomplete({  //메뉴입력 자동완성
                 source : '/menuAuto',
                 minLength : 1,
@@ -320,29 +443,33 @@
                     .appendTo( ul );
             };
         $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
+            const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
-            $("#plusbutton").click(function(){
-                if (trSize<=7) { //최대 8개까지 추가 가능
+            plusBtn.addEventListener('click',function(e){
+                if (trSize <= 7) { //최대 8개까지 추가 가능
                     $('#menu' + [trSize + 1] + 'Tr').css("display", "");
                     trSize += 1;
                 }
-            });
+            })
+            // $("#plusbutton").click(function(){
+            //     if(event.keyCode !== 13) {
+            //         event.preventDefault();
+            //         if (trSize <= 7) { //최대 8개까지 추가 가능
+            //             $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+            //             trSize += 1;
+            //         }
+            //     }
+            // });
             $("#minusbutton").click(function () {
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
                     trSize -= 1;
-                    //$('#menu'+trSize+'Tr').eq(0).empty();
                 }
             });
-            //     status = $("#menu6Tr").css("display");
-            // if (status == "none") {
-            //     $("#menu6Tr").css("display", "");
-            // } else {
-            //     $("#menu6Tr").css("display", "none");
-            // } });
         });
 
         });
+
     </script>
 </head>
 <body class="gamja-font">
@@ -411,19 +538,19 @@
 <!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
                 <div  class="password" style="margin-top: 20px">
                     <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                    <input type="date" class="reviewDate"  id="reviewDate" name="reviewDate" placeholder="날짜" />
+                    <input type="date" class="reviewDate" th:id="${reviewDate}" id="reviewDate" name="reviewDate" placeholder="날짜" />
                     <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px"> 장소 </a>
                     <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
                     <select  class="place"  name="placeId" id="placeId" onchange="placeChange()">
-                        <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
-                        <option value="0" th:selected ="${placeId == 0}">생활관 학생식당</option>
-                        <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>
-                        <option value="2" th:selected ="${placeId == 2}">진선미관 식당</option>
-                        <option value="3" th:selected ="${placeId == 3}" >헬렌관 식당</option>
-                        <option value="4" th:selected ="${placeId == 4}" >공대식당</option>
-                        <option value="5" th:selected ="${placeId == 5}" >한우리집 지하 1층</option>
-                        <option value="6" th:selected ="${placeId == 6}" >이하우스 201동</option>
-                        <option value="7" th:selected ="${placeId == 7}" >이하우스 301동</option>
+                        <option value=""  disabled>장소선택</option>
+                        <option value="0" >생활관 학생식당</option>
+                        <option value="1" >생활관 교직원 식당</option>
+                        <option value="2" >진선미관 식당</option>
+                        <option value="3" >헬렌관 식당</option>
+                        <option value="4" >공대식당</option>
+                        <option value="5" >한우리집 지하 1층</option>
+                        <option value="6" >이하우스 201동</option>
+                        <option value="7" >이하우스 301동</option>
                     </select>
 
                     <!--                <a style="margin-top: 20px;float:left;" > 커멘트 </a>-->
@@ -433,7 +560,10 @@
                     <table style="margin-top: 30px;margin-left: 10px">
                         <tr>
                             <td id="menuName1" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
+                                <div class ="tag-container">
+<!--                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">-->
+                                    <input id="menuAuto1" name="menuAuto" >
+                                </div>
                             </td>
                             <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>
@@ -466,10 +596,10 @@
                             </td>
                         </tr>
                         <tr id="menu2Tr">
-                            <button id="plusbutton" type="submit" onclick="return false;" style="">
+                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" style="">
                             <i class="fas fa-plus" ></i>
                             </button>
-                            <button id="minusbutton" type="submit" onclick="return false;" style="">
+                            <button id="minusbutton" class="minusbutton" type="submit" onclick="return false;" style="">
                             <i class="fa fa-minus" ></i>
                             </button>
                         </tr>
@@ -478,15 +608,15 @@
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto3">
                             </td>
                             <td type="hidden" name="menu3"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star3.1" type="radio" th:name="star3"/>
+                                <input class="star star-5"+ value="5" id="star3.1" type="radio" name="star3"/>
                                 <label class="star star-5" for="star3.1"></label>
-                                <input class="star star-4" value="4" id="star3.2" type="radio" th:name="star3"/>
+                                <input class="star star-4" value="4" id="star3.2" type="radio" name="star3"/>
                                 <label class="star star-4" for="star3.2"></label>
-                                <input class="star star-3" value="3" id="star3.3" type="radio" th:name="star3"/>
+                                <input class="star star-3" value="3" id="star3.3" type="radio" name="star3"/>
                                 <label class="star star-3" for="star3.3"></label>
-                                <input class="star star-2" value="2" id="star3.4" type="radio" th:name="star3"/>
+                                <input class="star star-2" value="2" id="star3.4" type="radio" name="star3"/>
                                 <label class="star star-2" for="star3.4"></label>
-                                <input class="star star-1" value="1" id="star3.5" type="radio" th:name="star3"/>
+                                <input class="star star-1" value="1" id="star3.5" type="radio" name="star3"/>
                                 <label class="star star-1" for="star3.5"></label>
                             </td>
                         </tr>
@@ -495,15 +625,15 @@
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto4">
                             </td>
                             <td type="hidden" name="menu4"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star4.1" type="radio" th:name="star4"/>
+                                <input class="star star-5"+ value="5" id="star4.1" type="radio" name="star4"/>
                                 <label class="star star-5" for="star4.1"></label>
-                                <input class="star star-4" value="4" id="star4.2" type="radio" th:name="star4"/>
+                                <input class="star star-4" value="4" id="star4.2" type="radio" name="star4"/>
                                 <label class="star star-4" for="star4.2"></label>
-                                <input class="star star-3" value="3" id="star4.3" type="radio" th:name="star4"/>
+                                <input class="star star-3" value="3" id="star4.3" type="radio" name="star4"/>
                                 <label class="star star-3" for="star4.3"></label>
-                                <input class="star star-2" value="2" id="star4.4" type="radio" th:name="star4"/>
+                                <input class="star star-2" value="2" id="star4.4" type="radio" name="star4"/>
                                 <label class="star star-2" for="star4.4"></label>
-                                <input class="star star-1" value="1" id="star4.5" type="radio" th:name="star4"/>
+                                <input class="star star-1" value="1" id="star4.5" type="radio" name="star4"/>
                                 <label class="star star-1" for="star4.5"></label>
                             </td>
                         </tr>
@@ -512,15 +642,15 @@
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto5">
                             </td>
                             <td type="hidden" name="menu5"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star5.1" type="radio" th:name="star5"/>
+                                <input class="star star-5"+ value="5" id="star5.1" type="radio" name="star5"/>
                                 <label class="star star-5" for="star5.1"></label>
-                                <input class="star star-4" value="4" id="star5.2" type="radio" th:name="star5"/>
+                                <input class="star star-4" value="4" id="star5.2" type="radio" name="star5"/>
                                 <label class="star star-4" for="star5.2"></label>
-                                <input class="star star-3" value="3" id="star5.3" type="radio" th:name="star5"/>
+                                <input class="star star-3" value="3" id="star5.3" type="radio" name="star5"/>
                                 <label class="star star-3" for="star5.3"></label>
-                                <input class="star star-2" value="2" id="star5.4" type="radio" th:name="star5"/>
+                                <input class="star star-2" value="2" id="star5.4" type="radio" name="star5"/>
                                 <label class="star star-2" for="star5.4"></label>
-                                <input class="star star-1" value="1" id="star5.5" type="radio" th:name="star5"/>
+                                <input class="star star-1" value="1" id="star5.5" type="radio" name="star5"/>
                                 <label class="star star-1" for="star5.5"></label>
                             </td>
                         </tr>
@@ -541,37 +671,37 @@
                                 <label class="star star-1" for="star6.5"></label>
                             </td>
                         </tr>
-                        <tr style="display:none;">
+                        <tr id="menu7Tr" style="display:none;">
                             <td id="menuName7" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto7">
                             </td>
                             <td type="hidden" name="menu7"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star7.1" type="radio" th:name="star7"/>
+                                <input class="star star-5"+ value="5" id="star7.1" type="radio" name="star7"/>
                                 <label class="star star-5" for="star7.1"></label>
-                                <input class="star star-4" value="4" id="star7.2" type="radio" th:name="star7"/>
+                                <input class="star star-4" value="4" id="star7.2" type="radio" name="star7"/>
                                 <label class="star star-4" for="star7.2"></label>
-                                <input class="star star-3" value="3" id="star7.3" type="radio" th:name="star7"/>
+                                <input class="star star-3" value="3" id="star7.3" type="radio" name="star7"/>
                                 <label class="star star-3" for="star7.3"></label>
-                                <input class="star star-2" value="2" id="star7.4" type="radio" th:name="star7"/>
+                                <input class="star star-2" value="2" id="star7.4" type="radio" name="star7"/>
                                 <label class="star star-2" for="star7.4"></label>
-                                <input class="star star-1" value="1" id="star7.5" type="radio" th:name="star7"/>
+                                <input class="star star-1" value="1" id="star7.5" type="radio" name="star7"/>
                                 <label class="star star-1" for="star7.5"></label>
                             </td>
                         </tr>
-                        <tr style="display:none;">
+                        <tr id="menu8Tr" style="display:none;">
                             <td id="menuName8" style="float:left; ">
                                 <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto8">
                             </td>
                             <td type="hidden" name="menu8"  class="starRating"  style="position: absolute;margin-left: 130px;">
-                                <input class="star star-5"+ value="5" id="star8.1" type="radio" th:name="star8"/>
+                                <input class="star star-5"+ value="5" id="star8.1" type="radio" name="star8"/>
                                 <label class="star star-5" for="star8.1"></label>
-                                <input class="star star-4" value="4" id="star8.2" type="radio" th:name="star8"/>
+                                <input class="star star-4" value="4" id="star8.2" type="radio" name="star8"/>
                                 <label class="star star-4" for="star8.2"></label>
-                                <input class="star star-3" value="3" id="star8.3" type="radio" th:name="star8"/>
+                                <input class="star star-3" value="3" id="star8.3" type="radio" name="star8"/>
                                 <label class="star star-3" for="star8.3"></label>
-                                <input class="star star-2" value="2" id="star8.4" type="radio" th:name="star8"/>
+                                <input class="star star-2" value="2" id="star8.4" type="radio" name="star8"/>
                                 <label class="star star-2" for="star8.4"></label>
-                                <input class="star star-1" value="1" id="star8.5" type="radio" th:name="star8"/>
+                                <input class="star star-1" value="1" id="star8.5" type="radio" name="star8"/>
                                 <label class="star star-1" for="star8.5"></label>
                             </td>
                         </tr>

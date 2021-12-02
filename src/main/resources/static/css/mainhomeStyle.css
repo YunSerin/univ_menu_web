@@ -44,8 +44,7 @@ ol, ul {
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+
 }
 
 div{
@@ -74,7 +73,7 @@ form {
 blockquote {
     margin: 0;
     display: inline;
-    white-space: pre-line;
+
 }
 
 
@@ -85,17 +84,19 @@ blockquote p {
     font-size: 10px;
     line-height: 150%;
 }
-.menu1{
+.menu1-1, .menu2-1 ,.menu3-1 ,.menu4-1 ,.menu1-3 ,.menu2-3 ,.menu3-3 ,.menu4-3{
     background: #FD9F9F;
+    white-space: pre-wrap;
 
 }
-.menu2{
+.menu1-2, .menu2-2, .menu3-2, .menu4-2, .menu1-4, .menu2-4, .menu3-4, .menu4-4{
     background: #8FC7CB;
+    white-space: pre-wrap;
 }
 
 td {
 }
-.mainTd{
+.mainTd , .mainTd1-1, .mainTd2-1, .mainTd3-1, .mainTd4-1, .mainTd1-2, .mainTd2-2, .mainTd3-2, .mainTd4-2, .mainTd1-3, .mainTd2-3, .mainTd3-3, .mainTd4-3, .mainTd1-4, .mainTd2-4, .mainTd3-4, .mainTd4-4{
     align: left;
     float: left;
     list-style:none;

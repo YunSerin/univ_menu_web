@@ -40,10 +40,10 @@ public class ReviewService {
     }
 
     //get Menu Autocomplete by keyword
-    public List<Object> reviewAutoComplete(String keyword, int placeId){
+    public List<Object> reviewAutoComplete(String keyword, int placeId) {
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
         List<Object> keywords = new ArrayList<>();
-        for(Menu m : menuRepository.findMenusByKeyword(keyword, placeId)){
+        for (Menu m : menuRepository.findMenusByKeyword(keyword, placeId)) {
             Map<String, Object> keywordM = new HashMap<>();
             keywordM.put("menuId", m.getId());
             keywordM.put("name", m.getMenuName());
@@ -51,8 +51,7 @@ public class ReviewService {
             keywords.add(keywordM);
         }
         return keywords;
-
-
+    }
     public List<Object> findReviewsWrittenByUser(Users user){
         List<Review> userReviewList = reviewRepository.findAllByUserId(user);
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
@@ -63,7 +62,7 @@ public class ReviewService {
 
             reviewMap.put("place", places[r.getPlaceId()]);
             r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
-                menuNameList.add(searchService.findMenuNameById(Integer.parseInt(menuName)));
+                menuNameList.add(searchService.findMenuNameById(Math.toIntExact(menuName)));
             });
             reviewMap.put("menu_name", StringUtils.join(menuNameList, ", "));
             reviewMap.put("average_score", r.getAverageScore());
@@ -73,5 +72,9 @@ public class ReviewService {
         }
         return usersReviews;
 
+    }
+
+    public long findMenuByNameAndPlaceId(String menuname, int placeId){
+        return menuRepository.findAllByMenuNameAndPlaceId(menuname,placeId).getId();
     }
 }

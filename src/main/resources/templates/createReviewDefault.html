@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <title>이돼장</title>
     <style media="screen">
-
+        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
         td{
             margin-top: 2px;
         }
@@ -18,7 +19,6 @@
             width:300px;
             height:100%;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
 
         .login_box{  /* 박스 전체 부분*/
             min-height: 570px;
@@ -278,7 +278,7 @@
             background: #f2f2f2;
             cursor: default;
         }
-        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+
         .tag i{
             font-size: 16px;
             margin-left: 2px;
@@ -338,11 +338,14 @@
         }
         //tagContainer.prepend(createTag('javascript'));  태그 추가하는 법
         (input).addEventListener('keyup',function(e){
-            if(e.key==='Enter'){
-                const tag = createTag(input.value);
-                tagContainer.prepend(tag);
-                input.value = '';
-                num=1;
+            if(e.key==='Enter'&& num!=1) {
+                if (input.value != '') {
+                    const tag = createTag(input.value);
+                    tagContainer.prepend(tag);
+                    input.value = '';
+                    num = 1;
+                    $('#menuAuto1').attr('hidden', true); //메뉴 하나 입력시 메뉴 안보이게
+                }
             }
         })
         function reset(){ //근데 모든 인풋 다 리셋 시킬것같음
@@ -355,6 +358,7 @@
             if(e.target.tagName === 'I'){
                 //const value = e.target.getAttribute('data-item');
                 reset();
+                $('#menuAuto1').attr('hidden', false);
 
             }
         })
@@ -445,7 +449,11 @@
         $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
             const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
-            plusBtn.addEventListener('click',function(e){
+            plusBtn.addEventListener('click',function(e) {
+                // if(e.key===13){
+                //     e.preventDefault();
+                //     return false;
+                // }
                 if (trSize <= 7) { //최대 8개까지 추가 가능
                     $('#menu' + [trSize + 1] + 'Tr').css("display", "");
                     trSize += 1;
@@ -596,7 +604,7 @@
                             </td>
                         </tr>
                         <tr id="menu2Tr">
-                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" style="">
+                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" tabindex="-1">
                             <i class="fas fa-plus" ></i>
                             </button>
                             <button id="minusbutton" class="minusbutton" type="submit" onclick="return false;" style="">

@@ -88,7 +88,12 @@ public class ReviewController {
     @ResponseBody
     public List<Object> menuAuto(HttpServletRequest request){  //자동완성
         String menuAuto = request.getParameter("term");
-        List<Object> menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId_Default));
+        List<Object> menus;
+        try {
+            menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId_Default));
+        }catch(NumberFormatException e){
+            menus = reviewService.reviewAutoComplete(menuAuto, 0);
+        }
         return menus;
     }
 

@@ -277,15 +277,16 @@
             border-radius: 3px;
             background: #f2f2f2;
             cursor: default;
+            font-size: 12px;
         }
 
         .tag i{
-            font-size: 16px;
+            font-size: 12px;
             margin-left: 2px;
         }
         .tag-container input{
             flex: 1;
-            font-size: 16px;
+            font-size: 12px;
             padding: 2px;
             outline: none;
             border: 0;
@@ -345,6 +346,8 @@
                     input.value = '';
                     num = 1;
                     $('#menuAuto1').attr('hidden', true); //메뉴 하나 입력시 메뉴 안보이게
+                    //$('.tag-container').css('style',"");
+                    $('.tag-container').css('border','2px solid #FDD973');
                 }
             }
         })
@@ -359,6 +362,8 @@
                 //const value = e.target.getAttribute('data-item');
                 reset();
                 $('#menuAuto1').attr('hidden', false);
+                $('.tag-container').css('border','2px solid #ccc');
+
 
             }
         })
@@ -390,6 +395,12 @@
                 },
                 select: function (event, ui){
                     $('#menuAuto1').val(ui.item.name);
+                    const tag = createTag(input.value);
+                    tagContainer.prepend(tag);
+                    input.value = '';
+                    num = 1;
+                    $('#menuAuto1').attr('hidden', true);
+                    $('.tag-container').css('border','2px solid #FDD973');
                     return false;
                 }
             })
@@ -573,7 +584,7 @@
                                     <input id="menuAuto1" name="menuAuto" >
                                 </div>
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                            <td type="hidden" name="menu1" id="star1"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>
                                 <label class="star star-5" for="star1.1"></label>
                                 <input class="star star-4" value="4" id="star1.2" type="radio" name="star1"/>

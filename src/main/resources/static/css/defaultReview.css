@@ -1,5 +1,145 @@
 @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    margin-top: 5px;
+    display: block;
+    text-align: -webkit-center;
+
+}
+
+header{
+    border-bottom: solid dimgray ;
+    border-bottom-style: groove;
+    width: 1024px;
+}
+main{
+    width: 1024px;
+}
+ol, ul {
+    list-style: none;
+}
+
+table {
+
+}
+
+div{
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin-top:40px;
+    margin-bottom: 40px;
+    font-size: 40px;
+    font-weight: 500;
+}
+.logo{
+    display: inline;
+    height: auto;
+    margin-top:20px;
+    margin-bottom: 40px;
+    margin-right: 400px;
+    margin-left: 40px;
+}
+form {
+    display: inline;
+    margin-top:20px;
+    margin-bottom: 40px;
+}
+
+
+
+thead td{
+    border: 3px solid #FDD973;
+    padding-top: 10px;
+    height: 30px;
+    text-align: center;
+    margin:10px;
+}
+
+tbody td{
+    padding-right: 3px;
+    padding-left: 3px;
+    margin: 5px 10px 0px;
+}
+.search-form{
+    horiz-align: right;
+}
+
+.menu1{
+
+}
+
+a{
+
+}
+.mypageButton {
+    display: inline;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top:15px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-size: 5px;
+}
+.createReview{
+    display: inline;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top:15px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-size: 5px;
+}
+.logout {
+
+    display: inline;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top:15px;
+    margin-bottom: 40px;
+    border: 3px solid #FDD973;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-size: 5px;
+}
+
+
 td{
     margin-top: 2px;
 }
@@ -246,12 +386,11 @@ blockquote { cursor: pointer;}
     color: white;
 }
 .tag-container{
-    margin-left: 20px;
     border: 2px solid #ccc;
     padding: 2px;
     border-radius: 5px;
     height: 25px;
-    width: 90px;
+    width: 100px;
     display: flex;
 
 }
@@ -263,14 +402,15 @@ blockquote { cursor: pointer;}
     display: flex;
     align-items: center;
     border-radius: 3px;
-    background: #f2f2f2;
+    background: #fae4a7;
     cursor: default;
     font-size: 12px;
 }
 
 .tag i{
     font-size: 12px;
-    margin-left: 2px;
+    margin-left: 4px;
+    color: #a8a087;
 }
 .tag-container input {
     flex: 1;

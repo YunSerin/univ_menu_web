@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <link rel="stylesheet" type="text/css" href="css/defaultReview.css">
+    <link rel="stylesheet" href="https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css"></link>
     <title>이돼장</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -48,9 +48,9 @@
             const span = document.createElement('span');
             span.innerHTML= label;
             const closeBtn = document.createElement('i');
-            closeBtn.setAttribute('class','material-icons');
+            closeBtn.setAttribute('class','fas fa-times');
             closeBtn.setAttribute('data-item',label);
-            closeBtn.innerHTML = 'close';
+            //closeBtn.innerHTML = 'close';
 
             div.appendChild(span);
             div.appendChild(closeBtn);
@@ -243,8 +243,8 @@
         </h1>
         <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
         <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
-        <button type="submit" onclick="openSearchNav()">
-            <i class="fas fa-search"></i>
+        <button type="submit" onclick="openSearchNav()" style="background: white; border: none">
+            <i class="fas fa-search" style="color: #FDD973; font-size: 20px"></i>
         </button>
         <!--            </form>-->
         <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
@@ -294,7 +294,7 @@
                 </div>
                 <div class="givestar">
                     <table style="margin-top: 10px;margin-left: 10px">
-                        <tr style="margin-top: 10px">
+                        <tr style="margin-top: 5px">
                             <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" >
                                 <i class="fas fa-plus" ></i>
                             </button>

@@ -205,8 +205,8 @@
         </h1>
 <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
 <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
-                <button type="submit" onclick="openSearchNav()">
-                    <i class="fas fa-search"></i>
+                <button type="submit" onclick="openSearchNav()" style="background: white; border: none">
+                    <i class="fas fa-search" style="color: #FDD973; font-size: 20px"></i>
                 </button>
 <!--            </form>-->
         <a th:if="${session.loginCheck eq true}" class="createReview" method="get" href="/createReviewDefault" action="/createReviewDefault" role="button" >

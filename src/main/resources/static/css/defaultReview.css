@@ -385,7 +385,8 @@ blockquote { cursor: pointer;}
     transition: 0.2s;
     color: white;
 }
-.tag-container{
+.tag-container1, .tag-container2, .tag-container3, .tag-container4
+, .tag-container5, .tag-container6, .tag-container7, .tag-container8{
     border: 2px solid #ccc;
     padding: 2px;
     border-radius: 5px;
@@ -395,7 +396,8 @@ blockquote { cursor: pointer;}
 
 }
 
-.tag-container .tag{
+.tag-container1 .tag, .tag-container2 .tag, .tag-container3 .tag, .tag-container4 .tag
+, .tag-container5 .tag, .tag-container6 .tag, .tag-container7 .tag, .tag-container8 .tag{
     padding: 2px;
     border: 1px solid #ccc;
     margin : 2px;
@@ -412,7 +414,8 @@ blockquote { cursor: pointer;}
     margin-left: 4px;
     color: #a8a087;
 }
-.tag-container input {
+.tag-container1 input, .tag-container2 input, .tag-container3 input, .tag-container4 input
+, .tag-container5 input, .tag-container6 input, .tag-container7 input, .tag-container8 input{
     flex: 1;
     font-size: 12px;
     padding: 2px;

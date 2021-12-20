@@ -63,7 +63,7 @@ public class ReviewService {
 
                 reviewMap.put("place", places[r.getPlaceId()]);
                 r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
-                    menuNameList.add(searchService.findMenuNameById(Integer.parseInt(menuName)));
+                    menuNameList.add(searchService.findMenuNameById(menuName.intValue()));
                 });
                 reviewMap.put("menu_name", StringUtils.join(menuNameList, ", "));
                 reviewMap.put("average_score", r.getAverageScore());
@@ -74,7 +74,7 @@ public class ReviewService {
             return usersReviews;
 
         }
-    }
+
 
     public long findMenuByNameAndPlaceId(String menuname, int placeId){
         return menuRepository.findAllByMenuNameAndPlaceId(menuname,placeId).getId();

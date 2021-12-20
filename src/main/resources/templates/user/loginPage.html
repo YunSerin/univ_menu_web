@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/" lan="ko">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" >
 
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
+
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/mainjomeJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
@@ -22,6 +23,56 @@
 
         .gamja-font{
             font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .searchSideNav{
+            height: 0;
+            width: 100%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #FDD973;
+            overflow-y: hidden;
+            /*padding-bottom: 5px;*/
+            transition: 0.5s;
+        }
+
+        .searchSideNav a{
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            display: block;
+            transition: 0.3s;
+        }
+        .searchSideNav a:hover {
+            color: white;
+        }
+        .searchSideNav .closebtn{
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        .searchSideForm{
+            margin-top: 15px;
+        }
+        .searchForm{
+            font-size: 20px;
+        }
+        #placeName{
+            height: 30px;
+            width: 150px;
+            border: solid 1px gray;
+        }
+        #searchKeyword{
+            height: 25px;
+            width: 350px;
+            border: solid 1px gray;
+        }
+        .searchButton{
+            height: 30px;
         }
 
         .login_box{  /*로그인 박스 전체 부분*/
@@ -126,27 +177,114 @@
             margin-top: 5px;
         }
     </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchKeyword')
+                .bind("keydown", function(event) {
+                    if (event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).data("ui-autocomplete").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    source: function(request, response) {
+                        var placeId = $('#placeName option:selected').val();
+                        $.ajax({
+                            url: "/autoSearching",
+                            type: 'GET',
+                            data: {term : extractLast(request.term), placeId : placeId},
+                            success: function(data){
+                                var results = [];
+                                var term = extractLast(request.term);
+                                $.each(data, function(k, v) {
+                                    if (v.name.indexOf(term) != -1) {
+                                        results.push(v);
+                                    }
+                                });
+                                response(results);
+                            }
+                        });
+                    },
+                    minLength : 1,
+                    focus: function(event, ui){
+                        return false;
+                    },
+                    select: function (event, ui){
+                        var names = split(this.value);
+                        var menuIds = split($('#searchKeyword-id').val());
+                        names.pop();
+                        menuIds.pop();
+
+                        names.push(ui.item.name);
+                        menuIds.push(ui.item.menuId);
+                        names.push("");
+                        menuIds.push("");
+                        this.value = names.join(", ");
+                        $('#searchKeyword-id').val(menuIds.join(","));
+                        return false;
+                    }
+                })
+                .autocomplete("instance")._renderItem = function(ul, item){
+                return $( "<li>" )
+                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
+                    .appendTo( ul );
+            };
+
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+
+            function extractLast(term) {
+                return split(term).pop();
+            }
+        });
+    </script>
 </head>
+<body class="gamja-font">
 <header>
+    <div class="searchSideNav" id="searchSideNav" >
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">&times;</a>
+        <div class="searchSideForm">
+            <form method="get" action="/searchKeyword" class="searchForm" accept-charset="utf-8">
+                <label for="placeName">위치</label>
+                <select id="placeName" name="placeName">
+                    <option value="-1">------All------</option>
+                    <option value="0">생활관 학생식당</option>
+                    <option value="1">생활관 교직원식당</option>
+                    <option value="2">진선미관식당</option>
+                    <option value="3">헬렌관 식당</option>
+                    <option value="4">공대식당</option>
+                    <option value="5">한우리집 지하1층</option>
+                    <option value="6">이하우스 201동</option>
+                    <option value="7">이하우스 301동</option>
+                </select>
+                <label for="searchKeyword">메뉴</label>
+                <input type="text" placeholder="EX) 새우까스, 샐러드" id="searchKeyword" name="searchKeyword">
+                <input type="hidden" id="searchKeyword-id" name="searchKeyword-id">
+                <button type="submit" class="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
     <div style="background-color: white"> <!-- 上 부분-->
         <h1 class="logo">
             <a href="/">
                 <img src="images/logo.png" width="134" height="35" fill="none"></img>
             </a>
         </h1>
-        <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
-            <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
-            <button name="button" type="submit">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
+        <button type="submit" onclick="openSearchNav()">
+            <i class="fas fa-search"></i>
+        </button>
         <a class="logout" href="/login" role="button" >
             로그인
         </a>
 
     </div>
 </header>
-<body style="font-family: 'Nanum Myeongjo', serif;">
 <div class="bodyback">
 
     <div class="login_box">
@@ -188,6 +326,12 @@
 </div>
 </body>
 <script>
+    function openSearchNav(){
+        document.getElementById("searchSideNav").style.height= "65px";
 
+    }
+    function closeSearchNav(){
+        document.getElementById("searchSideNav").style.height= "0";
+    }
 </script>
 </html>

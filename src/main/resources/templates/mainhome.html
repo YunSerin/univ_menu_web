@@ -119,10 +119,11 @@
                 })
                 .autocomplete({
                     source: function(request, response) {
+                        var placeId = $('#placeName option:selected').val();
                         $.ajax({
                             url: "/autoSearching",
                             type: 'GET',
-                            data: {term : extractLast(request.term)},
+                            data: {term : extractLast(request.term), placeId : placeId},
                             success: function(data){
                                 var results = [];
                                 var term = extractLast(request.term);

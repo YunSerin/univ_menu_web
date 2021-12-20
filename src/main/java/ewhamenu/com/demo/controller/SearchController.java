@@ -4,6 +4,7 @@ import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
 import ewhamenu.com.demo.domain.Review;
 import ewhamenu.com.demo.repository.DietRepository;
+import ewhamenu.com.demo.service.ReviewService;
 import ewhamenu.com.demo.service.SearchService;
 import ewhamenu.com.demo.service.UserService;
 import ewhamenu.com.demo.service.crawler.DietService;
@@ -34,6 +35,8 @@ public class SearchController {
     UserService userService;
     @Autowired
     DietService dietService;
+    @Autowired
+    ReviewService reviewService;
 
     List<Object> reviewListing(List<Review> searchedReview){
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
@@ -86,9 +89,8 @@ public class SearchController {
         }else{ //특정 place
             if(keyword == ""){
                 searchedReview = searchService.findAllReviewByPlaceId(placeName);
-            }else{  ////////////////////////수정필요
-                searchedMenuId = searchService.findByMenuNameAndPlaceId(request.getParameter("searchKeyword"), placeName);
-                searchedReview = searchService.findByTotalScore(searchedMenuId.getId().toString());
+            }else{
+                searchedReview = searchService.findKeywordsAndPlace(request.getParameter("searchKeyword-id"), placeName);
             }
         }
         List<Object> reviews = reviewListing(searchedReview);
@@ -121,6 +123,10 @@ public class SearchController {
     @ResponseBody
     public List<Object> searchingAutocomplete(HttpServletRequest request){
 //        logger.info("test : {} ",request.getParameter("term") );
-        return searchService.searchingAutocomplete(request.getParameter("term"));
+        if(Integer.parseInt(request.getParameter("placeId")) != -1){
+            return reviewService.reviewAutoComplete(request.getParameter("term"), Integer.parseInt(request.getParameter("placeId")));
+        }else{
+            return searchService.searchingAutocomplete(request.getParameter("term"));
+        }
     }
 }

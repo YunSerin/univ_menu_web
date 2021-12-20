@@ -30,13 +30,10 @@
                 }
             })
         };
-
-
-
     $(document).ready(function (){
-        const tagContainer = document.querySelector('.tag-container');
-        const input = document.querySelector('.tag-container input');
-        let num =0;
+        let num=[0,0,0,0,0,0,0,0];
+
+
         document.addEventListener('keypress',function (e){
             if(e.key=='13'){
                 e.preventDefault();
@@ -47,6 +44,7 @@
             div.setAttribute('class','tag');
             const span = document.createElement('span');
             span.innerHTML= label;
+            span.setAttribute('name','menuAuto'); //백단으로 넘기기
             const closeBtn = document.createElement('i');
             closeBtn.setAttribute('class','fas fa-times');
             closeBtn.setAttribute('data-item',label);
@@ -71,22 +69,15 @@
     // }
     //     })
 
-        function reset(){ //근데 모든 인풋 다 리셋 시킬것같음
-            document.querySelectorAll('.tag').forEach(function(tag){
+        function reset(iNum){ //여기 고치기!!!!!!!!!!!!!!!!!
+            // document.querySelectorAll('.tag').forEach(function(tag){
+            document.querySelectorAll('.tag-container'+(iNum)+' .tag').forEach(function(tag){
                 tag.parentElement.removeChild(tag);
-                num=0;
+                num[iNum]=0;
             })
+
         }
-        document.addEventListener('click',function(e){
-            if(e.target.tagName === 'I'){
-                //const value = e.target.getAttribute('data-item');
-                reset();
-                $('#menuAuto1').attr('hidden', false);
-                $('.tag-container').css('border','2px solid #ccc');
 
-
-            }
-        })
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -106,21 +97,23 @@
                     .appendTo( ul );
             };
 
-
-            $('#menuAuto1').autocomplete({  //메뉴입력 자동완성
+        $('#rateTable tr').click(function (){ //메뉴 자동완성 + 태그추가
+            var iNum = $(this).index();
+            const input = document.querySelector('.tag-container'+(iNum)+' input');
+            $('#menuAuto'+(iNum)).autocomplete({
                 source : '/menuAuto',
                 minLength : 1,
                 focus: function(event, ui){
                     return false;
                 },
                 select: function (event, ui){
-                    $('#menuAuto1').val(ui.item.name);
+                    $('#menuAuto'+(iNum)).val(ui.item.name);
                     const tag = createTag(input.value);
-                    tagContainer.prepend(tag);
+                    $('.tag-container'+(iNum)).prepend(tag);
                     input.value = '';
-                    num = 1;
-                    $('#menuAuto1').attr('hidden', true);
-                    $('.tag-container').css('border','2px solid #FDD973');
+                    num[iNum-1] = 1;
+                    $('#menuAuto'+(iNum)).attr('hidden', true);
+                    $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
                     return false;
                 }
             })
@@ -129,54 +122,16 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
-            $('#menuAuto2').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto2').val(ui.item.name);
-                    return false;
+            document.addEventListener('click',function(e){
+                if(e.target.tagName === 'I'){   //i에 넘버 넣어서 고쳐야함
+                    //const value = e.target.getAttribute('data-item');
+                    reset(iNum);
+                    $('#menuAuto'+(iNum)).attr('hidden', false);
+                    $('.tag-container'+(iNum)).css('border','2px solid #ccc');
                 }
             })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
-            $('#menuAuto3').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto3').val(ui.item.name);
-                    return false;
-                }
-            })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
-            $('#menuAuto4').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto4').val(ui.item.name);
-                    return false;
-                }
-            })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
+        })
+
 
             const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
@@ -293,7 +248,7 @@
 
                 </div>
                 <div class="givestar">
-                    <table style="margin-top: 10px;margin-left: 10px">
+                    <table style="margin-top: 10px;margin-left: 10px" id="rateTable">
                         <tr style="margin-top: 5px">
                             <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" >
                                 <i class="fas fa-plus" ></i>
@@ -304,7 +259,7 @@
                         </tr>
                         <tr>
                             <td id="menuName1" style="float:left; ">
-                                <div class ="tag-container">
+                                <div class ="tag-container1">
 <!--                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">-->
                                     <input id="menuAuto1" name="menuAuto" >
                                 </div>
@@ -324,7 +279,9 @@
                         </tr>
                         <tr >
                             <td id="menuName2" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto2">
+                                <div class ="tag-container2">
+                                    <input id="menuAuto2" name="menuAuto" >
+                                </div>
                             </td>
                             <td type="hidden" name="menu2"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star2.1" type="radio" name="star2"/>
@@ -342,8 +299,9 @@
 
                         <tr id="menu3Tr" style="display:none;">
                             <td id="menuName3" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto3">
-                            </td>
+                                <div class ="tag-container3">
+                                    <input id="menuAuto3" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu3"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star3.1" type="radio" name="star3"/>
                                 <label class="star star-5" for="star3.1"></label>
@@ -359,8 +317,9 @@
                         </tr>
                         <tr id="menu4Tr" style="display:none;">
                             <td id="menuName4" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto4">
-                            </td>
+                                <div class ="tag-container4">
+                                    <input id="menuAuto4" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu4"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star4.1" type="radio" name="star4"/>
                                 <label class="star star-5" for="star4.1"></label>
@@ -376,8 +335,9 @@
                         </tr>
                         <tr id="menu5Tr" style="display:none;">
                             <td id="menuName5" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto5">
-                            </td>
+                                <div class ="tag-container5">
+                                    <input id="menuAuto5" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu5"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star5.1" type="radio" name="star5"/>
                                 <label class="star star-5" for="star5.1"></label>
@@ -393,8 +353,9 @@
                         </tr>
                         <tr id="menu6Tr" style="display:none;">
                             <td  style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto6">
-                            </td>
+                                <div class ="tag-container6">
+                                    <input id="menuAuto6" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu6"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star6.1" type="radio" name="star6"/>
                                 <label class="star star-5" for="star6.1"></label>
@@ -410,8 +371,9 @@
                         </tr>
                         <tr id="menu7Tr" style="display:none;">
                             <td id="menuName7" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto7">
-                            </td>
+                                <div class ="tag-container7">
+                                    <input id="menuAuto7" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu7"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star7.1" type="radio" name="star7"/>
                                 <label class="star star-5" for="star7.1"></label>
@@ -427,8 +389,9 @@
                         </tr>
                         <tr id="menu8Tr" style="display:none;">
                             <td id="menuName8" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto8">
-                            </td>
+                                <div class ="tag-container8">
+                                    <input id="menuAuto8" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu8"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star8.1" type="radio" name="star8"/>
                                 <label class="star star-5" for="star8.1"></label>

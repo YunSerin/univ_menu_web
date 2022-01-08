@@ -23,14 +23,13 @@
                 method:'POST',
                 //알림 문구 나중에 없애기
                 success(){
-                    alert("장소 변경");
                 },
                 error(){
-                    alert("장소 변경 실패");
                 }
             })
         };
     $(document).ready(function (){
+        placeChange();
         let num=[0,0,0,0,0,0,0,0];
 
 
@@ -44,7 +43,9 @@
             div.setAttribute('class','tag');
             const span = document.createElement('span');
             span.innerHTML= label;
-            span.setAttribute('name','menuAuto'); //백단으로 넘기기
+            // span.setAttribute('name','menuAuto'); //백단으로 넘기기
+            // span.setAttribute('id','menuAuto'); //백단으로 넘기기
+            // span.setAttribute('value',label);
             const closeBtn = document.createElement('i');
             closeBtn.setAttribute('class','fas fa-times');
             closeBtn.setAttribute('data-item',label);
@@ -69,15 +70,6 @@
     // }
     //     })
 
-        function reset(iNum){ //여기 고치기!!!!!!!!!!!!!!!!!
-            // document.querySelectorAll('.tag').forEach(function(tag){
-            document.querySelectorAll('.tag-container'+(iNum)+' .tag').forEach(function(tag){
-                tag.parentElement.removeChild(tag);
-                num[iNum]=0;
-            })
-
-        }
-
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -98,7 +90,7 @@
             };
 
         $('#rateTable tr').click(function (){ //메뉴 자동완성 + 태그추가
-            var iNum = $(this).index();
+            var iNum = $(this).index(); //여기선 iNum잘 들어감
             const input = document.querySelector('.tag-container'+(iNum)+' input');
             $('#menuAuto'+(iNum)).autocomplete({
                 source : '/menuAuto',
@@ -110,7 +102,7 @@
                     $('#menuAuto'+(iNum)).val(ui.item.name);
                     const tag = createTag(input.value);
                     $('.tag-container'+(iNum)).prepend(tag);
-                    input.value = '';
+                    // input.value = '';
                     num[iNum-1] = 1;
                     $('#menuAuto'+(iNum)).attr('hidden', true);
                     $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
@@ -122,43 +114,74 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
-            document.addEventListener('click',function(e){
-                if(e.target.tagName === 'I'){   //i에 넘버 넣어서 고쳐야함
-                    //const value = e.target.getAttribute('data-item');
-                    reset(iNum);
-                    $('#menuAuto'+(iNum)).attr('hidden', false);
-                    $('.tag-container'+(iNum)).css('border','2px solid #ccc');
-                }
-            })
+
         })
+        // 태그 제거 버튼
+        var rows = document.getElementById('rateTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        for (i = 0; i < rows.length; i++) {
+            rows[i].onclick = function() {
+
+                var iNum = this.rowIndex-1;
+                rows[i].parentElement.removeChild(rows[i]);
+                num[iNum] = 0;
+                alert(iNum);
+                $('#menuAuto'+(iNum)).attr('hidden', true);
+                $('.tag-container'+(iNum)).css('border','2px solid #ccc');
+            }
+        }
+        function reset(iNum){ //여기 고치기!!!!!!!!!!!!!!!!!
+            document.querySelectorAll('.tag').forEach(function(tag) {
+                // var Xtag = document.querySelectorAll('.tag');
+                // Xtag[iNum].parentElement.removeChild(Xtag[iNum]);
+                document.querySelector('.tag-container' + (iNum) + ' .tag').attributes(function (tag) {
+                    tag.parentElement.removeChild(tag);
+                    num[iNum] = 0;
+                })
+            })
+        }
+        // document.addEventListener('click',function(e){
+        //     if(e.target.tagName === 'I'){   //i에 넘버 넣어서 고쳐야함
+        //         const iNum = $(this).index();
+        //         alert(iNum);
+        //         reset(iNum);
+        //         $('#menuAuto'+(iNum)).attr('hidden', true);
+        //         $('.tag-container'+(iNum)).css('border','2px solid #ccc');
+        //     }
+        // })
+        // var Xtag = document.querySelectorAll('.tag');
+        // Xtag.addEventListener('click',function(e) {
+        //              var iNum = $(this).index();
+        //              alert(iNum);
+        // })
+        //
+        // document.getElementsByTagName('I').click(function(e){
+        //     var iNum = $(this).index();
+        //     alert(iNum);
+        // })
 
 
-            const plusBtn = document.querySelector('#plusbutton');
+
+            // const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
 
-            plusBtn.addEventListener('click',function(e) {
-                if (trSize <= 7) { //최대 8개까지 추가 가능
-                    $('#menu' + [trSize + 1] + 'Tr').css("display", "");
-                    trSize += 1;
-                }
-            })
-            // $("#plusbutton").click(function(){
-            //     if(event.keyCode !== 13) {
-            //         event.preventDefault();
-            //         if (trSize <= 7) { //최대 8개까지 추가 가능
-            //             $('#menu' + [trSize + 1] + 'Tr').css("display", "");
-            //             trSize += 1;
-            //         }
+            // plusBtn.addEventListener('click',function(e) {
+            //     if (trSize <= 7) { //최대 8개까지 추가 가능
+            //         $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+            //         trSize += 1;
             //     }
-            // });
+            // })
+            $("#plusbutton").click(function(){
+                    if (trSize <= 7) { //최대 8개까지 추가 가능
+                        $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+                        trSize += 1;
+                    }
+            });
             $("#minusbutton").click(function () {
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
                     trSize -= 1;
                 }
             });
-
-
         });
 
     </script>

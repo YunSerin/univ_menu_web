@@ -25,9 +25,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/search")
 public class SearchController {
-    Model model;
     private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
     @Autowired
     SearchService searchService;
@@ -42,10 +40,9 @@ public class SearchController {
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
         List<Object> reviews = new ArrayList<>();
         for(Review r : searchedReview){
-            Map<String, Object> reviewMap = new HashMap<String, Object>();
+            Map<String, Object> reviewMap = new HashMap<>();
             List<String> menuNameList = new ArrayList<>();
             List<String> menuScoreList = new ArrayList<>();
-            Map<String, String> reviewScores = new HashMap<>();
 
             reviewMap.put("place", places[r.getPlaceId()]);
             r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
@@ -76,9 +73,7 @@ public class SearchController {
         int placeName = Integer.parseInt(request.getParameter("placeName"));
         String keyword = URLEncoder.encode(request.getParameter("searchKeyword"), "UTF-8");
         logger.info("ids : {} ", request.getParameter("searchKeyword-id"));
-        List<Menu> searchedMenuIdList;
-        Menu searchedMenuId;
-        List<Review> searchedReview = new ArrayList<>();
+        List<Review> searchedReview ;
 
         if(placeName==-1){ //place All
             //검색어 없을때
@@ -107,11 +102,13 @@ public class SearchController {
                                     @RequestParam(value="menuNo") int menuNo){
         ModelAndView mav = new ModelAndView();
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
-        List<Diet> todayDiet = dietService.findTodayDiets(LocalDate.now()); //오늘자 diet 데이터
-        List<Review> todayReview = searchService.findAllByDietId(todayDiet.get(menuNo));
+        List<Review> todayReview = new ArrayList<>();
+        for(Review r : reviewService.findTodayReview(LocalDate.now())){
+            if(r.getDietId().getDietId() == menuNo+1){ todayReview.add(r); }
+        }
         List<Object> reviews = reviewListing(todayReview);
         mav.addObject("reviews", reviews);
-        mav.addObject("dietId", todayDiet.get(menuNo).getDietId());
+        mav.addObject("dietId", menuNo+1);
         mav.addObject("placeName", places[menuNo/2]);
         mav.setViewName("searchTodayPage");
         return mav;

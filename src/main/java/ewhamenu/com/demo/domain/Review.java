@@ -4,6 +4,7 @@ import ewhamenu.com.demo.repository.TotalScoreAttributeConverter;
 import lombok.*;
 import org.springframework.lang.Nullable;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -24,7 +25,7 @@ public class Review {
     private Users userId;
 
     @Column(name = "reviewDate")
-    private String reviewDate;        //여기 문제
+    private LocalDate reviewDate;
 
     @ManyToOne
     @JoinColumn(name="dietId")

@@ -10,12 +10,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    Review findById(long id);
+    List<Review> findAllByReviewDate(LocalDate date );
+
 @Query(value = "SELECT * FROM Review AS r where JSON_SEARCH(json_keys(r.total_score, '$.rates'), 'one', :key) is not null", nativeQuery = true)
     public List<Review> findByTotalScoreOrderByIdDesc(@Param("key") String key);
 

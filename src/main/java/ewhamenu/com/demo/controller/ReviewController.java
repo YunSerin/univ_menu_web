@@ -134,7 +134,8 @@ public class ReviewController {
         return "redirect:/";
     }
     @PostMapping("saveDefaultMenu") //상단 리뷰작성 버튼 저장시
-    public String saveDefaultReview(Review review, HttpServletRequest request, @RequestParam(value="menuAuto", required=true) List<String> menuList){
+    public String saveDefaultReview(Review review, HttpServletRequest request ,@RequestParam(value="menuAuto", required=true) List<String> menuList){
+        //@RequestParam(value="menuAuto", required=true) List<String> menuList
         HttpSession session = request.getSession();
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
@@ -146,12 +147,12 @@ public class ReviewController {
         int placeId = review.getPlaceId();
         TotalScore totalScore = new TotalScore();
         Map<Long, String> rates = new LinkedHashMap<>();
-        for(int i=0;i<menuList.size();i++){
+//        List<String> menuList = new ArrayList<String>();
+        for(int i=0;i<8;i++){
+//            menuList.set(i,request.getParameter("menuName"));
             if(menuList.get(i)!="") {
                 int j = i+1;
                 rates.put(reviewService.findMenuByNameAndPlaceId(menuList.get(i),placeId), request.getParameter("star" + j));
-            }else{
-
             }
 
         }

@@ -3,8 +3,10 @@ package ewhamenu.com.demo.service.crawler;
 
 import ewhamenu.com.demo.domain.Diet;
 import ewhamenu.com.demo.domain.Menu;
+import ewhamenu.com.demo.domain.Review;
 import ewhamenu.com.demo.repository.DietRepository;
 import ewhamenu.com.demo.repository.MenuRepository;
+import ewhamenu.com.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class DietService {
     private DietRepository dietRepository;
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private ReviewService reviewService;
 //    @Autowired
 //    private MenuService menuService;
 
@@ -99,9 +103,8 @@ public class DietService {
             }
     }
 
-    public List<Diet> findTodayDiets(LocalDate date){
+    public List<Review> findTodayDiets(LocalDate date){
 
-        List<Diet> todayDiets = dietRepository.findAllByDate(date);
-        return todayDiets;
+        return reviewService.findTodayReview(date);
     }
 }

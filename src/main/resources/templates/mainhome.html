@@ -5,8 +5,9 @@
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
 
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
+    <script type="text/javascript" src="js/mainhomeJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <title>이돼장</title>
     <style media="screen">
         .wrap{
@@ -74,7 +75,10 @@
         .searchButton{
             height: 30px;
         }
-
+        table{
+            border-spacing: 20px;
+            border-collapse: separate;
+        }
         blockquote { cursor: pointer;}
         .menu1:hover{
             background: #A8A8A8;
@@ -202,11 +206,11 @@
         </h1>
 <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
 <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
-                <button type="submit" onclick="openSearchNav()">
-                    <i class="fas fa-search"></i>
+                <button type="submit" onclick="openSearchNav()" style="background: white; border: none">
+                    <i class="fas fa-search" style="color: #FDD973; font-size: 20px"></i>
                 </button>
 <!--            </form>-->
-        <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
+        <a th:if="${session.loginCheck eq true}" class="createReview" method="get" href="/createReviewDefault" action="/createReviewDefault" role="button" >
             리뷰작성
         </a>
         <a th:if= "${session.loginCheck eq true}" class="mypageButton" href="/mypage" role="button" >
@@ -293,7 +297,7 @@
                 </td>
                 <td class="mainTd2-2">
                     <blockquote width="50" height="90">
-                        <p th:if="${diets.get(3).toString()}=='등록된 식단이 없습니다.'" class="menu2-1" >등록된 식단이 없습니다.</p>
+                        <p th:if="${diets.get(3).toString()}=='등록된 식단이 없습니다.'" class="menu2-2" >등록된 식단이 없습니다.</p>
                         <p th:unless="${diets.get(3).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=3'" class="menu2-2" th:text="${diets.get(3)}"  >메뉴1</p>
                     </blockquote>
                 </td>

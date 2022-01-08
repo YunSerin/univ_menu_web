@@ -4,263 +4,14 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/defaultReview.css">
+    <link rel="stylesheet" href="https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css"></link>
     <title>이돼장</title>
-    <style media="screen">
-        td{
-            margin-top: 2px;
-        }
-        .wrap img{
-            width:300px;
-            height:100%;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
-
-        .login_box{  /* 박스 전체 부분*/
-            min-height: 570px;
-            max-height: 800px;
-            width: 360px;
-            background-color: white;
-            margin-top: 50px;
-            display: inline-block;
-            border-radius: 20px;
-            box-shadow: 3px 3px 8px 5px #A8A8A8;
-        }
-
-        .bodyback{
-            text-align:center;
-            background-color: #FDD973;
-            width: 1024px;
-            height: 700px;
-        }
-        .givestar{
-            text-align:center;
-            /*background-color: #Fef3b8;*/
-            /*width: 250px;*/
-            margin-top: 3px;
-            border-radius: 20px;
-            /*box-shadow: 1px 1px 5px 3px #A8A8A8;*/
-        }
-        .starRating{
-            display: block;
-            margin-top: 2px;
-
-        }
-        .comment{
-            height: 100px;
-            width: 300px;
-            margin-left: 30px;
-            margin-top:5px;
-            margin-bottom: 15px;
-            border: solid 1px #FDD973;
-            border-radius: 10px;
-            z-index:2;
-            float:left;
-        }
-        .place{
-            height: 20px;
-            width: 250px;
-            margin-top:17px;
-            border: solid 1px #FDD973;
-            border-radius: 10px;
-            z-index:2;
-
-
-        }
-        .reviewDate{
-            height: 20px;
-            width: 248px;
-            margin-top:17px;
-            border: solid 1px #FDD973;
-            border-radius: 10px;
-            z-index:2;
-        }
-
-        /* 로그인 focus 이벤트 */
-        .userid_b2:focus {
-            animation-name: border-focus;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-        }
-        .password_b2:focus {
-            animation-name: border-focus;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-        }
-        @keyframes border-focus {
-            from {
-                background-color: white;
-            }
-            to {
-                background-color: #FDD973;
-                border: solid 1px white;
-                border-bottom: solid 3px #FDD973;
-            }
-        }
-
-        .reviewSubmit{
-            width: 280px;
-            height: 50px;
-            margin-bottom: 20px;
-            margin-top: 15px;
-            background-color: #FDD973;
-            border: solid 0px white;
-            font-size: 20px;
-            border-radius: 10px;
-            box-shadow: 1px 1px 5px 3px #A8A8A8;
-        }
-        /*별점*/
-        div.stars {
-            width: 150px;
-            display: inline-block;
-        }
-
-        input.star { display: none; }
-
-        label.star {
-            float: right;
-            padding: 2px;
-            font-size: 30px;
-            color: #444;
-            transition: all .2s;
-        }
-
-        input.star:checked ~ label.star:before {
-            content: '\f005';
-            color: #FD4;
-            transition: all .25s;
-        }
-
-        input.star-5:checked ~ label.star:before {
-            color: #FE7;
-            text-shadow: 0 0 20px #952;
-        }
-
-        input.star-1:checked ~ label.star:before { color: #F62; }
-
-        /*별 클릭할때 회전*/
-        /*label.star:hover { transform: rotate(-15deg) scale(1.3); }*/
-
-        label.star:before {
-            content: '\f006';
-            font-family: FontAwesome;
-        }
-
-        .searchSideNav{
-            height: 0;
-            width: 100%;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #FDD973;
-            overflow-y: hidden;
-            /*padding-bottom: 5px;*/
-            transition: 0.5s;
-        }
-
-        .searchSideNav a{
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            display: block;
-            transition: 0.3s;
-        }
-        .searchSideNav a:hover {
-            color: white;
-        }
-        .searchSideNav .closebtn{
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-        .searchSideForm{
-            margin-top: 15px;
-        }
-        .searchForm{
-            font-size: 20px;
-        }
-        #placeName{
-            height: 30px;
-            width: 150px;
-            border: solid 1px gray;
-        }
-        #searchKeyword{
-            height: 25px;
-            width: 350px;
-            border: solid 1px gray;
-        }
-        .searchButton{
-            height: 30px;
-        }
-
-        blockquote { cursor: pointer;}
-        .menu1:hover{
-            background: #A8A8A8;
-        }
-        .menu2:hover{
-            background: #A8A8A8;
-        }
-
-        .ui-menu .ui-menu-item-wrapper{
-            margin-bottom: 5px;
-            text-align: left;
-        }
-        .ui-menu-item{
-            font-size: 12px;
-        }
-        .plusbutton, .minusbutton{
-            width: 45px;
-            height: 45px;
-            font-size: 15px;
-            background: #fff;
-            cursor: pointer;
-            border-radius: 50%;
-            border: 2px solid #FDD973;
-            color: #FDD973;
-            margin: 8px;
-            padding-top: 3px;
-        }
-
-        .plusbutton:after , .minusbutton:after{
-            content: '';
-            transform: translate(-50%, -50%);
-            height: 4px;
-            width: 50%;
-            background: #FDD973;
-            color: white;
-        }
-
-        .plusbutton:before , .minusbutton:before{
-            content: '';
-            transform: translate(-50%, -50%);
-            background: #FDD973;
-            color: white;
-            height: 50%;
-            width: 4px;
-        }
-
-        .plusbutton:hover:before,
-        .plusbutton:hover:after , .minusbutton:hover:before, .minusbutton:hover:after{
-            background: #fff;
-            transition: 0.2s;
-            color: #FDD973;
-        }
-
-        .plusbutton:hover, .minusbutton:hover {
-            background-color: #FDD973;
-            transition: 0.2s;
-            color: white;
-        }
-    </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
+
         function placeChange(){
             var yourTestSelect = document.getElementById("placeId");
             // select에서 선택된 option의 value가 저장
@@ -273,7 +24,6 @@
                 //알림 문구 나중에 없애기
                 success(){
                     alert("장소 변경");
-
                 },
                 error(){
                     alert("장소 변경 실패");
@@ -281,6 +31,53 @@
             })
         };
     $(document).ready(function (){
+        let num=[0,0,0,0,0,0,0,0];
+
+
+        document.addEventListener('keypress',function (e){
+            if(e.key=='13'){
+                e.preventDefault();
+            }
+        })
+        function createTag(label){
+            const div = document.createElement('div');
+            div.setAttribute('class','tag');
+            const span = document.createElement('span');
+            span.innerHTML= label;
+            span.setAttribute('name','menuAuto'); //백단으로 넘기기
+            const closeBtn = document.createElement('i');
+            closeBtn.setAttribute('class','fas fa-times');
+            closeBtn.setAttribute('data-item',label);
+            //closeBtn.innerHTML = 'close';
+
+            div.appendChild(span);
+            div.appendChild(closeBtn);
+            return div;
+        }
+
+    //     (input).addEventListener('keyup',function(e){ //엔터로도 태그 추가하기
+    //         if(e.key==='Enter'&& num!=1) {
+    //             if (input.value != '') {
+    //         const tag = createTag(input.value);
+    //         tagContainer.prepend(tag);
+    //         input.value = '';
+    //         num = 1;
+    //         $('#menuAuto1').attr('hidden', true); //메뉴 하나 입력시 메뉴 안보이게
+    //         //$('.tag-container').css('style',"");
+    //         $('.tag-container').css('border','2px solid #FDD973');
+    //     }
+    // }
+    //     })
+
+        function reset(iNum){ //여기 고치기!!!!!!!!!!!!!!!!!
+            // document.querySelectorAll('.tag').forEach(function(tag){
+            document.querySelectorAll('.tag-container'+(iNum)+' .tag').forEach(function(tag){
+                tag.parentElement.removeChild(tag);
+                num[iNum]=0;
+            })
+
+        }
+
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -299,14 +96,24 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
-            $('#menuAuto1').autocomplete({  //메뉴입력 자동완성
+
+        $('#rateTable tr').click(function (){ //메뉴 자동완성 + 태그추가
+            var iNum = $(this).index();
+            const input = document.querySelector('.tag-container'+(iNum)+' input');
+            $('#menuAuto'+(iNum)).autocomplete({
                 source : '/menuAuto',
                 minLength : 1,
                 focus: function(event, ui){
                     return false;
                 },
                 select: function (event, ui){
-                    $('#menuAuto1').val(ui.item.name);
+                    $('#menuAuto'+(iNum)).val(ui.item.name);
+                    const tag = createTag(input.value);
+                    $('.tag-container'+(iNum)).prepend(tag);
+                    input.value = '';
+                    num[iNum-1] = 1;
+                    $('#menuAuto'+(iNum)).attr('hidden', true);
+                    $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
                     return false;
                 }
             })
@@ -315,71 +122,45 @@
                     .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
                     .appendTo( ul );
             };
-            $('#menuAuto2').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto2').val(ui.item.name);
-                    return false;
+            document.addEventListener('click',function(e){
+                if(e.target.tagName === 'I'){   //i에 넘버 넣어서 고쳐야함
+                    //const value = e.target.getAttribute('data-item');
+                    reset(iNum);
+                    $('#menuAuto'+(iNum)).attr('hidden', false);
+                    $('.tag-container'+(iNum)).css('border','2px solid #ccc');
                 }
             })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
-            $('#menuAuto3').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto3').val(ui.item.name);
-                    return false;
-                }
-            })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
-            $('#menuAuto4').autocomplete({  //메뉴입력 자동완성
-                source : '/menuAuto',
-                minLength : 1,
-                focus: function(event, ui){
-                    return false;
-                },
-                select: function (event, ui){
-                    $('#menuAuto4').val(ui.item.name);
-                    return false;
-                }
-            })
-                .autocomplete("instance")._renderItem = function(ul, item){
-                return $( "<li>" )
-                    .append( "<div>" + item.name + "<sub style='color: gray;font-size: 8px'>&nbsp;&nbsp;&nbsp;" + item.place + "</sub></div>" )
-                    .appendTo( ul );
-            };
-        $(document).ready(function () { // 페이지 document 로딩 완료 후 스크립트 실행
+        })
+
+
+            const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
-            $("#plusbutton").click(function(){
-                if (trSize<=7) { //최대 8개까지 추가 가능
+
+            plusBtn.addEventListener('click',function(e) {
+                if (trSize <= 7) { //최대 8개까지 추가 가능
                     $('#menu' + [trSize + 1] + 'Tr').css("display", "");
                     trSize += 1;
                 }
-            });
+            })
+            // $("#plusbutton").click(function(){
+            //     if(event.keyCode !== 13) {
+            //         event.preventDefault();
+            //         if (trSize <= 7) { //최대 8개까지 추가 가능
+            //             $('#menu' + [trSize + 1] + 'Tr').css("display", "");
+            //             trSize += 1;
+            //         }
+            //     }
+            // });
             $("#minusbutton").click(function () {
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
                     trSize -= 1;
                 }
             });
-        });
+
 
         });
+
     </script>
 </head>
 <body class="gamja-font">
@@ -417,8 +198,8 @@
         </h1>
         <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
         <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
-        <button type="submit" onclick="openSearchNav()">
-            <i class="fas fa-search"></i>
+        <button type="submit" onclick="openSearchNav()" style="background: white; border: none">
+            <i class="fas fa-search" style="color: #FDD973; font-size: 20px"></i>
         </button>
         <!--            </form>-->
         <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
@@ -448,7 +229,7 @@
 <!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
                 <div  class="password" style="margin-top: 20px">
                     <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                    <input type="date" class="reviewDate" th:value="${today}" id="reviewDate" name="reviewDate" placeholder="날짜" />
+                    <input type="date" class="reviewDate" th:id="${reviewDate}" id="reviewDate" name="reviewDate" placeholder="날짜" />
                     <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px"> 장소 </a>
                     <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
                     <select  class="place"  name="placeId" id="placeId" onchange="placeChange()">
@@ -467,12 +248,23 @@
 
                 </div>
                 <div class="givestar">
-                    <table style="margin-top: 30px;margin-left: 10px">
+                    <table style="margin-top: 10px;margin-left: 10px" id="rateTable">
+                        <tr style="margin-top: 5px">
+                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" >
+                                <i class="fas fa-plus" ></i>
+                            </button>
+                            <button id="minusbutton" class="minusbutton" type="submit" onclick="return false;" style="">
+                                <i class="fa fa-minus" ></i>
+                            </button>
+                        </tr>
                         <tr>
                             <td id="menuName1" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">
+                                <div class ="tag-container1">
+<!--                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" id="menuAuto1" name="menuAuto">-->
+                                    <input id="menuAuto1" name="menuAuto" >
+                                </div>
                             </td>
-                            <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 130px;">
+                            <td type="hidden" name="menu1" id="star1"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star1.1" type="radio" name="star1"/>
                                 <label class="star star-5" for="star1.1"></label>
                                 <input class="star star-4" value="4" id="star1.2" type="radio" name="star1"/>
@@ -487,7 +279,9 @@
                         </tr>
                         <tr >
                             <td id="menuName2" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto2">
+                                <div class ="tag-container2">
+                                    <input id="menuAuto2" name="menuAuto" >
+                                </div>
                             </td>
                             <td type="hidden" name="menu2"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star2.1" type="radio" name="star2"/>
@@ -502,18 +296,12 @@
                                 <label class="star star-1" for="star2.5"></label>
                             </td>
                         </tr>
-                        <tr id="menu2Tr">
-                            <button id="plusbutton" class="plusbutton" type="submit" onclick="return false;" style="">
-                            <i class="fas fa-plus" ></i>
-                            </button>
-                            <button id="minusbutton" class="minusbutton" type="submit" onclick="return false;" style="">
-                            <i class="fa fa-minus" ></i>
-                            </button>
-                        </tr>
+
                         <tr id="menu3Tr" style="display:none;">
                             <td id="menuName3" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto3">
-                            </td>
+                                <div class ="tag-container3">
+                                    <input id="menuAuto3" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu3"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star3.1" type="radio" name="star3"/>
                                 <label class="star star-5" for="star3.1"></label>
@@ -529,8 +317,9 @@
                         </tr>
                         <tr id="menu4Tr" style="display:none;">
                             <td id="menuName4" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto4">
-                            </td>
+                                <div class ="tag-container4">
+                                    <input id="menuAuto4" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu4"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star4.1" type="radio" name="star4"/>
                                 <label class="star star-5" for="star4.1"></label>
@@ -546,8 +335,9 @@
                         </tr>
                         <tr id="menu5Tr" style="display:none;">
                             <td id="menuName5" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto5">
-                            </td>
+                                <div class ="tag-container5">
+                                    <input id="menuAuto5" name="menuAuto" >
+                                </div>                            </td>
                             <td type="hidden" name="menu5"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star5.1" type="radio" name="star5"/>
                                 <label class="star star-5" for="star5.1"></label>
@@ -563,8 +353,9 @@
                         </tr>
                         <tr id="menu6Tr" style="display:none;">
                             <td  style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto6">
-                            </td>
+                                <div class ="tag-container6">
+                                    <input id="menuAuto6" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu6"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star6.1" type="radio" name="star6"/>
                                 <label class="star star-5" for="star6.1"></label>
@@ -580,8 +371,9 @@
                         </tr>
                         <tr id="menu7Tr" style="display:none;">
                             <td id="menuName7" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto7">
-                            </td>
+                                <div class ="tag-container7">
+                                    <input id="menuAuto7" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu7"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star7.1" type="radio" name="star7"/>
                                 <label class="star star-5" for="star7.1"></label>
@@ -597,8 +389,9 @@
                         </tr>
                         <tr id="menu8Tr" style="display:none;">
                             <td id="menuName8" style="float:left; ">
-                                <input style=" margin-left: 20px ;border-top: white; border-right: white; border-left: white; border-bottom-color: #FDD973; height: 25px; width: 90px" name="menuAuto" id="menuAuto8">
-                            </td>
+                                <div class ="tag-container8">
+                                    <input id="menuAuto8" name="menuAuto" >
+                                </div>                              </td>
                             <td type="hidden" name="menu8"  class="starRating"  style="position: absolute;margin-left: 130px;">
                                 <input class="star star-5"+ value="5" id="star8.1" type="radio" name="star8"/>
                                 <label class="star star-5" for="star8.1"></label>

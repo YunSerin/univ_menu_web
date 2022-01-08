@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -68,9 +69,11 @@ public class ReviewController {
         if(session.getAttribute("loginCheck") == null){
             return "redirect:/";
         }
-        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-DD");
+        Date date = new Date();
+        //String date = sdf.format(new Date());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
-        model.addAttribute("today", formatter);
+        model.addAttribute("reviewDate", sdf.format(date));
           return "createReviewDefault";
     }
 
@@ -85,7 +88,12 @@ public class ReviewController {
     @ResponseBody
     public List<Object> menuAuto(HttpServletRequest request){  //자동완성
         String menuAuto = request.getParameter("term");
-        List<Object> menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId_Default));
+        List<Object> menus;
+        try {
+            menus = reviewService.reviewAutoComplete(menuAuto, Integer.parseInt(placeId_Default));
+        }catch(NumberFormatException e){
+            menus = reviewService.reviewAutoComplete(menuAuto, 0);
+        }
         return menus;
     }
 

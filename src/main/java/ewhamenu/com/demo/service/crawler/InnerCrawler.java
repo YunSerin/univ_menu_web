@@ -1,10 +1,13 @@
 package ewhamenu.com.demo.service.crawler;
 
+import ewhamenu.com.demo.controller.MainhomeController;
 import org.aspectj.weaver.patterns.PatternNode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.regex.Pattern;
 
 public class InnerCrawler {
 
+    private static final Logger logger = LoggerFactory.getLogger(MainhomeController.class);
     public ArrayList<String> innerCrawler(String link){
         Document doc = null;
         ArrayList<String> menus = new ArrayList<>();

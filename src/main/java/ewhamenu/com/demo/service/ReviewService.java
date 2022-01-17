@@ -81,7 +81,7 @@ public class ReviewService {
     }
 
     public List<Review> findTodayReview(LocalDate date){
-        return reviewRepository.findAllByReviewDate(date);
+        return reviewRepository.findAllByReviewDate(date.toString());
     }
 }
 

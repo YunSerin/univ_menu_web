@@ -25,7 +25,7 @@ public class Review {
     private Users userId;
 
     @Column(name = "reviewDate")
-    private LocalDate reviewDate;
+    private String reviewDate;
 
     @ManyToOne
     @JoinColumn(name="dietId")

@@ -30,8 +30,6 @@
         };
     $(document).ready(function (){
         placeChange();
-        let num=[0,0,0,0,0,0,0,0];
-
 
         document.addEventListener('keypress',function (e){
             if(e.key=='13'){
@@ -70,7 +68,7 @@
                     .appendTo( ul );
             };
 
-        $('#rateTable tr').click(function (e){ //메뉴 자동완성 + 태그추가
+        $('#rateTable tr').on('click',function (e){ //메뉴 자동완성 + 태그추가
             var iNum = $(this).index(); //여기선 iNum잘 들어감
             const input = document.querySelector('.tag-container'+(iNum)+' input');
             $('#menuAuto'+(iNum)).autocomplete({
@@ -84,7 +82,6 @@
                     const tag = createTag(input.value);
                     $('.tag-container'+(iNum)).prepend(tag);
                     // input.value = '';
-                    num[iNum-1] = 1;
                     $('#menuAuto'+(iNum)).attr('hidden', true);
                     $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
                     return false;
@@ -99,12 +96,11 @@
                     if(e.target.tagName === 'I') {
                         var tag = document.querySelector('.tag-container'+(iNum)+' .tag');
                         tag.parentElement.removeChild(tag);
-                        num[iNum] = 0;
                         $('#menuAuto'+(iNum)).attr('hidden', false);
                         $('.tag-container'+(iNum)).css('border','2px solid #ccc');
                         input.value = '';
                     }
-        })
+        });
 
             var trSize = 2; //현재 별점 행 개수
 

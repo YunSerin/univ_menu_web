@@ -21,7 +21,7 @@
                 url : '/getPlaceId',
                 data: sendData,
                 method:'POST',
-                //알림 문구 나중에 없애기
+
                 success(){
                 },
                 error(){
@@ -30,8 +30,6 @@
         };
     $(document).ready(function (){
         placeChange();
-        let num=[0,0,0,0,0,0,0,0];
-
 
         document.addEventListener('keypress',function (e){
             if(e.key=='13'){
@@ -43,33 +41,14 @@
             div.setAttribute('class','tag');
             const span = document.createElement('span');
             span.innerHTML= label;
-            // span.setAttribute('name','menuAuto'); //백단으로 넘기기
-            // span.setAttribute('id','menuAuto'); //백단으로 넘기기
-            // span.setAttribute('value',label);
             const closeBtn = document.createElement('i');
             closeBtn.setAttribute('class','fas fa-times');
             closeBtn.setAttribute('data-item',label);
-            //closeBtn.innerHTML = 'close';
 
             div.appendChild(span);
             div.appendChild(closeBtn);
             return div;
         }
-
-    //     (input).addEventListener('keyup',function(e){ //엔터로도 태그 추가하기
-    //         if(e.key==='Enter'&& num!=1) {
-    //             if (input.value != '') {
-    //         const tag = createTag(input.value);
-    //         tagContainer.prepend(tag);
-    //         input.value = '';
-    //         num = 1;
-    //         $('#menuAuto1').attr('hidden', true); //메뉴 하나 입력시 메뉴 안보이게
-    //         //$('.tag-container').css('style',"");
-    //         $('.tag-container').css('border','2px solid #FDD973');
-    //     }
-    // }
-    //     })
-
 
             $('#searchKeyword').autocomplete({ //검색 자동완성
                 source : '/autoSearching',
@@ -89,7 +68,7 @@
                     .appendTo( ul );
             };
 
-        $('#rateTable tr').click(function (){ //메뉴 자동완성 + 태그추가
+        $('#rateTable tr').on('click',function (e){ //메뉴 자동완성 + 태그추가
             var iNum = $(this).index(); //여기선 iNum잘 들어감
             const input = document.querySelector('.tag-container'+(iNum)+' input');
             $('#menuAuto'+(iNum)).autocomplete({
@@ -103,7 +82,6 @@
                     const tag = createTag(input.value);
                     $('.tag-container'+(iNum)).prepend(tag);
                     // input.value = '';
-                    num[iNum-1] = 1;
                     $('#menuAuto'+(iNum)).attr('hidden', true);
                     $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
                     return false;
@@ -115,61 +93,17 @@
                     .appendTo( ul );
             };
 
-        })
-        // 태그 제거 버튼
-        var rows = document.getElementById('rateTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-        for (i = 0; i < rows.length; i++) {
-            rows[i].onclick = function() {
+                    if(e.target.tagName === 'I') {
+                        var tag = document.querySelector('.tag-container'+(iNum)+' .tag');
+                        tag.parentElement.removeChild(tag);
+                        $('#menuAuto'+(iNum)).attr('hidden', false);
+                        $('.tag-container'+(iNum)).css('border','2px solid #ccc');
+                        input.value = '';
+                    }
+        });
 
-                var iNum = this.rowIndex-1;
-                rows[i].parentElement.removeChild(rows[i]);
-                num[iNum] = 0;
-                alert(iNum);
-                $('#menuAuto'+(iNum)).attr('hidden', true);
-                $('.tag-container'+(iNum)).css('border','2px solid #ccc');
-            }
-        }
-        function reset(iNum){ //여기 고치기!!!!!!!!!!!!!!!!!
-            document.querySelectorAll('.tag').forEach(function(tag) {
-                // var Xtag = document.querySelectorAll('.tag');
-                // Xtag[iNum].parentElement.removeChild(Xtag[iNum]);
-                document.querySelector('.tag-container' + (iNum) + ' .tag').attributes(function (tag) {
-                    tag.parentElement.removeChild(tag);
-                    num[iNum] = 0;
-                })
-            })
-        }
-        // document.addEventListener('click',function(e){
-        //     if(e.target.tagName === 'I'){   //i에 넘버 넣어서 고쳐야함
-        //         const iNum = $(this).index();
-        //         alert(iNum);
-        //         reset(iNum);
-        //         $('#menuAuto'+(iNum)).attr('hidden', true);
-        //         $('.tag-container'+(iNum)).css('border','2px solid #ccc');
-        //     }
-        // })
-        // var Xtag = document.querySelectorAll('.tag');
-        // Xtag.addEventListener('click',function(e) {
-        //              var iNum = $(this).index();
-        //              alert(iNum);
-        // })
-        //
-        // document.getElementsByTagName('I').click(function(e){
-        //     var iNum = $(this).index();
-        //     alert(iNum);
-        // })
-
-
-
-            // const plusBtn = document.querySelector('#plusbutton');
             var trSize = 2; //현재 별점 행 개수
 
-            // plusBtn.addEventListener('click',function(e) {
-            //     if (trSize <= 7) { //최대 8개까지 추가 가능
-            //         $('#menu' + [trSize + 1] + 'Tr').css("display", "");
-            //         trSize += 1;
-            //     }
-            // })
             $("#plusbutton").click(function(){
                     if (trSize <= 7) { //최대 8개까지 추가 가능
                         $('#menu' + [trSize + 1] + 'Tr').css("display", "");

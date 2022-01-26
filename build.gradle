@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     //testing
-    //implementation 'org.springframework.cloud:spring-cloud-gcp-starter-storage'
+//    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-storage'
     //
     compile "org.springframework.security:spring-security-core"
     compile 'org.apache.commons:commons-lang3:3.7'

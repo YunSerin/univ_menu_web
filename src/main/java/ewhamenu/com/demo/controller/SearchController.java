@@ -104,7 +104,9 @@ public class SearchController {
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
         List<Review> todayReview = new ArrayList<>();
         for(Review r : reviewService.findTodayReview(LocalDate.now())){
-            if(r.getDietId().getDietId() == menuNo+1){ todayReview.add(r); }
+            if(r.getDietId() != null){
+                if((r.getDietId().getDietId()-1)%16 == menuNo){ todayReview.add(r); }
+            }
         }
         List<Object> reviews = reviewListing(todayReview);
         mav.addObject("reviews", reviews);

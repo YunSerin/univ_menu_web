@@ -1,10 +1,13 @@
 package ewhamenu.com.demo.service.crawler;
 
+import ewhamenu.com.demo.controller.MainhomeController;
 import ewhamenu.com.demo.domain.Diet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.io.IOException;
@@ -35,7 +38,6 @@ public class Crawler {
                 int i=0;
                 String hreflink = el.attr("href").toString();
                 restaurantLink.add(url+hreflink);
-
             }
             for (String link : restaurantLink) {
                 innerCrawler = new InnerCrawler();

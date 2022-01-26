@@ -77,7 +77,15 @@ public class ReviewService {
         }
 
     public long findMenuByNameAndPlaceId(String menuname, int placeId){
-        return menuRepository.findAllByMenuNameAndPlaceId(menuname,placeId).getId();
+//        try{
+            long menuId = menuRepository.findAllByMenuNameAndPlaceId(menuname,placeId).getId();
+            return menuId;
+//        }catch (NullPointerException e){
+//
+//        }
+
+
+
     }
 
     public List<Review> findTodayReview(LocalDate date){

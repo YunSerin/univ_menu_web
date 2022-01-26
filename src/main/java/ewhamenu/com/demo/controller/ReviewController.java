@@ -38,7 +38,6 @@ public class ReviewController {
     @Autowired
     private SearchService searchService;
 
-
     @PostMapping("createTodayReview")    // 오늘의 메뉴 -> 리뷰작성 버튼
     public String createTodayReviewpage(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
@@ -46,7 +45,7 @@ public class ReviewController {
             return "redirect:/";
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
-        model.addAttribute("today", formatter);
+        model.addAttribute("reviewDate", formatter);
         String dietId_str = request.getParameter("dietId");
         long placeId;
         if(dietId_str!=null) {
@@ -73,7 +72,7 @@ public class ReviewController {
         Date date = new Date();
         //String date = sdf.format(new Date());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
-        model.addAttribute("reviewDate", sdf.format(date));
+        model.addAttribute("reviewDate", formatter);
           return "createReviewDefault";
     }
 
@@ -133,6 +132,7 @@ public class ReviewController {
         mav.setViewName("message");
         return "redirect:/";
     }
+
     @PostMapping("saveDefaultMenu") //상단 리뷰작성 버튼 저장시
     public String saveDefaultReview(Review review, HttpServletRequest request ,@RequestParam(value="menuAuto", required=true) List<String> menuList){
         //@RequestParam(value="menuAuto", required=true) List<String> menuList

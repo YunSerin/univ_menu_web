@@ -11,7 +11,37 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
+        var validCheck = 0;
+        const taggingIndex = []; //현재 태그가 있는 인풋의 row를 담은 배열
+        function validateForm() {
+            let resultFlag = true;
+            try{
+                if(validCheck<1){
+                    alert("한 개 이상의 메뉴를 입력해주세요.");
+                    resultFlag = false;
+                }
+                taggingIndex.forEach(function (item){ //item==iNum
+                    const starRates = document.getElementsByName('star'+(item));
+                    for (var i = 0; i < starRates.length; i++) {
+                        if(starRates[i].checked ){
+                            break;
 
+                        }else if (i==starRates.length-1){
+                            alert("별점을 입력하세요");
+                            resultFlag = false;
+                            break;
+                        }
+                    }
+
+                })
+                //태그 안만들어진 인풋 있을 경우
+
+            }catch (error) {
+                alert( error );
+                return false;
+            }
+            return resultFlag;
+        }
         function placeChange(){
             var yourTestSelect = document.getElementById("placeId");
             // select에서 선택된 option의 value가 저장
@@ -30,6 +60,7 @@
         };
     $(document).ready(function (){
         placeChange();
+
 
         document.addEventListener('keypress',function (e){
             if(e.key=='13'){
@@ -84,6 +115,8 @@
                     // input.value = '';
                     $('#menuAuto'+(iNum)).attr('hidden', true);
                     $('.tag-container'+(iNum)).css('border','2px solid #FDD973');
+                    validCheck +=1;
+                    taggingIndex.push(iNum);
                     return false;
                 }
             })
@@ -99,6 +132,9 @@
                         $('#menuAuto'+(iNum)).attr('hidden', false);
                         $('.tag-container'+(iNum)).css('border','2px solid #ccc');
                         input.value = '';
+                        validCheck -=1;
+                        let indexOfI = taggingIndex.indexOf(iNum);
+                        taggingIndex.splice(indexOfI,1);
                     }
         });
 
@@ -116,6 +152,8 @@
                     trSize -= 1;
                 }
             });
+
+
         });
 
     </script>
@@ -181,12 +219,12 @@
 
     <div class="login_box">
         <!-- 로그인 폼 -->
-        <form method="post" action="/saveDefaultMenu" >
+        <form method="post" onsubmit="return validateForm();"  action="/saveDefaultMenu">
             <div style="position:relative;" >
 <!--                <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>-->
                 <div  class="password" style="margin-top: 20px">
                     <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                    <input type="date" class="reviewDate" th:id="${reviewDate}" id="reviewDate" name="reviewDate" placeholder="날짜" />
+                    <input type="date" class="reviewDate" th:id="${reviewDate}" th:name="${reviewDate}" id="reviewDate" name="reviewDate" placeholder="날짜" />
                     <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px"> 장소 </a>
                     <!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
                     <select  class="place"  name="placeId" id="placeId" onchange="placeChange()">
@@ -367,7 +405,7 @@
                 <br><br><br>
                 <input class="comment"  value="" id="reviewComment" name="reviewComment" placeholder="comment" />
                 <!-- 리뷰 등록 버튼 -->
-                <button  type="submit" class="reviewSubmit" >
+                <button  type="submit" class="reviewSubmit" id="reviewSubmit" >
                     리뷰등록
                 </button>
             </div>

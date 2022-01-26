@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +26,8 @@ public class InnerCrawler {
         Document doc = null;
         ArrayList<String> menus = new ArrayList<>();
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("E (MM.dd)");
+        SimpleDateFormat sdf = new SimpleDateFormat("E (MM.dd)", Locale.KOREAN);
+        logger.info(sdf.format(date));
         try {
             doc = (Document) Jsoup.connect(link).timeout(50000).get();
             Elements element = doc.select("ul");

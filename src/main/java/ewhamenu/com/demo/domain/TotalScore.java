@@ -13,7 +13,7 @@ import java.util.Map;
 @Builder
 public class TotalScore {
 
-    Map<Long, String> rates = new LinkedHashMap<>();
+    Map<Object, String> rates = new LinkedHashMap<>();
 //    @JsonAnySetter
 //    public void setStar(String key, int value){
 //        details.put(key, value);

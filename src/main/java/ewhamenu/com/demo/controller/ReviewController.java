@@ -51,6 +51,7 @@ public class ReviewController {
         if(dietId_str!=null) {
             dietId_fk = dietRepository.findById(Long.parseLong(dietId_str));
             placeId = dietId_fk.getPlaceId();
+
         }else{
             placeId =-1;
         }
@@ -108,19 +109,19 @@ public class ReviewController {
         review.getReviewComment();
         int placeId = review.getPlaceId();
         List<String> menuList = Arrays.asList(dietId_fk.getMenuList().split("\\s\\n"));
-        List<Long> menuListId = new ArrayList<>();
+        List<Object> menuListId = new ArrayList<>();
         for(int i=0;i<menuList.size();i++){
             menuListId.add(reviewService.findMenuByNameAndPlaceId(menuList.get(i),placeId));
         }
         TotalScore totalScore = new TotalScore();
-        Map<Long, String> rates = new LinkedHashMap<>();
+        Map<Object, String> rates = new LinkedHashMap<>();
         for(int i=0;i<menuListId.size();i++){
             rates.put(menuListId.get(i), request.getParameter("star"+i+1));
         }
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;
-        for(Long key : rates.keySet()) {
+        for(Object key : rates.keySet()) {
             String value = rates.get(key);
             averageScore += Integer.parseInt(value);
         }
@@ -146,7 +147,7 @@ public class ReviewController {
         review.getReviewComment();
         int placeId = review.getPlaceId();
         TotalScore totalScore = new TotalScore();
-        Map<Long, String> rates = new LinkedHashMap<>();
+        Map<Object, String> rates = new LinkedHashMap<>();
 //        List<String> menuList = new ArrayList<String>();
         for(int i=0;i<8;i++){
 //            menuList.set(i,request.getParameter("menuName"));
@@ -159,7 +160,7 @@ public class ReviewController {
         totalScore.setRates(rates);
         review.setTotalScore(totalScore);
         float averageScore=0;
-        for(Long key : rates.keySet()) {
+        for(Object key : rates.keySet()) {
             String value = rates.get(key);
             averageScore += Integer.parseInt(value);
         }

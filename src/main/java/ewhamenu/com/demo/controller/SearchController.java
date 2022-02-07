@@ -35,6 +35,8 @@ public class SearchController {
     DietService dietService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    DietRepository dietRepository;
 
     List<Object> reviewListing(List<Review> searchedReview){
         String[] places = {"생활관 학생식당", "생활관 교직원식당", "진선미관식당", "헬렌관식당", "공대식당", "한우리집 지하1층", "이하우스 201동", "이하우스 301동"};
@@ -46,7 +48,7 @@ public class SearchController {
 
             reviewMap.put("place", places[r.getPlaceId()]);
             r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
-                menuNameList.add(searchService.findMenuNameById(Math.toIntExact(menuName)));
+                menuNameList.add(searchService.findMenuNameById((Integer)menuName));
                 switch (menuScore){
                     case "1": menuScoreList.add("★"); break;
                     case "2": menuScoreList.add("★★"); break;
@@ -110,7 +112,7 @@ public class SearchController {
         }
         List<Object> reviews = reviewListing(todayReview);
         mav.addObject("reviews", reviews);
-        mav.addObject("dietId", menuNo+1);
+        mav.addObject("dietId", dietRepository.findAllByDate(LocalDate.now()).get(menuNo).getDietId());
         mav.addObject("placeName", places[menuNo/2]);
         mav.setViewName("searchTodayPage");
         return mav;

@@ -39,3 +39,45 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+//plugins {
+//    id 'org.springframework.boot' version '2.4.4'
+//    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'java'
+//}
+//
+//group = 'ewhamenu.com'
+//version = '0.0.3-SNAPSHOT'
+//sourceCompatibility = '11'
+//
+//repositories {
+//    mavenCentral()
+//}
+//
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.projectlombok:lombok:1.18.18'
+//    compile("org.jsoup:jsoup:1.13.1")
+//    annotationProcessor 'org.projectlombok:lombok'
+////    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+//    implementation 'mysql:mysql-connector-java'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+//    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
+//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.security:spring-security-test'
+//    implementation 'org.springframework.boot:spring-boot-starter-mail'
+//    //testing
+////    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-storage'
+//    //
+//    compile "org.springframework.security:spring-security-core"
+//    compile 'org.apache.commons:commons-lang3:3.7'
+//
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}

@@ -47,7 +47,18 @@ main{
 ol, ul {
     list-style: none;
 }
-
+.logo{
+    border: none;
+    vertical-align: middle;
+    background: none;
+    font-size: 40px;
+    display: inline;
+    height: auto;
+    margin-right: 400px;
+}
+.topDiv{
+    margin-bottom: 5px;
+}
 table {
 
 }
@@ -62,14 +73,7 @@ h1 {
     font-size: 40px;
     font-weight: 500;
 }
-.logo{
-    display: inline;
-    height: auto;
-    margin-top:20px;
-    margin-bottom: 40px;
-    margin-right: 400px;
-    margin-left: 40px;
-}
+
 form {
     display: inline;
     margin-top:20px;
@@ -150,7 +154,7 @@ td{
 
 .login_box{  /* 박스 전체 부분*/
     min-height: 570px;
-    max-height: 800px;
+    max-height: 1000px;
     width: 360px;
     background-color: white;
     margin-top: 50px;
@@ -163,7 +167,9 @@ td{
     text-align:center;
     background-color: #FDD973;
     width: 1024px;
-    height: 700px;
+    min-height: 700px;
+    max-height: 1024px;
+    padding-bottom: 10px;
 }
 .givestar{
     text-align:center;

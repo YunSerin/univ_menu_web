@@ -70,7 +70,7 @@ public class MainhomeController {
         if(session.getAttribute("loginCheck") != null){
             return "redirect:/";
         }
-        return "/user/loginPage";
+        return "user/loginPage";
     }
 
     @GetMapping("join")

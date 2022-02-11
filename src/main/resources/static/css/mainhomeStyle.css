@@ -49,23 +49,23 @@ table {
 
 }
 
-div{
-    margin-bottom: 15px;
+.topDiv{
+    margin-bottom: 5px;
 }
 
-h1 {
-    margin-top:40px;
-    margin-bottom: 40px;
+.todayMenuTxt{
+    margin-top: 80px;
+    margin-bottom: 20px;
     font-size: 40px;
-    font-weight: 500;
 }
 .logo{
+    border: none;
+    vertical-align: middle;
+    background: none;
+    font-size: 40px;
     display: inline;
     height: auto;
-    margin-top:20px;
-    margin-bottom: 40px;
     margin-right: 400px;
-    margin-left: 40px;
 }
 form {
     display: inline;
@@ -83,7 +83,7 @@ blockquote p {
     padding: 15px;
     height: 150px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 150%;
 }
 .menu1-1, .menu2-1 ,.menu3-1 ,.menu4-1 ,.menu1-3 ,.menu2-3 ,.menu3-3 ,.menu4-3{
@@ -102,6 +102,7 @@ td {
     align: left;
     float: left;
     list-style:none;
+    text-align: center;
     width: 150px;
 }
 

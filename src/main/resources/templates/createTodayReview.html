@@ -151,12 +151,10 @@
     </style>
 </head>
 <header>
-    <div style="background-color: white"> <!-- 上 부분-->
-        <h1 class="logo">
-            <a href="/">
-                <img src="images/logo.png" width="134" height="35" fill="none"></img>
-            </a>
-        </h1>
+    <div class="topDiv"> <!-- 上 부분-->
+        <button onclick = "location.href = '/'" class="logo" >
+            <img src="images/logo.png" width="134" height="35" fill="none"></img>
+        </button>
         <form class="search-form" id="new_menu_form" action="/menus/search" accept-charset="UTF-8" method="get" >
             <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="menu_form[q]" id="menu_form_q">
             <button name="button" type="submit">

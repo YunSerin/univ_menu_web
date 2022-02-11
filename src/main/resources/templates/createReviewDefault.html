@@ -19,23 +19,24 @@
             try{
                 for (var i = 1; i <= trSize; i++) { //인풋에 태그 안된 인풋 있다면 추가
                     const myinput = document.querySelector('.tag-container'+(i)+' input');
-                    if(myinput!==null && myinput.value!==""){
+                    if(myinput!==null && myinput.value!=="" && taggingIndex.indexOf(i)==-1){ //태그 안된 인풋 있을경우
                         taggingIndex.push(i);
-                        alert(taggingIndex[0]);
                         validCheck+=1;
-                    }else if(myinput!==null && myinput.value === ""){
+                    }else if(myinput!==null && myinput.value === ""){ //메뉴 썼다가 지웠을경우.
                         let indexOfI = taggingIndex.indexOf(i);
-                        taggingIndex.splice(indexOfI,1);
-                        validCheck-=1;
+                        if(indexOfI!=-1){
+                            taggingIndex.splice(indexOfI,1);
+                            validCheck-=1;
+                        }
+
+
                     }
                 }
                 if(validCheck>0){
-                    alert(validCheck);
                     taggingIndex.forEach(function (item){ //item==iNum
-                        alert(item);
                         const starRates = document.getElementsByName('star'+(item));
                         for (var i = 1; i <= 5; i++) {
-                            if(starRates[i].checked ){
+                            if(starRates[i]!=null && starRates[i].checked ){
                                 break;
 
                             }else if (i==starRates.length){
@@ -51,7 +52,6 @@
                     resultFlag = false;
                 }
 
-                //태그 안만들어진 인풋 있을 경우
 
             }catch (error) {
                 alert( error );
@@ -171,7 +171,9 @@
             $("#minusbutton").click(function () {
                 if (trSize>1) { //최소 1개의 메뉴 리뷰 작성해야함
                     $('#menu' + trSize + 'Tr').css("display", "none");
-                    removeTag(trSize);
+                    if(taggingIndex.indexOf(trSize)!=-1){ //지우는 열에 태그 있으면 없애기
+                        removeTag(trSize);
+                    }
                     trSize -= 1;
                 }
             });
@@ -208,12 +210,10 @@
             </form>
         </div>
     </div>
-    <div> <!-- 上 부분-->
-        <h1 class="logo">
-            <a href="/">
-                <img src="images/logo.png" width="134" height="35" fill="none"></img>
-            </a>
-        </h1>
+    <div class="topDiv"> <!-- 上 부분-->
+        <button onclick = "location.href = '/'" class="logo" >
+            <img src="images/logo.png" width="134" height="35" fill="none"></img>
+        </button>
         <!--            <form class="search-form" id="search_form" action="/search" accept-charset="UTF-8" method="get" >-->
         <!--                <input placeholder="메뉴, 장소 등" autocomplete="off" class="p-header__search-form-input" type="search" name="search-menu" >-->
         <button type="submit" onclick="openSearchNav()" style="background: white; border: none">

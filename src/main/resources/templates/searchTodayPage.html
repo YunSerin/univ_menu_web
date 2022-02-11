@@ -76,12 +76,10 @@
 </head>
 <body class="gamja-font">
 <header>
-    <div> <!-- 上 부분-->
-        <h1 class="logo">
-            <a href="/">
-                <img src="images/logo.png" width="134" height="35" fill="none"></img>
-            </a>
-        </h1>
+    <div class="topDiv"> <!-- 上 부분-->
+        <button onclick = "location.href = '/'" class="logo" >
+            <img src="images/logo.png" width="134" height="35" fill="none"></img>
+        </button>
         <a th:if="${session.loginCheck eq true}" class="createReview" href="/createReviewDefault" method="post" action="/createReviewDefault" role="button" >
             리뷰작성
         </a>

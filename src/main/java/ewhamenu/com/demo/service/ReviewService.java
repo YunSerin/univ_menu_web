@@ -64,7 +64,15 @@ public class ReviewService {
 
                 reviewMap.put("place", places[r.getPlaceId()]);
                 r.getTotalScore().getRates().forEach((menuName, menuScore) -> {
-                    menuNameList.add(searchService.findMenuNameById((Integer) menuName));
+                    try
+                    {
+                        int menuId = Integer.parseInt((String) menuName);
+                        menuNameList.add(searchService.findMenuNameById( menuId));
+                    } catch (NumberFormatException ex)
+                    {
+                        menuNameList.add((String) menuName);
+                    }
+
                 });
                 reviewMap.put("menu_name", StringUtils.join(menuNameList, ", "));
                 reviewMap.put("average_score", r.getAverageScore());

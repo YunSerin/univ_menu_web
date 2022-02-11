@@ -270,14 +270,13 @@
             </form>
         </div>
     </div>
-    <div style="background-color: white"> <!-- 上 부분-->
-        <h1 class="logo">
-            <a href="/">
-                <img src="images/logo.png" width="134" height="35" fill="none"></img>
-            </a>
+    <div class="topDiv"> <!-- 上 부분-->
+        <button onclick = "location.href = '/'" class="logo" >
+            <img src="images/logo.png" width="134" height="35" fill="none"></img>
+        </button>
         </h1>
-        <button type="submit" onclick="openSearchNav()">
-            <i class="fas fa-search"></i>
+        <button type="submit" onclick="openSearchNav()" style="background: white; border: none">
+            <i class="fas fa-search" style="color: #FDD973; font-size: 20px"></i>
         </button>
         <a class="logout" href="/login" role="button" >
             로그인

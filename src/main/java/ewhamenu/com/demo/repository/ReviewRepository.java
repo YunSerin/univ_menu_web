@@ -34,4 +34,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     public List<Review> findAllByTotalScoreAndPlaceIdOrderByIdDesc(@Param("key") String key, @Param("placeId") int placeId);
 
     public List<Review> findAllByUserId(Users user);
+    public Review findById(long id);
 }

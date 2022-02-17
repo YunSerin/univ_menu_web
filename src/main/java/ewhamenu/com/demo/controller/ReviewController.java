@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -35,8 +36,9 @@ public class ReviewController {
     private ReviewService reviewService;
     @Autowired
     private DietRepository dietRepository;
+
     @Autowired
-    private SearchService searchService;
+    private DietService dietService;
 
     @PostMapping("createTodayReview")    // 오늘의 메뉴 -> 리뷰작성 버튼
     public String createTodayReviewpage(HttpServletRequest request, Model model){
@@ -73,7 +75,7 @@ public class ReviewController {
         Date date = new Date();
         //String date = sdf.format(new Date());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD").withLocale(Locale.KOREA);
-        model.addAttribute("reviewDate", formatter);
+        model.addAttribute("reviewDate", formatter.toString());
           return "createReviewDefault";
     }
 
@@ -171,5 +173,74 @@ public class ReviewController {
         mav.addObject("data", new Message("리뷰가 등록되었습니다!", "/"));
         mav.setViewName("message");
         return"redirect:/";
+    }
+    @PostMapping("editReview")  //마이페이지 - 리뷰 수정 버튼
+    public String editReview(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("loginCheck") == null){
+            return "redirect:/";
+        }
+
+        String userReviewId = request.getParameter("userReviewId");
+        Review userReview = reviewService.findReviewById(Long.parseLong(userReviewId));
+//        String userID = session.getAttribute("userId").toString();
+        String reviewDate = userReview.getReviewDate();
+        Diet reviewMenus = userReview.getDietId();
+        //String menuStr = dietRepository.findById(reviewMenus.getDietId()).getMenuList();
+        Map<Object,String> reviewTotalScore = userReview.getTotalScore().getRates();
+        List<String> menuList = new ArrayList<>();
+        List<String> starList = new ArrayList<>();
+        for( Map.Entry<Object, String> elem : reviewTotalScore.entrySet() ) {
+            try{
+                menuList.add(reviewService.findMenuNameById( Integer.parseInt((String) elem.getKey())));
+
+            }catch (NumberFormatException e){
+                menuList.add((String)elem.getKey());
+            }
+            starList.add((String) elem.getValue());
+        }
+        model.addAttribute("Review", userReview);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("reviewDate", reviewDate);
+        return "reviewEditPage";
+    }
+    @PostMapping("/ReviewEditSubmit")
+    public String reviewEditSubmit(Review review, HttpServletRequest request ,@RequestParam(value="menuAuto", required=true) List<String> menuList){
+            //@RequestParam(value="menuAuto", required=true) List<String> menuList
+            HttpSession session = request.getSession();
+            if(session.getAttribute("loginCheck") == null){
+                return "redirect:/";
+            }
+            ModelAndView mav = new ModelAndView();
+            String userID = session.getAttribute("userId").toString();
+            review.getReviewDate();
+            review.getReviewComment();
+            int placeId = review.getPlaceId();
+            TotalScore totalScore = new TotalScore();
+            Map<Object, String> rates = new LinkedHashMap<>();
+//        List<String> menuList = new ArrayList<String>();
+            List<String> list500= (ArrayList<String>)request.getAttribute("menuList");
+            for(int i=0;i<8;i++){
+//            menuList.set(i,request.getParameter("menuName"));
+                if(menuList.get(i)!="") {
+                    int j = i+1;
+                    rates.put(list500.get(i), request.getParameter("star" + j));
+                }
+
+            }
+            totalScore.setRates(rates);
+            review.setTotalScore(totalScore);
+            float averageScore=0;
+            for(Object key : rates.keySet()) {
+                String value = rates.get(key);
+                averageScore += Integer.parseInt(value);
+            }
+            averageScore /= rates.size();
+            review.setAverageScore(averageScore);
+            review.setDietId(null);
+            reviewService.saveReview(review, userID);
+            mav.addObject("data", new Message("리뷰가 등록되었습니다!", "/"));
+            mav.setViewName("message");
+            return"redirect:/";
     }
 }

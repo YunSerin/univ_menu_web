@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/76cfe4f16b.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/mainjomeJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <title>이돼장</title>
     <style media="screen">
@@ -173,7 +172,25 @@
         .searchButton{
             height: 30px;
         }
-    </style>
+
+        .reviewEditBtn {
+            display: inline;
+            padding: 10px;
+            margin-left: 15px;
+            margin-top: 15px;
+            margin-bottom: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #FDD973;
+            font-size: 5px;
+            width: 125px;
+            font-size: 15px;
+            background-color: white;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            }
+</style>
 
 </head>
 <body class="gamja-font">
@@ -300,12 +317,20 @@
                         <td><p th:text="${userReview.place}"></td>
                         <td><p th:text="${userReview.average_score}"></td>
                         <td><p th:text="*{userReview.menu_name}"></td>
-                        <td><details>
-                            <summary>
-                                작성글 보기
-                            </summary>
-                            <div style="line-break: anywhere;background-color: lightgray;"><p th:text="${userReview.comment}"></p> </div>
-                        </details></td>
+                        <td>
+<!--                            <details>-->
+<!--                            <summary>-->
+<!--                                작성글 보기-->
+<!--                            </summary>-->
+<!--                            <div style="line-break: anywhere;background-color: lightgray;"><p th:text="${userReview.comment}"></p> </div>-->
+<!--                            </details>-->
+                            <form method="post" action="editReview">
+                                <input type="hidden" name = "userReviewId"  th:value="${userReview.reviewId}">
+                                <button type="submit"  class="reviewEditBtn" >
+                                    수정/삭제
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -314,8 +339,9 @@
     </div><!-- container -->
 
 </main>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
     function openSearchNav(){
         document.getElementById("searchSideNav").style.height= "65px";
@@ -324,6 +350,7 @@
     function closeSearchNav(){
         document.getElementById("searchSideNav").style.height= "0";
     }
+
     $(document).ready(function(){
 
         //검색

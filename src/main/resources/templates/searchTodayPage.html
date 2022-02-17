@@ -9,6 +9,12 @@
     <link rel="stylesheet" type="text/css" href="css/mainhomeStyle.css">
     <title>이돼장</title>
     <style media="screen">
+        h1{
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 40px;
+            font-weight: 500;
+        }
         .wrap{
             width: 1000px;
             height: 300px;
@@ -74,7 +80,7 @@
         }
     </style>
 </head>
-<body class="gamja-font">
+<body >
 <header>
     <div class="topDiv"> <!-- 上 부분-->
         <button onclick = "location.href = '/'" class="logo" >
@@ -98,7 +104,7 @@
 <!--<p th:text ="${menuNo}"></p>-->
 <div class="searchedPart">
     <p th:text="${placeName}"></p>
-    <h1>오늘의 리뷰</h1>
+    <h1 class="gamja-font" >오늘의 리뷰</h1>
 </div>
 <div style="display: flex;flex-direction: column;align-content: center;">
     <!-- 정렬 -->

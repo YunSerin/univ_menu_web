@@ -49,6 +49,7 @@
             margin: 0 auto;
 
         }
+
         .comment{
             height: 100px;
             width: 300px;
@@ -108,8 +109,21 @@
             height: 50px;
             background-color: #FDD973;
             margin-bottom: 20px;
+            margin-left: 15px;
             border: solid 0px white;
             margin-top: 30px;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px 3px #A8A8A8;
+        }
+        .reviewDrop{
+            width: 280px;
+            height: 50px;
+            background-color: lightgray;
+            margin-bottom: 20px;
+            margin-left: 15px;
+            border: solid 0px white;
+            margin-top: 00px;
             font-size: 20px;
             border-radius: 10px;
             box-shadow: 1px 1px 5px 3px #A8A8A8;
@@ -183,13 +197,13 @@
 
     <div class="login_box">
         <!-- 로그인 폼 -->
-        <form method="post" action="saveTodayReivew">
+        <form method="post" action="ReviewEditSubmit">
             <div style="position:relative;" >
                 <a style="margin-top:12px;float:left;margin-left:25px" > 별점 </a>
                 <div class="givestar">
                     <table style="margin-top: 30px;">
                         <tr th:each="list : ${menuList}" style="margin-top: 5px">
-                            <td th:text="${list}" name="menu1" style="width:100px; white-space: pre-wrap; float:left; font-size: 13px;margin: 10px 20px 10px 0px;padding-right: 0px;">메뉴1</td>
+                            <td th:text="${list}" name="menu1" style="width:100px; white-space: pre-wrap; float:left; font-size: 13px; margin: 10px 20px 10px 0px;padding-right: 0px;">메뉴1</td>
                             <td type="hidden" name="menu1"  class="starRating"  style="position: absolute;margin-left: 100px;width: 170px; margin-bottom: 10px;">
                                 <input class="star star-5"+ value="5" th:id="'star'+${menuList.indexOf(list)}+1.1" type="radio" th:name="'star'+${menuList.indexOf(list)}+1"/>
                                 <label class="star star-5" th:for="'star'+${menuList.indexOf(list)}+1.1"></label>
@@ -204,31 +218,33 @@
                             </td>
                         </tr>
                     </table>
-            </div>
-            <div  class="password" >
-                <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
-                <input type="date" class="reviewDate"  th:id="reviewDate" name="reviewDate" placeholder="날짜" style="pointer-events: none; color: gray" />
-                <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px" > 장소 </a>
-<!--                <input type="password" value="" name="input_password" placeholder="장소" />-->
-                <select  class="place"  name="placeId" id="placeId" style="pointer-events: none; color:gray">
-                    <option value="" th:selected ="${placeId == -1}" disabled>장소선택</option>
-                    <option value="0" th:selected ="${placeId == 0}">생활관 학생식당</option>
-                    <option value="1" th:selected ="${placeId == 1}">생활관 교직원 식당</option>
-                    <option value="2" th:selected ="${placeId == 2}">진선미관 식당</option>
-                    <option value="3" th:selected ="${placeId == 3}" >헬렌관 식당</option>
-                    <option value="4" th:selected ="${placeId == 4}" >공대식당</option>
-                    <option value="5" th:selected ="${placeId == 5}" >한우리집 지하 1층</option>
-                    <option value="6" th:selected ="${placeId == 6}" >이하우스 201동</option>
-                    <option value="7" th:selected ="${placeId == 7}" >이하우스 301동</option>
-                </select>
-<!--                <a style="margin-top: 20px;float:left;" > 커멘트 </a>-->
-                <input class="comment"  value="" id="reviewComment" name="reviewComment" placeholder="comment" />
-            </div>
-            <br><br><br>
-            <!-- 리뷰 등록 버튼 -->
-            <button  type="submit" class="reviewSubmit" >
-                리뷰등록
-            </button>
+                </div>
+                <div  class="password" >
+                    <a style="margin-top: 20px;float:left;margin-left:25px; margin-right:10px" > 날짜 </a>
+                    <input type="date" class="reviewDate"  th:value="${reviewDate}" name="reviewDate" placeholder="날짜" />
+                    <a style="margin-top: 20px;float:left;margin-left:25px;margin-right:10px;padding-bottom: 2px" > 장소 </a>
+                    <select  class="place"  name="placeId" id="placeId" th:id="${Review.getPlaceId()}" >
+                        <option value="" th:selected ="${Review.getPlaceId() == -1}" disabled>장소선택</option>
+                        <option value="0" th:selected ="${Review.getPlaceId() == 0}">생활관 학생식당</option>
+                        <option value="1" th:selected ="${Review.getPlaceId() == 1}">생활관 교직원 식당</option>
+                        <option value="2" th:selected ="${Review.getPlaceId() == 2}">진선미관 식당</option>
+                        <option value="3" th:selected ="${Review.getPlaceId() == 3}" >헬렌관 식당</option>
+                        <option value="4" th:selected ="${Review.getPlaceId() == 4}" >공대식당</option>
+                        <option value="5" th:selected ="${Review.getPlaceId() == 5}" >한우리집 지하 1층</option>
+                        <option value="6" th:selected ="${Review.getPlaceId() == 6}" >이하우스 201동</option>
+                        <option value="7" th:selected ="${Review.getPlaceId() == 7}" >이하우스 301동</option>
+                    </select>
+                    <!--                <a style="margin-top: 20px;float:left;" > 커멘트 </a>-->
+                    <input class="comment"  value="" th:value="${Review.getReviewComment()}" id="reviewComment" name="reviewComment" placeholder="comment" />
+                </div>
+                <br><br><br>
+                <!-- 리뷰 등록 버튼 -->
+                <button  type="submit" class="reviewSubmit" >
+                    리뷰등록
+                </button>
+                <button  type="button" class="reviewDrop" href="리뷰 삭제" >
+                    리뷰삭제
+                </button>
             </div>
         </form>
     </div>
@@ -238,4 +254,9 @@
 <script type="text/javascript" src="js/search001.js"></script>
 <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //받아온 정보 채우기
+    });
+</script>
 </html>

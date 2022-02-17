@@ -56,7 +56,7 @@ table {
 .todayMenuTxt{
     margin-top: 80px;
     margin-bottom: 20px;
-    font-size: 40px;
+    font-size: 50px;
 }
 .logo{
     border: none;
@@ -65,7 +65,7 @@ table {
     font-size: 40px;
     display: inline;
     height: auto;
-    margin-right: 400px;
+    margin-right: 360px;
 }
 form {
     display: inline;
@@ -83,8 +83,9 @@ blockquote p {
     padding: 15px;
     height: 150px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 13.5px;
     line-height: 150%;
+    width: 130px;
 }
 .menu1-1, .menu2-1 ,.menu3-1 ,.menu4-1 ,.menu1-3 ,.menu2-3 ,.menu3-3 ,.menu4-3{
     background: #FD9F9F;
@@ -103,7 +104,6 @@ td {
     float: left;
     list-style:none;
     text-align: center;
-    width: 150px;
 }
 
 thead td{
@@ -111,13 +111,16 @@ thead td{
     padding-top: 10px;
     height: 30px;
     text-align: center;
-    margin:10px;
+    margin:16px 17px 0px 16px;
+    width: 158px;
+    border-radius: 6px;
 }
 
 tbody td{
     padding-right: 3px;
     padding-left: 3px;
-    margin: 10px 10px 0px;
+    margin: 10px 20px ;
+    width: 151px;
 }
 .search-form{
     horiz-align: right;

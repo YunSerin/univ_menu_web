@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ReviewService {
@@ -78,6 +75,7 @@ public class ReviewService {
                 reviewMap.put("average_score", r.getAverageScore());
                 reviewMap.put("date", r.getReviewDate());
                 reviewMap.put("comment", r.getReviewComment());
+                reviewMap.put("reviewId",r.getId());
                 usersReviews.add(reviewMap);
             }
             return usersReviews;
@@ -93,9 +91,15 @@ public class ReviewService {
         }
 
     }
-
+    public Review findReviewById(long reviewId){
+        return reviewRepository.findById(reviewId);
+    }
     public List<Review> findTodayReview(LocalDate date){
         return reviewRepository.findAllByReviewDate(date.toString());
+    }
+    public String findMenuNameById(int menuId){
+            return searchService.findMenuNameById(menuId);
+
     }
 }
 

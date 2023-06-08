@@ -36,11 +36,11 @@ public class InnerCrawler {
                     if (candDate.equals(sdf.format(date))) {
                         String lunchMenu = el.select("div.b-menu.b-menu-l.lunch pre").text();
                         String dinnerMenu = el.select("div.b-menu.b-menu-d.dinner pre").text();
-                        menus.add(sort(lunchMenu));
+                        menus.add(sort(lunchMenu)); 
                         menus.add(sort(dinnerMenu));
                     }
-                    else if(el.select("span").text().equals("등록된 식단이 없습니다.")) {
-                    menus.add("");
+                    else if(el.select("span").text().equals("등록된 식단이 없습니다.")) { //식단 없을경우
+                    menus.add(""); //공백 저장
                     menus.add("");
                     }
 

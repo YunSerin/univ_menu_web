@@ -244,10 +244,7 @@
             <thead>
                 <tr>
                     <td class="mainTd">
-                        <p>생활관 학생식당</p>
-                    </td>
-                    <td class="mainTd">
-                        <p>생활관 교직원 식당</p>
+                        <p>I-House 학생식당</p>
                     </td>
                     <td class="mainTd">
                         <p>진선미관 식당</p>
@@ -255,6 +252,7 @@
                     <td class="mainTd">
                         <p>헬렌관 식당</p>
                     </td>
+
                 </tr>
             </thead>
             <tbody>
@@ -275,12 +273,6 @@
                         <blockquote  width="50" height="90">
                             <p th:if="${diets.get(4).toString()}=='등록된 식단이 없습니다.'" class="menu3-1" >등록된 식단이 <br>없습니다.</p>
                             <p th:unless="${diets.get(4).toString()}=='등록된 식단이 없습니다.'"  onClick="location.href='/searchToday?menuNo=4'" class="menu3-1" th:text="${diets.get(4)}"  >메뉴5</p>
-                        </blockquote>
-                    </td>
-                    <td  class="mainTd4-1">
-                        <blockquote  width="50" height="90">
-                            <p th:if="${diets.get(6).toString()}=='등록된 식단이 없습니다.'" class="menu4-1" >등록된 식단이 <br>없습니다.</p>
-                            <p th:unless="${diets.get(6).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=6'" class="menu4-1" th:text="${diets.get(6)}"  >메뉴7</p>
                         </blockquote>
                     </td>
                 </tr>
@@ -305,32 +297,29 @@
                         <p th:unless="${diets.get(5).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=5'" class="menu3-2" th:text="${diets.get(5)}"  >메뉴1</p>
                     </blockquote>
                 </td>
-                    <td class="mainTd4-2">
-                        <blockquote width="50" height="90">
-                            <p th:if="${diets.get(7).toString()}=='등록된 식단이 없습니다.'" class="menu4-2" >등록된 식단이 <br>없습니다.</p>
-                            <p th:unless="${diets.get(7).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=7'" class="menu4-2" th:text="${diets.get(7)}"  >메뉴1</p>
-                        </blockquote>
-                    </td>
                 </tr>
             </tbody>
             <thead>
             <tr>
                 <td class="mainTd">
-                    <p>공대식당</p>
+                    <p>공대 식당</p>
                 </td>
                 <td class="mainTd">
-                    <p>한우리집 지하 1층</p>
+                    <p>한우리집 식당</p>
                 </td>
                 <td class="mainTd">
-                    <p>이하우스 201동</p>
-                </td>
-                <td class="mainTd">
-                    <p>이하우스 301동</p>
+                    <p>E-House 201동</p>
                 </td>
             </tr>
             </thead>
             <tbody>
             <tr>
+                <td  class="mainTd4-1">
+                    <blockquote  width="50" height="90">
+                        <p th:if="${diets.get(6).toString()}=='등록된 식단이 없습니다.'" class="menu4-1" >등록된 식단이 <br>없습니다.</p>
+                        <p th:unless="${diets.get(6).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=6'" class="menu4-1" th:text="${diets.get(6)}"  >메뉴7</p>
+                    </blockquote>
+                </td>
                 <td class="mainTd1-3">
                     <blockquote width="50" height="90">
                         <p th:if="${diets.get(8).toString()}=='등록된 식단이 없습니다.'" class="menu1-3" >등록된 식단이 <br>없습니다.</p>
@@ -343,7 +332,7 @@
                         <p th:unless="${diets.get(10).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=10'" class="menu2-3" th:text="${diets.get(10)}"  >메뉴1</p>
                     </blockquote>
                 </td>
-                <td class="mainTd3-3">
+                <!-- <td class="mainTd3-3">
                     <blockquote  width="50" height="90">
                         <p th:if="${diets.get(12).toString()}=='등록된 식단이 없습니다.'" class="menu3-3" >등록된 식단이 <br>없습니다.</p>
                         <p th:unless="${diets.get(12).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=12'" class="menu3-3" th:text="${diets.get(12)}"  >메뉴1</p>
@@ -353,12 +342,18 @@
                     <blockquote  width="50" height="90">
                         <p th:if="${diets.get(14).toString()}=='등록된 식단이 없습니다.'" class="menu4-3" >등록된 식단이 <br>없습니다.</p>
                         <p th:unless="${diets.get(14).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=14'" class="menu4-3" th:text="${diets.get(14)}"  >메뉴1</p>
-                    </blockquote>
+                    </blockquote> -->
                 </td>
             </tr>
             </tbody>
             <tbody height="50px">
             <tr>
+                <td class="mainTd4-2">
+                    <blockquote width="50" height="90">
+                        <p th:if="${diets.get(7).toString()}=='등록된 식단이 없습니다.'" class="menu4-2" >등록된 식단이 <br>없습니다.</p>
+                        <p th:unless="${diets.get(7).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=7'" class="menu4-2" th:text="${diets.get(7)}"  >메뉴1</p>
+                    </blockquote>
+                </td>
                 <td class="mainTd1-4">
                     <blockquote width="50" height="90">
                         <p th:if="${diets.get(9).toString()}=='등록된 식단이 없습니다.'" class="menu1-4" >등록된 식단이 <br>없습니다.</p>
@@ -371,7 +366,7 @@
                         <p th:unless="${diets.get(11).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=11'" class="menu2-4" th:text="${diets.get(11)}"  >메뉴1</p>
                     </blockquote>
                 </td>
-                <td  class="mainTd3-4">
+                <!-- <td  class="mainTd3-4">
                     <blockquote width="50" height="90">
                         <p th:if="${diets.get(13).toString()}=='등록된 식단이 없습니다.'" class="menu3-4" >등록된 식단이 <br>없습니다.</p>
                         <p th:unless="${diets.get(13).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=13'" class="menu3-4" th:text="${diets.get(13)}"  >메뉴1</p>
@@ -382,7 +377,7 @@
                         <p th:if="${diets.get(15).toString()}=='등록된 식단이 없습니다.'" class="menu4-4" >등록된 식단이 <br>없습니다.</p>
                         <p th:unless="${diets.get(15).toString()}=='등록된 식단이 없습니다.'" onClick="location.href='/searchToday?menuNo=15'" class="menu4-4" th:text="${diets.get(15)}"  >메뉴1</p>
                     </blockquote>
-                </td>
+                </td> -->
             </tr>
             </tbody>
         </table>

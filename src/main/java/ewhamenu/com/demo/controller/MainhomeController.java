@@ -1,7 +1,4 @@
 package ewhamenu.com.demo.controller;
-
-
-
 import ewhamenu.com.demo.domain.Users;
 import ewhamenu.com.demo.service.ReviewService;
 import ewhamenu.com.demo.service.UserService;
@@ -49,14 +46,14 @@ public class MainhomeController {
         ArrayList<String> diets = new ArrayList<>();
 
         if(cal.get(Calendar.DAY_OF_WEEK)==1){ //일요일
-            for(int i=0;i<16;i++) {
+            for(int i=0;i<12;i++) {
                 diets.add("일요일이라 등록된 식단이 없습니다.");
             }
         }else {
-            if (dietService.checkDate()) {//오늘 식단이 DB에 저장이 안되어있는 경우
-                dietService.saveDiet();
+            if (dietService.checkDietExist()) {//오늘 식단이 DB에 저장이 되어있는 경우(오늘 처음 실행)
+                diets = dietService.findDiets(LocalDate.now());
             }
-            diets = dietService.findDiets(LocalDate.now());
+            dietService.saveDiet();
         }
         model.addAttribute("diets", diets);
         return "mainhome";

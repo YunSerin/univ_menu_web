@@ -29,7 +29,7 @@ public class DietService {
 //    @Autowired
 //    private MenuService menuService;
 
-    public long saveDiet(){ //월~토만 호출됨
+    public long saveDiet(){ //오늘의 식단을 저장 (월~토, DB에 식단이 없는 경우만 호출됨)
         ArrayList<String> crawlResult = getDiet();
         Diet diet = new Diet();
         for(int i=0;i<16;i++) {
@@ -54,7 +54,7 @@ public class DietService {
         return diet.getDietId();
     }
 
-    public ArrayList getDiet() {
+    public ArrayList getDiet() { //오늘의 식단을 크롤링해서 불러옴
         return crawler.webCrawl();
     }
 
@@ -71,13 +71,14 @@ public class DietService {
         return diets;
     }
 
-    public boolean checkDate(){
+    public boolean checkDietExist(){
         ArrayList<Diet> d = dietRepository.findAllByDate(LocalDate.now());
+
         if(d.size() == 0){  // 중복 날짜 없는 경우
-            return true;
+            return false;
         }
         else{
-            return false;
+            return true;
         }
     }
 
